@@ -1,1 +1,15 @@
---
+-- criacao do meu banco de dados
+
+create table account (
+    id serial not null primary key,
+    username varchar(20) not null,
+    password text not null,
+    active boolean    
+)
+
+create table customer (
+    id serial not null primary key,
+    name varchar(70) not null,
+    cellphone varchar(13),
+    email varchar(200)    
+) 
