@@ -15,7 +15,11 @@ class CreateCustomerDto {
 }
 exports.CreateCustomerDto = CreateCustomerDto;
 __decorate([
-    (0, class_validator_1.IsNotEmpty)({ message: 'O nome é obrigatório' }),
+    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], CreateCustomerDto.prototype, "name", void 0);
+__decorate([
+    (0, class_validator_1.IsEmail)(),
+    __metadata("design:type", String)
+], CreateCustomerDto.prototype, "email", void 0);
 //# sourceMappingURL=create-customer.dto.js.map

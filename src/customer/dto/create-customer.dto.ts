@@ -1,8 +1,11 @@
-import { IsNotEmpty } from 'class-validator';
+import { IsEmail, IsNotEmpty } from 'class-validator';
 
 export class CreateCustomerDto {
-  @IsNotEmpty({ message: 'O nome é obrigatório' })
+  @IsNotEmpty()
   name: string;
 
   cellphone: string;
+
+  @IsEmail()
+  email: string;
 }

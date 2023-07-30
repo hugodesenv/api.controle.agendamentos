@@ -20,8 +20,9 @@ let CustomerController = exports.CustomerController = class CustomerController {
     constructor(customerService) {
         this.customerService = customerService;
     }
-    create(createCustomerDto) {
-        return 'ok';
+    async create(createCustomerDto) {
+        let id = await this.customerService.create(createCustomerDto);
+        return { new_id: id };
     }
     async findAll() {
         return await this.customerService.findAll();
@@ -32,7 +33,7 @@ __decorate([
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_customer_dto_1.CreateCustomerDto]),
-    __metadata("design:returntype", String)
+    __metadata("design:returntype", Promise)
 ], CustomerController.prototype, "create", null);
 __decorate([
     (0, common_1.Get)(),
