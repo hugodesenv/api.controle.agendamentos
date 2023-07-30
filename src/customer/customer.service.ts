@@ -1,18 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import { Customer } from './interface/customer.interface';
+import { Knex } from 'knex';
+import { InjectKnex } from 'nestjs-knex';
 
 @Injectable()
 export class CustomerService {
-  findAll(): Customer[] {
-    return [
-      {
-        name: 'Hugo Souza',
-        cellphone: '(19) 9 8961-5184',
-      },
-      {
-        name: 'Gabriella',
-        cellphone: '(19) 9 8961-4422',
-      },
-    ];
+  constructor(@InjectKnex() private readonly knex: Knex) {}
+
+  async findAll(): Promise<Customer[]> {
+    var res = await this.knex
+      .select('id', 'name', 'cellphone', 'email')
+      .from('customer');
+
+    return res;
   }
 }

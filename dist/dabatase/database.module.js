@@ -6,19 +6,19 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AppModule = void 0;
+exports.DatabaseModule = void 0;
 const common_1 = require("@nestjs/common");
-const app_controller_1 = require("./app.controller");
-const app_service_1 = require("./app.service");
-const customer_module_1 = require("./customer/customer.module");
-const database_module_1 = require("./dabatase/database.module");
-let AppModule = exports.AppModule = class AppModule {
+const nestjs_knex_1 = require("nestjs-knex");
+const knexfile_1 = require("./knexfile");
+let DatabaseModule = exports.DatabaseModule = class DatabaseModule {
 };
-exports.AppModule = AppModule = __decorate([
+exports.DatabaseModule = DatabaseModule = __decorate([
     (0, common_1.Module)({
-        imports: [customer_module_1.CustomerModule, database_module_1.DatabaseModule],
-        controllers: [app_controller_1.AppController],
-        providers: [app_service_1.AppService],
+        imports: [
+            nestjs_knex_1.KnexModule.forRoot({
+                config: knexfile_1.default,
+            }),
+        ],
     })
-], AppModule);
-//# sourceMappingURL=app.module.js.map
+], DatabaseModule);
+//# sourceMappingURL=database.module.js.map

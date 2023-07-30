@@ -8,12 +8,12 @@ export class CustomerController {
   constructor(private customerService: CustomerService) {}
 
   @Post()
-  create(@Body() createCustomerDto: CreateCustomerDto): Customer[] {
-    return this.customerService.findAll();
+  create(@Body() createCustomerDto: CreateCustomerDto): string {
+    return 'ok';
   }
 
   @Get()
-  findAll(): string {
-    return 'Caí no find all do cliente';
+  async findAll(): Promise<Customer[]> {
+    return await this.customerService.findAll();
   }
 }

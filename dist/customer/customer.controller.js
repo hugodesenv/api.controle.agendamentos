@@ -21,10 +21,10 @@ let CustomerController = exports.CustomerController = class CustomerController {
         this.customerService = customerService;
     }
     create(createCustomerDto) {
-        return this.customerService.findAll();
+        return 'ok';
     }
-    findAll() {
-        return 'Caí no find all do cliente';
+    async findAll() {
+        return await this.customerService.findAll();
     }
 };
 __decorate([
@@ -32,13 +32,13 @@ __decorate([
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_customer_dto_1.CreateCustomerDto]),
-    __metadata("design:returntype", Array)
+    __metadata("design:returntype", String)
 ], CustomerController.prototype, "create", null);
 __decorate([
     (0, common_1.Get)(),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
-    __metadata("design:returntype", String)
+    __metadata("design:returntype", Promise)
 ], CustomerController.prototype, "findAll", null);
 exports.CustomerController = CustomerController = __decorate([
     (0, common_1.Controller)('customer'),

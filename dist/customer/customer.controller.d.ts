@@ -4,6 +4,6 @@ import { Customer } from './interface/customer.interface';
 export declare class CustomerController {
     private customerService;
     constructor(customerService: CustomerService);
-    create(createCustomerDto: CreateCustomerDto): Customer[];
-    findAll(): string;
+    create(createCustomerDto: CreateCustomerDto): string;
+    findAll(): Promise<Customer[]>;
 }

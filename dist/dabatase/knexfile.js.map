@@ -1,0 +1,1 @@
+{"version":3,"file":"knexfile.js","sourceRoot":"","sources":["../../src/dabatase/knexfile.ts"],"names":[],"mappings":";;AAAA,kBAAe;IACb,MAAM,EAAE,IAAI;IACZ,UAAU,EAAE;QACV,IAAI,EAAE,WAAW;QACjB,IAAI,EAAE,IAAI;QACV,IAAI,EAAE,UAAU;QAChB,QAAQ,EAAE,YAAY;QACtB,QAAQ,EAAE,UAAU;QACpB,GAAG,EAAE,KAAK;KACX;CACF,CAAC"}
