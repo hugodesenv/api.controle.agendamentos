@@ -1,0 +1,2 @@
+-- criar um modulo facilmente
+nest g module nome_do_modulo_aqui
