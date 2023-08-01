@@ -9,11 +9,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AccountModule = void 0;
 const common_1 = require("@nestjs/common");
 const account_controller_1 = require("./account.controller");
+const account_service_1 = require("./account.service");
 let AccountModule = exports.AccountModule = class AccountModule {
 };
 exports.AccountModule = AccountModule = __decorate([
     (0, common_1.Module)({
         controllers: [account_controller_1.AccountController],
+        providers: [account_service_1.AccountService],
     })
 ], AccountModule);
 //# sourceMappingURL=account.module.js.map
