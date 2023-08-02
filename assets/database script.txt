@@ -1,14 +1,23 @@
 -- criacao do meu banco de dados
 
+create table company (
+	id serial primary key,
+	social_name varchar(80) not null,
+	active bool
+);
+
 create table account (
     id serial not null primary key,
     username varchar(20) not null,
     password text not null,
-    active boolean    
+    active boolean,
+    fk_company integer references company(id),
+    unique(username)
 );
 
 create table customer (
     id serial not null primary key,
+    fk_company integer references company(id),
     name varchar(70) not null,
     cellphone varchar(13),
     email varchar(200)    
