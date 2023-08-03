@@ -3,7 +3,6 @@ import { InjectKnex, Knex } from 'nestjs-knex';
 import { LoginAccountDto } from './dto/login-account.dto';
 import { CreateAccountDto } from './dto/create-account.dto';
 import { UpdateAccountDto } from './dto/update-account.dto';
-import { IUpdateResult } from './interface/update-result.interface';
 
 @Injectable()
 export class AccountService {
@@ -31,14 +30,10 @@ export class AccountService {
     return res[0]['id'];
   }
 
-  async update(dto: UpdateAccountDto): Promise<IUpdateResult> {
+  async update(dto: UpdateAccountDto): Promise<number> {
     let rows_affected = await this.knex(this.TABLE_NAME)
       .update(dto)
       .where({ id: dto.id });
-
-    return {
-      message: `${rows_affected} registro(s) alterado(s)`,
-      success: rows_affected > 0,
-    };
+    return rows_affected;
   }
 }

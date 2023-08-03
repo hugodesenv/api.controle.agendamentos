@@ -1,7 +1,14 @@
-import { IsAlpha, IsAlphanumeric, IsNotEmpty, IsNumber } from 'class-validator';
+import {
+  IsAlpha,
+  IsAlphanumeric,
+  IsNotEmpty,
+  IsNumber,
+  Length,
+} from 'class-validator';
 
 export class BaseAccountDto {
   @IsNotEmpty()
+  @Length(4, 20)
   username: string;
 
   @IsNotEmpty()

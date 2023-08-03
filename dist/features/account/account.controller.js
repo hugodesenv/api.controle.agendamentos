@@ -29,24 +29,19 @@ let AccountController = exports.AccountController = class AccountController {
     async create(dto) {
         try {
             let id = await this.accountService.create(dto);
-            return {
-                id,
-                message: id > 0 ? 'Usuário cadastrado com sucesso!' : 'Falha ao cadastrar...',
-            };
+            return { id };
         }
-        catch (error) {
-            throw new common_1.HttpException({
-                detail: error.detail,
-            }, common_1.HttpStatus.FORBIDDEN);
+        catch (e) {
+            throw new common_1.HttpException({ message: e.detail }, common_1.HttpStatus.FORBIDDEN);
         }
     }
     async update(dto) {
         try {
-            let res = await this.accountService.update(dto);
-            return res;
+            let affected = await this.accountService.update(dto);
+            return { affected };
         }
         catch (e) {
-            throw new common_1.HttpException({ message: e.detail, success: false }, common_1.HttpStatus.FORBIDDEN);
+            throw new common_1.HttpException({ message: e.detail }, common_1.HttpStatus.FORBIDDEN);
         }
     }
 };

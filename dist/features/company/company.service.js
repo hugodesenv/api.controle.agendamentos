@@ -12,29 +12,17 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AccountService = void 0;
+exports.CompanyService = void 0;
 const common_1 = require("@nestjs/common");
 const nestjs_knex_1 = require("nestjs-knex");
-let AccountService = exports.AccountService = class AccountService {
+let CompanyService = exports.CompanyService = class CompanyService {
     constructor(knex) {
         this.knex = knex;
-        this.TABLE_NAME = 'account';
-    }
-    async tryLogin(dto) {
-        let query = await this.knex
-            .select('id')
-            .from(this.TABLE_NAME)
-            .where({
-            ...dto,
-            active: true,
-        });
-        return query.length > 0;
+        this.TABLE_NAME = 'company';
     }
     async create(dto) {
-        let res = await this.knex(this.TABLE_NAME)
-            .insert(dto)
-            .returning('id');
-        return res[0]['id'];
+        let query = await this.knex(this.TABLE_NAME).insert(dto).returning('id');
+        return query[0]['id'];
     }
     async update(dto) {
         let rows_affected = await this.knex(this.TABLE_NAME)
@@ -43,9 +31,9 @@ let AccountService = exports.AccountService = class AccountService {
         return rows_affected;
     }
 };
-exports.AccountService = AccountService = __decorate([
+exports.CompanyService = CompanyService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, nestjs_knex_1.InjectKnex)()),
     __metadata("design:paramtypes", [Function])
-], AccountService);
-//# sourceMappingURL=account.service.js.map
+], CompanyService);
+//# sourceMappingURL=company.service.js.map

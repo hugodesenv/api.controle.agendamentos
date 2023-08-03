@@ -9,26 +9,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.BaseAccountDto = void 0;
+exports.UpdateCompanyDto = void 0;
 const class_validator_1 = require("class-validator");
-class BaseAccountDto {
+const base_company_dto_1 = require("./base-company.dto");
+class UpdateCompanyDto extends base_company_dto_1.BaseCompanyDto {
 }
-exports.BaseAccountDto = BaseAccountDto;
-__decorate([
-    (0, class_validator_1.IsNotEmpty)(),
-    (0, class_validator_1.Length)(4, 20),
-    __metadata("design:type", String)
-], BaseAccountDto.prototype, "username", void 0);
-__decorate([
-    (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", String)
-], BaseAccountDto.prototype, "password", void 0);
-__decorate([
-    (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", Boolean)
-], BaseAccountDto.prototype, "active", void 0);
+exports.UpdateCompanyDto = UpdateCompanyDto;
 __decorate([
     (0, class_validator_1.IsNumber)(),
+    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", Number)
-], BaseAccountDto.prototype, "fk_company", void 0);
-//# sourceMappingURL=base-account.dto.js.map
+], UpdateCompanyDto.prototype, "id", void 0);
+//# sourceMappingURL=update-company.dto.js.map
