@@ -10,9 +10,9 @@ exports.AppModule = void 0;
 const common_1 = require("@nestjs/common");
 const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
-const customer_module_1 = require("./customer/customer.module");
-const database_module_1 = require("./dabatase/database.module");
-const account_module_1 = require("./account/account.module");
+const customer_module_1 = require("./features/customer/customer.module");
+const database_module_1 = require("./shared/dabatase/database.module");
+const account_module_1 = require("./features/account/account.module");
 let AppModule = exports.AppModule = class AppModule {
 };
 exports.AppModule = AppModule = __decorate([

@@ -1,1 +1,0 @@
-{"version":3,"file":"database.module.js","sourceRoot":"","sources":["../../src/dabatase/database.module.ts"],"names":[],"mappings":";;;;;;;;;AAAA,2CAAwC;AACxC,6CAAyC;AACzC,yCAAoC;AAS7B,IAAM,cAAc,4BAApB,MAAM,cAAc;CAAG,CAAA;yBAAjB,cAAc;IAP1B,IAAA,eAAM,EAAC;QACN,OAAO,EAAE;YACP,wBAAU,CAAC,OAAO,CAAC;gBACjB,MAAM,EAAE,kBAAU;aACnB,CAAC;SACH;KACF,CAAC;GACW,cAAc,CAAG"}
