@@ -6,5 +6,5 @@ export declare class CustomerService {
     private TABLE_NAME;
     constructor(knex: Knex);
     findAll(): Promise<ICustomer[]>;
-    create(customer: CreateCustomerDto): Promise<number>;
+    create(dto: CreateCustomerDto): Promise<number>;
 }

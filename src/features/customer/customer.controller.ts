@@ -1,4 +1,11 @@
-import { Controller, Get, Post, Body } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  HttpException,
+  HttpStatus,
+} from '@nestjs/common';
 import { CreateCustomerDto } from './dto/create-customer.dto';
 import { CustomerService } from './customer.service';
 import { ICustomer } from './interface/customer.interface';
@@ -7,10 +14,14 @@ import { ICustomer } from './interface/customer.interface';
 export class CustomerController {
   constructor(private customerService: CustomerService) {}
 
-  @Post()
+  @Post('create')
   async create(@Body() createCustomerDto: CreateCustomerDto): Promise<{}> {
-    let id = await this.customerService.create(createCustomerDto);
-    return { new_id: id };
+    try {
+      let id = await this.customerService.create(createCustomerDto);
+      return { id };
+    } catch (e) {
+      throw new HttpException({ detail: e }, HttpStatus.FORBIDDEN);
+    }
   }
 
   @Get()

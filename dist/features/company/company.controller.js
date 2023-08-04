@@ -17,6 +17,7 @@ const company_service_1 = require("./company.service");
 const common_1 = require("@nestjs/common");
 const create_company_dto_1 = require("./dto/create-company.dto");
 const update_company_dto_1 = require("./dto/update-company.dto");
+const delete_company_dto_1 = require("./dto/delete-company.dto");
 let CompanyController = exports.CompanyController = class CompanyController {
     constructor(companyService) {
         this.companyService = companyService;
@@ -39,6 +40,15 @@ let CompanyController = exports.CompanyController = class CompanyController {
             throw new common_1.HttpException({ detail: e }, common_1.HttpStatus.FORBIDDEN);
         }
     }
+    async delete(dto) {
+        try {
+            let res = await this.companyService.delete(dto);
+            return { success: res > 0, rows_affected: res };
+        }
+        catch (e) {
+            throw new common_1.HttpException({ detail: e }, common_1.HttpStatus.FORBIDDEN);
+        }
+    }
 };
 __decorate([
     (0, common_1.Post)('create'),
@@ -54,6 +64,13 @@ __decorate([
     __metadata("design:paramtypes", [update_company_dto_1.UpdateCompanyDto]),
     __metadata("design:returntype", Promise)
 ], CompanyController.prototype, "update", null);
+__decorate([
+    (0, common_1.Post)('delete'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [delete_company_dto_1.DeleteCompanyDto]),
+    __metadata("design:returntype", Promise)
+], CompanyController.prototype, "delete", null);
 exports.CompanyController = CompanyController = __decorate([
     (0, common_1.Controller)('company'),
     __metadata("design:paramtypes", [company_service_1.CompanyService])

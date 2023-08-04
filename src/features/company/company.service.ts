@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CreateCompanyDto } from './dto/create-company.dto';
 import { UpdateCompanyDto } from './dto/update-company.dto';
 import { InjectKnex, Knex } from 'nestjs-knex';
+import { DeleteCompanyDto } from './dto/delete-company.dto';
 
 @Injectable()
 export class CompanyService {
@@ -15,10 +16,15 @@ export class CompanyService {
   }
 
   async update(dto: UpdateCompanyDto): Promise<number> {
-    let rows_affected = await this.knex(this.TABLE_NAME)
+    let rows = await this.knex(this.TABLE_NAME)
       .update(dto)
       .where({ id: dto.id });
 
-    return rows_affected;
+    return rows;
+  }
+
+  async delete(dto: DeleteCompanyDto): Promise<number> {
+    let rows = await this.knex(this.TABLE_NAME).where('id', dto.id).del();
+    return rows;
   }
 }

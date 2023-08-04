@@ -27,15 +27,9 @@ let CustomerService = exports.CustomerService = class CustomerService {
             .from(this.TABLE_NAME);
         return res;
     }
-    async create(customer) {
-        let id = await this.knex(this.TABLE_NAME)
-            .insert({
-            name: customer.name,
-            email: customer.email,
-            cellphone: customer.cellphone,
-        })
-            .returning('id');
-        return id;
+    async create(dto) {
+        let res = await this.knex(this.TABLE_NAME).insert(dto).returning('id');
+        return res[0]['id'];
     }
 };
 exports.CustomerService = CustomerService = __decorate([

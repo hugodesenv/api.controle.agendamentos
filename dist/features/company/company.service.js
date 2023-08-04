@@ -25,10 +25,14 @@ let CompanyService = exports.CompanyService = class CompanyService {
         return query[0]['id'];
     }
     async update(dto) {
-        let rows_affected = await this.knex(this.TABLE_NAME)
+        let rows = await this.knex(this.TABLE_NAME)
             .update(dto)
             .where({ id: dto.id });
-        return rows_affected;
+        return rows;
+    }
+    async delete(dto) {
+        let rows = await this.knex(this.TABLE_NAME).where('id', dto.id).del();
+        return rows;
     }
 };
 exports.CompanyService = CompanyService = __decorate([

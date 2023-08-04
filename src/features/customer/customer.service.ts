@@ -18,15 +18,8 @@ export class CustomerService {
     return res;
   }
 
-  async create(customer: CreateCustomerDto): Promise<number> {
-    let id: number = await this.knex(this.TABLE_NAME)
-      .insert({
-        name: customer.name,
-        email: customer.email,
-        cellphone: customer.cellphone,
-      })
-      .returning('id');
-
-    return id;
+  async create(dto: CreateCustomerDto): Promise<number> {
+    let res = await this.knex(this.TABLE_NAME).insert(dto).returning('id');
+    return res[0]['id'];
   }
 }

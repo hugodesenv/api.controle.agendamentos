@@ -21,15 +21,20 @@ let CustomerController = exports.CustomerController = class CustomerController {
         this.customerService = customerService;
     }
     async create(createCustomerDto) {
-        let id = await this.customerService.create(createCustomerDto);
-        return { new_id: id };
+        try {
+            let id = await this.customerService.create(createCustomerDto);
+            return { id };
+        }
+        catch (e) {
+            throw new common_1.HttpException({ detail: e }, common_1.HttpStatus.FORBIDDEN);
+        }
     }
     async findAll() {
         return await this.customerService.findAll();
     }
 };
 __decorate([
-    (0, common_1.Post)(),
+    (0, common_1.Post)('create'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_customer_dto_1.CreateCustomerDto]),

@@ -9,6 +9,7 @@ import {
 } from '@nestjs/common';
 import { CreateCompanyDto } from './dto/create-company.dto';
 import { UpdateCompanyDto } from './dto/update-company.dto';
+import { DeleteCompanyDto } from './dto/delete-company.dto';
 
 @Controller('company')
 export class CompanyController {
@@ -29,6 +30,16 @@ export class CompanyController {
     try {
       let affected: number = await this.companyService.update(dto);
       return { affected };
+    } catch (e) {
+      throw new HttpException({ detail: e }, HttpStatus.FORBIDDEN);
+    }
+  }
+
+  @Post('delete')
+  async delete(@Body() dto: DeleteCompanyDto) {
+    try {
+      let res: number = await this.companyService.delete(dto);
+      return { success: res > 0, rows_affected: res };
     } catch (e) {
       throw new HttpException({ detail: e }, HttpStatus.FORBIDDEN);
     }
