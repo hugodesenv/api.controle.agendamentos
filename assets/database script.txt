@@ -23,12 +23,12 @@ create table customer (
     email varchar(200)    
 );
 
+alter table customer alter column fk_company set not null;
+
 create table schedule (
 	id serial primary key,
 	fk_account integer references account(id),
 	fk_customer integer references customer(id),
-	conclusion_date timestamp 
+	start_time timestamp,
+    end_time timestamp
 );
-
-alter table customer alter column fk_company set not null;
-
