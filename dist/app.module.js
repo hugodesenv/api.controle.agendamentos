@@ -14,11 +14,20 @@ const customer_module_1 = require("./features/customer/customer.module");
 const database_module_1 = require("./shared/dabatase/database.module");
 const account_module_1 = require("./features/account/account.module");
 const company_module_1 = require("./features/company/company.module");
+const schedule_module_1 = require("./features/schedule/schedule.module");
+const service_module_1 = require("./features/service/service.module");
 let AppModule = exports.AppModule = class AppModule {
 };
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
-        imports: [customer_module_1.CustomerModule, database_module_1.DatabaseModule, account_module_1.AccountModule, company_module_1.CompanyModule],
+        imports: [
+            customer_module_1.CustomerModule,
+            database_module_1.DatabaseModule,
+            account_module_1.AccountModule,
+            company_module_1.CompanyModule,
+            schedule_module_1.ScheduleModule,
+            service_module_1.ServiceModule,
+        ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],
     })

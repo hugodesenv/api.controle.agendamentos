@@ -29,6 +29,18 @@ create table schedule (
 	id serial primary key,
 	fk_account integer references account(id),
 	fk_customer integer references customer(id),
-	start_time timestamp,
-    end_time timestamp
+	schedule_date timestamp
+);
+
+create table service (
+    id serial primary key,
+    description varchar(80) not null,
+    duration time,
+    active boolean
+);
+
+create table schedule_service (
+    id serial primary key,
+    fk_service integer references service(id) not null,
+    duration time
 );

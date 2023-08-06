@@ -12,48 +12,18 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AccountService = void 0;
+exports.ScheduleServiceService = void 0;
 const common_1 = require("@nestjs/common");
 const nestjs_knex_1 = require("nestjs-knex");
-let AccountService = exports.AccountService = class AccountService {
-    constructor(knex) {
-        this.knex = knex;
-        this.TABLE_NAME = 'account';
-    }
-    async tryLogin(dto) {
-        let query = await this.knex
-            .select('id')
-            .from(this.TABLE_NAME)
-            .where({
-            ...dto,
-            active: true,
-        });
-        return query.length > 0;
-    }
-    async create(dto) {
-        let res = await this.knex(this.TABLE_NAME)
-            .insert({
-            username: dto.username,
-            password: dto.password,
-            active: dto.active,
-            fk_company: dto.fk_company,
-        })
-            .returning('id');
-        return res[0]['id'];
-    }
-    async update(dto) {
-        let rows_affected = await this.knex(this.TABLE_NAME)
-            .update({
-            password: dto.password,
-            active: dto.active,
-        })
-            .where({ id: dto.id });
-        return rows_affected;
+let ScheduleServiceService = exports.ScheduleServiceService = class ScheduleServiceService {
+    constructor(knex) { }
+    async create() {
+        return 'Salve';
     }
 };
-exports.AccountService = AccountService = __decorate([
+exports.ScheduleServiceService = ScheduleServiceService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, nestjs_knex_1.InjectKnex)()),
     __metadata("design:paramtypes", [Function])
-], AccountService);
-//# sourceMappingURL=account.service.js.map
+], ScheduleServiceService);
+//# sourceMappingURL=schedule-service.service.js.map

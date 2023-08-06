@@ -24,7 +24,12 @@ export class AccountService {
 
   async create(dto: CreateAccountDto): Promise<number> {
     let res: number = await this.knex(this.TABLE_NAME)
-      .insert(dto)
+      .insert({
+        username: dto.username,
+        password: dto.password,
+        active: dto.active,
+        fk_company: dto.fk_company,
+      })
       .returning('id');
 
     return res[0]['id'];
@@ -32,7 +37,10 @@ export class AccountService {
 
   async update(dto: UpdateAccountDto): Promise<number> {
     let rows_affected = await this.knex(this.TABLE_NAME)
-      .update(dto)
+      .update({
+        password: dto.password,
+        active: dto.active,
+      })
       .where({ id: dto.id });
     return rows_affected;
   }
