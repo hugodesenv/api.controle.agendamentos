@@ -1,5 +1,5 @@
 export declare class CreateServiceDto {
     description: string;
-    duration: Date;
+    service_minutes: number;
     active: boolean;
 }

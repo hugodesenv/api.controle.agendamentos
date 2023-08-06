@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectKnex, Knex } from 'nestjs-knex';
 import { CreateScheduleDto } from './dto/create-schedule.dto';
 import { ScheduleServiceService } from '../schedule_service/schedule-service.service';
+import { CreateScheduleServiceDto } from '../schedule_service/dto/create-schedule-service.dto';
 
 @Injectable()
 export class ScheduleService {
@@ -22,6 +23,11 @@ export class ScheduleService {
       .returning('id');
 
     let scheduleID = scheduleQuery[0]['id'];
+
+    for await (const data of dto.services) {
+      let service = { ...data, fk_schedule: scheduleID };
+      await this.scheduleService.create(service);
+    }
 
     return scheduleID;
   }

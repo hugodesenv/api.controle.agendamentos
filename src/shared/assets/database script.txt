@@ -35,12 +35,13 @@ create table schedule (
 create table service (
     id serial primary key,
     description varchar(80) not null,
-    duration time,
+    service_minutes number,
     active boolean
 );
 
 create table schedule_service (
     id serial primary key,
+    fk_schedule integer references schedule(id) not null,
     fk_service integer references service(id) not null,
-    duration time
+    service_minutes integer
 );

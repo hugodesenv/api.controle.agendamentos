@@ -16,9 +16,19 @@ exports.ScheduleServiceService = void 0;
 const common_1 = require("@nestjs/common");
 const nestjs_knex_1 = require("nestjs-knex");
 let ScheduleServiceService = exports.ScheduleServiceService = class ScheduleServiceService {
-    constructor(knex) { }
-    async create() {
-        return 'Salve';
+    constructor(knex) {
+        this.knex = knex;
+        this.TABLE_NAME = 'schedule_service';
+    }
+    async create(dto) {
+        let query = await this.knex(this.TABLE_NAME)
+            .insert({
+            fk_schedule: dto.fk_schedule,
+            fk_service: dto.fk_service,
+            service_minutes: dto.service_minutes,
+        })
+            .returning('id');
+        return query[0]['id'];
     }
 };
 exports.ScheduleServiceService = ScheduleServiceService = __decorate([

@@ -1,11 +1,18 @@
-import { IsBoolean, IsISO8601, IsNotEmpty } from 'class-validator';
+import {
+  IsBoolean,
+  IsDateString,
+  IsISO8601,
+  IsNotEmpty,
+  IsNumber,
+  IsTimeZone,
+} from 'class-validator';
 
 export class CreateServiceDto {
   @IsNotEmpty()
   description: string;
 
-  @IsISO8601()
-  duration: Date;
+  @IsNumber()
+  service_minutes: number;
 
   @IsBoolean()
   active: boolean;

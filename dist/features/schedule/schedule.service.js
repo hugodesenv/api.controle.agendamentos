@@ -31,6 +31,10 @@ let ScheduleService = exports.ScheduleService = class ScheduleService {
         })
             .returning('id');
         let scheduleID = scheduleQuery[0]['id'];
+        for await (const data of dto.services) {
+            let service = { ...data, fk_schedule: scheduleID };
+            await this.scheduleService.create(service);
+        }
         return scheduleID;
     }
 };
