@@ -10,7 +10,11 @@ export class ServiceService {
 
   async create(dto: CreateServiceDto): Promise<number> {
     let serviceQuery = await this.knex(this.TABLE_NAME)
-      .insert(dto)
+      .insert({
+        description: dto.description,
+        active: dto.active,
+        service_minutes: dto.service_minutes,
+      })
       .returning('id');
 
     return serviceQuery[0]['id'];

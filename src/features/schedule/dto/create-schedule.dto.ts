@@ -11,6 +11,10 @@ export class CreateScheduleDto {
   @IsDateString()
   schedule_date: Date;
 
-  @IsNotEmpty()
+  Isso aqui está completamente errado.
+  Pensar numa forma generica pro NestJs, mantendo as mesmas propriedades
+  quando for inclusão/edição, porque as vezes eu posso alterar, mas incluindo vários itens
+
+  @IsNotEmpty() 
   services: CreateScheduleServiceDto[];
 }

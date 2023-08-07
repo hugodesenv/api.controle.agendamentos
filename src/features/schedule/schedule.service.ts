@@ -26,6 +26,8 @@ export class ScheduleService {
 
     for await (const data of dto.services) {
       let service = { ...data, fk_schedule: scheduleID };
+
+      
       await this.scheduleService.create(service);
     }
 
