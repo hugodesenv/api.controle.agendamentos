@@ -20,14 +20,14 @@ let ScheduleServiceService = exports.ScheduleServiceService = class ScheduleServ
         this.knex = knex;
     }
     async create(dto) {
-        const [id] = await this.knex('schedule_service')
+        const [resInsert] = await this.knex('schedule_service')
             .insert({
             fk_schedule: dto.fk_schedule,
             fk_service: dto.fk_service,
             service_minutes: dto.service_minutes,
         })
             .returning('id');
-        return id;
+        return resInsert['id'];
     }
 };
 exports.ScheduleServiceService = ScheduleServiceService = __decorate([

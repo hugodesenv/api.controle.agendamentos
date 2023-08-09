@@ -22,21 +22,22 @@ let ScheduleService = exports.ScheduleService = class ScheduleService {
         this.scheduleService = scheduleService;
     }
     async create(createAccountDto) {
-        const [scheduleID] = await this.knex('schedule')
+        const [scheduleInsertResult] = await this.knex('schedule')
             .insert({
             fk_account: createAccountDto.fk_account,
             fk_customer: createAccountDto.fk_customer,
             schedule_date: createAccountDto.schedule_date,
         })
             .returning('id');
+        const scheduleID = scheduleInsertResult['id'];
         var idsScheduleService = [];
         await Promise.all(createAccountDto.services.map(async (scheduleServiceDto) => {
             let objectScheduleService = {
                 ...scheduleServiceDto,
-                fk_schedule: scheduleID['id'],
+                fk_schedule: scheduleID,
             };
-            const res = await this.scheduleService.create(objectScheduleService);
-            idsScheduleService.push(res['id']);
+            const id = await this.scheduleService.create(objectScheduleService);
+            idsScheduleService.push(id);
         }));
         return {
             scheduleID: scheduleID,
