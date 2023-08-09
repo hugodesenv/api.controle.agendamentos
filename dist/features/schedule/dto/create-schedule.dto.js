@@ -23,11 +23,7 @@ __decorate([
     __metadata("design:type", Number)
 ], CreateScheduleDto.prototype, "fk_customer", void 0);
 __decorate([
-    (0, class_validator_1.IsDateString)(),
+    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", Date)
 ], CreateScheduleDto.prototype, "schedule_date", void 0);
-__decorate([
-    (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", Array)
-], CreateScheduleDto.prototype, "services", void 0);
 //# sourceMappingURL=create-schedule.dto.js.map

@@ -5,8 +5,8 @@ import { CustomerModule } from './features/customer/customer.module';
 import { DatabaseModule } from './shared/dabatase/database.module';
 import { AccountModule } from './features/account/account.module';
 import { CompanyModule } from './features/company/company.module';
-import { ScheduleModule } from './features/schedule/schedule.module';
 import { ServiceModule } from './features/service/service.module';
+import { ScheduleModule } from './features/schedule/schedule.module';
 
 @Module({
   imports: [
@@ -14,8 +14,8 @@ import { ServiceModule } from './features/service/service.module';
     DatabaseModule,
     AccountModule,
     CompanyModule,
-    ScheduleModule,
     ServiceModule,
+    ScheduleModule,
   ],
   controllers: [AppController],
   providers: [AppService],

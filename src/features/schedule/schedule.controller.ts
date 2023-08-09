@@ -13,10 +13,10 @@ export class ScheduleController {
   constructor(private readonly scheduleService: ScheduleService) {}
 
   @Post('create')
-  async create(@Body() dto: CreateScheduleDto) {
+  async create(@Body() createScheduleDto: CreateScheduleDto) {
     try {
-      let id = await this.scheduleService.create(dto);
-      return { id };
+      const res = await this.scheduleService.create(createScheduleDto);
+      return res;
     } catch (e) {
       throw new HttpException({ detail: e }, HttpStatus.FORBIDDEN);
     }

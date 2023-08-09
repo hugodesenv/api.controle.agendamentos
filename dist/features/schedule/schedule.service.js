@@ -20,22 +20,28 @@ let ScheduleService = exports.ScheduleService = class ScheduleService {
     constructor(knex, scheduleService) {
         this.knex = knex;
         this.scheduleService = scheduleService;
-        this.TABLE_NAME = 'schedule';
     }
-    async create(dto) {
-        let scheduleQuery = await this.knex(this.TABLE_NAME)
+    async create(createAccountDto) {
+        const [scheduleID] = await this.knex('schedule')
             .insert({
-            fk_account: dto.fk_account,
-            fk_customer: dto.fk_customer,
-            schedule_date: dto.schedule_date,
+            fk_account: createAccountDto.fk_account,
+            fk_customer: createAccountDto.fk_customer,
+            schedule_date: createAccountDto.schedule_date,
         })
             .returning('id');
-        let scheduleID = scheduleQuery[0]['id'];
-        for await (const data of dto.services) {
-            let service = { ...data, fk_schedule: scheduleID };
-            await this.scheduleService.create(service);
-        }
-        return scheduleID;
+        var idsScheduleService = [];
+        await Promise.all(createAccountDto.services.map(async (scheduleServiceDto) => {
+            let objectScheduleService = {
+                ...scheduleServiceDto,
+                fk_schedule: scheduleID['id'],
+            };
+            const res = await this.scheduleService.create(objectScheduleService);
+            idsScheduleService.push(res['id']);
+        }));
+        return {
+            scheduleID: scheduleID,
+            scheduleServiceID: idsScheduleService,
+        };
     }
 };
 exports.ScheduleService = ScheduleService = __decorate([

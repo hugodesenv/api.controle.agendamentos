@@ -4,7 +4,6 @@ import { ScheduleServiceService } from '../schedule_service/schedule-service.ser
 export declare class ScheduleService {
     private readonly knex;
     private readonly scheduleService;
-    private readonly TABLE_NAME;
     constructor(knex: Knex, scheduleService: ScheduleServiceService);
-    create(dto: CreateScheduleDto): Promise<number>;
+    create(createAccountDto: CreateScheduleDto): Promise<any>;
 }

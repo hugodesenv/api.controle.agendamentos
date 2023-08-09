@@ -20,10 +20,10 @@ let ScheduleController = exports.ScheduleController = class ScheduleController {
     constructor(scheduleService) {
         this.scheduleService = scheduleService;
     }
-    async create(dto) {
+    async create(createScheduleDto) {
         try {
-            let id = await this.scheduleService.create(dto);
-            return { id };
+            const res = await this.scheduleService.create(createScheduleDto);
+            return res;
         }
         catch (e) {
             throw new common_1.HttpException({ detail: e }, common_1.HttpStatus.FORBIDDEN);

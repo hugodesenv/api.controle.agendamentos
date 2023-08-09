@@ -27,9 +27,11 @@ alter table customer alter column fk_company set not null;
 
 create table schedule (
 	id serial primary key,
-	fk_account integer references account(id),
-	fk_customer integer references customer(id),
-	schedule_date timestamp
+	fk_account integer not null,
+	fk_customer integer not null,
+	schedule_date timestamp,
+	constraint fk_account foreign key(fk_account) references account(id),
+	constraint fk_customer foreign key(fk_customer) references customer(id)
 );
 
 create table service (
@@ -41,7 +43,9 @@ create table service (
 
 create table schedule_service (
     id serial primary key,
-    fk_schedule integer references schedule(id) not null,
-    fk_service integer references service(id) not null,
-    service_minutes integer
+    fk_schedule integer not null,
+    fk_service integer not null,
+    service_minutes integer,
+    constraint fk_schedule foreign key(fk_schedule) references schedule(id),
+    constraint fk_service foreign key(fk_service) references service(id)
 );

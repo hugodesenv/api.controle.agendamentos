@@ -1,4 +1,4 @@
-import { IsDateString, IsISO8601, IsNumber, IsTimeZone } from 'class-validator';
+import { IsNumber } from 'class-validator';
 
 export class CreateScheduleServiceDto {
   @IsNumber()
