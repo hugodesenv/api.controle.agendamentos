@@ -12,6 +12,7 @@ export class ScheduleService {
     private readonly scheduleService: ScheduleServiceService,
   ) {}
 
+  //@@@@@@implementar transaction
   async create(createAccountDto: CreateScheduleDto): Promise<any> {
     const [scheduleInsertResult] = await this.knex('schedule')
       .insert({
