@@ -40,8 +40,8 @@ let ScheduleService = exports.ScheduleService = class ScheduleService {
             idsScheduleService.push(id);
         }));
         return {
-            scheduleID: scheduleID,
-            scheduleServiceID: idsScheduleService,
+            schedule_id: scheduleID,
+            services_id: idsScheduleService,
         };
     }
 };

@@ -39,8 +39,8 @@ export class ScheduleService {
     );
 
     return {
-      scheduleID: scheduleID,
-      scheduleServiceID: idsScheduleService,
+      schedule_id: scheduleID,
+      services_id: idsScheduleService,
     };
   }
 }

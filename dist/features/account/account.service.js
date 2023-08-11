@@ -18,20 +18,26 @@ const nestjs_knex_1 = require("nestjs-knex");
 let AccountService = exports.AccountService = class AccountService {
     constructor(knex) {
         this.knex = knex;
-        this.TABLE_NAME = 'account';
     }
     async tryLogin(dto) {
-        let query = await this.knex
-            .select('id')
-            .from(this.TABLE_NAME)
+        let [res] = await this.knex
+            .select([
+            'account.id',
+            'account.username',
+            'account.fk_company',
+            'company.social_name',
+        ])
+            .from('account')
+            .innerJoin('company', 'company.id', '=', 'account.fk_company')
             .where({
-            ...dto,
-            active: true,
+            'account.username': dto.username,
+            'account.password': dto.password,
+            'company.active': true,
         });
-        return query.length > 0;
+        return { data: res };
     }
     async create(dto) {
-        let res = await this.knex(this.TABLE_NAME)
+        let res = await this.knex('account')
             .insert({
             username: dto.username,
             password: dto.password,
@@ -42,7 +48,7 @@ let AccountService = exports.AccountService = class AccountService {
         return res[0]['id'];
     }
     async update(dto) {
-        let rows_affected = await this.knex(this.TABLE_NAME)
+        let rows_affected = await this.knex('account')
             .update({
             password: dto.password,
             active: dto.active,

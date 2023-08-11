@@ -6,24 +6,29 @@ import { UpdateAccountDto } from './dto/update-account.dto';
 
 @Injectable()
 export class AccountService {
-  private readonly TABLE_NAME = 'account';
-
   constructor(@InjectKnex() private readonly knex: Knex) {}
 
-  async tryLogin(dto: LoginAccountDto): Promise<boolean> {
-    let query = await this.knex
-      .select('id')
-      .from(this.TABLE_NAME)
+  async tryLogin(dto: LoginAccountDto): Promise<any> {
+    let [res] = await this.knex
+      .select([
+        'account.id',
+        'account.username',
+        'account.fk_company',
+        'company.social_name',
+      ])
+      .from('account')
+      .innerJoin('company', 'company.id', '=', 'account.fk_company')
       .where({
-        ...dto,
-        active: true,
+        'account.username': dto.username,
+        'account.password': dto.password,
+        'company.active': true,
       });
 
-    return query.length > 0;
+    return { data: res };
   }
 
   async create(dto: CreateAccountDto): Promise<number> {
-    let res: number = await this.knex(this.TABLE_NAME)
+    let res: number = await this.knex('account')
       .insert({
         username: dto.username,
         password: dto.password,
@@ -36,7 +41,7 @@ export class AccountService {
   }
 
   async update(dto: UpdateAccountDto): Promise<number> {
-    let rows_affected = await this.knex(this.TABLE_NAME)
+    let rows_affected = await this.knex('account')
       .update({
         password: dto.password,
         active: dto.active,
