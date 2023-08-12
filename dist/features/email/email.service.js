@@ -12,58 +12,31 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AccountService = void 0;
+exports.EmailService = void 0;
 const common_1 = require("@nestjs/common");
 const nestjs_knex_1 = require("nestjs-knex");
-let AccountService = exports.AccountService = class AccountService {
+let EmailService = exports.EmailService = class EmailService {
     constructor(knex) {
         this.knex = knex;
     }
-    async tryLogin(dto) {
-        let [res] = await this.knex
-            .select([
-            'account.id',
-            'account.username',
-            'account.email',
-            'account.fk_company',
-            'company.social_name',
-        ])
-            .from('account')
-            .innerJoin('company', 'company.id', '=', 'account.fk_company')
-            .where({
-            'account.username': dto.username,
-            'account.password': dto.password,
-            'company.active': true,
-        });
-        return { data: res };
-    }
     async create(dto) {
-        let res = await this.knex('account')
+        const [res] = await this.knex('email')
             .insert({
-            username: dto.username,
-            password: dto.password,
-            active: dto.active,
             fk_company: dto.fk_company,
             email: dto.email,
+            password: dto.password,
+            host: dto.host,
+            port: dto.port,
         })
             .returning('id');
-        return res[0]['id'];
+        return {
+            id: res,
+        };
     }
-    async update(dto) {
-        let rows_affected = await this.knex('account')
-            .update({
-            password: dto.password,
-            active: dto.active,
-            email: dto.email,
-        })
-            .where({ id: dto.id });
-        return rows_affected;
-    }
-    async passwordReset(email) { }
 };
-exports.AccountService = AccountService = __decorate([
+exports.EmailService = EmailService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, nestjs_knex_1.InjectKnex)()),
     __metadata("design:paramtypes", [Function])
-], AccountService);
-//# sourceMappingURL=account.service.js.map
+], EmailService);
+//# sourceMappingURL=email.service.js.map

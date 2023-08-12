@@ -22,4 +22,8 @@ __decorate([
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", Boolean)
 ], BaseAccountDto.prototype, "active", void 0);
+__decorate([
+    (0, class_validator_1.IsEmail)(),
+    __metadata("design:type", String)
+], BaseAccountDto.prototype, "email", void 0);
 //# sourceMappingURL=base-account.dto.js.map

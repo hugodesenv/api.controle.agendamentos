@@ -7,6 +7,7 @@ import { AccountModule } from './features/account/account.module';
 import { CompanyModule } from './features/company/company.module';
 import { ServiceModule } from './features/service/service.module';
 import { ScheduleModule } from './features/schedule/schedule.module';
+import { EmailModule } from './features/email/email.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { ScheduleModule } from './features/schedule/schedule.module';
     CompanyModule,
     ServiceModule,
     ScheduleModule,
+    EmailModule,
   ],
   controllers: [AppController],
   providers: [AppService],

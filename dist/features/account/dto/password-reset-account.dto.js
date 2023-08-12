@@ -9,25 +9,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CreateServiceDto = void 0;
+exports.PasswordResetAccountDto = void 0;
 const class_validator_1 = require("class-validator");
-class CreateServiceDto {
+class PasswordResetAccountDto {
 }
-exports.CreateServiceDto = CreateServiceDto;
+exports.PasswordResetAccountDto = PasswordResetAccountDto;
 __decorate([
-    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsEmail)(),
     __metadata("design:type", String)
-], CreateServiceDto.prototype, "description", void 0);
-__decorate([
-    (0, class_validator_1.IsNumber)(),
-    __metadata("design:type", Number)
-], CreateServiceDto.prototype, "service_minutes", void 0);
-__decorate([
-    (0, class_validator_1.IsBoolean)(),
-    __metadata("design:type", Boolean)
-], CreateServiceDto.prototype, "active", void 0);
-__decorate([
-    (0, class_validator_1.IsNumber)(),
-    __metadata("design:type", Number)
-], CreateServiceDto.prototype, "fk_company", void 0);
-//# sourceMappingURL=create-service.dto.js.map
+], PasswordResetAccountDto.prototype, "email", void 0);
+//# sourceMappingURL=password-reset-account.dto.js.map

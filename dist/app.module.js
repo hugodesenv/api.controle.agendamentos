@@ -16,6 +16,7 @@ const account_module_1 = require("./features/account/account.module");
 const company_module_1 = require("./features/company/company.module");
 const service_module_1 = require("./features/service/service.module");
 const schedule_module_1 = require("./features/schedule/schedule.module");
+const email_module_1 = require("./features/email/email.module");
 let AppModule = exports.AppModule = class AppModule {
 };
 exports.AppModule = AppModule = __decorate([
@@ -27,6 +28,7 @@ exports.AppModule = AppModule = __decorate([
             company_module_1.CompanyModule,
             service_module_1.ServiceModule,
             schedule_module_1.ScheduleModule,
+            email_module_1.EmailModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

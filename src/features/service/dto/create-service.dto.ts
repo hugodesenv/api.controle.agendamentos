@@ -16,4 +16,7 @@ export class CreateServiceDto {
 
   @IsBoolean()
   active: boolean;
+
+  @IsNumber()
+  fk_company: number;
 }

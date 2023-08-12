@@ -3,6 +3,7 @@ import { InjectKnex, Knex } from 'nestjs-knex';
 import { LoginAccountDto } from './dto/login-account.dto';
 import { CreateAccountDto } from './dto/create-account.dto';
 import { UpdateAccountDto } from './dto/update-account.dto';
+import { PasswordResetAccountDto } from './dto/password-reset-account.dto';
 
 @Injectable()
 export class AccountService {
@@ -13,6 +14,7 @@ export class AccountService {
       .select([
         'account.id',
         'account.username',
+        'account.email',
         'account.fk_company',
         'company.social_name',
       ])
@@ -34,6 +36,7 @@ export class AccountService {
         password: dto.password,
         active: dto.active,
         fk_company: dto.fk_company,
+        email: dto.email,
       })
       .returning('id');
 
@@ -45,8 +48,11 @@ export class AccountService {
       .update({
         password: dto.password,
         active: dto.active,
+        email: dto.email,
       })
       .where({ id: dto.id });
     return rows_affected;
   }
+
+  async passwordReset(email: PasswordResetAccountDto) {}
 }

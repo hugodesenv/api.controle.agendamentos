@@ -12,28 +12,33 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ServiceService = void 0;
+exports.EmailController = void 0;
 const common_1 = require("@nestjs/common");
-const nestjs_knex_1 = require("nestjs-knex");
-let ServiceService = exports.ServiceService = class ServiceService {
-    constructor(knex) {
-        this.knex = knex;
+const email_service_1 = require("./email.service");
+const create_email_dto_1 = require("./dto/create-email.dto");
+let EmailController = exports.EmailController = class EmailController {
+    constructor(emailService) {
+        this.emailService = emailService;
     }
     async create(dto) {
-        let serviceQuery = await this.knex('service')
-            .insert({
-            description: dto.description,
-            active: dto.active,
-            service_minutes: dto.service_minutes,
-            fk_company: dto.fk_company,
-        })
-            .returning('id');
-        return serviceQuery[0]['id'];
+        try {
+            const res = await this.emailService.create(dto);
+            return res;
+        }
+        catch (e) {
+            throw new common_1.HttpException({ detail: e }, common_1.HttpStatus.FORBIDDEN);
+        }
     }
 };
-exports.ServiceService = ServiceService = __decorate([
-    (0, common_1.Injectable)(),
-    __param(0, (0, nestjs_knex_1.InjectKnex)()),
-    __metadata("design:paramtypes", [Function])
-], ServiceService);
-//# sourceMappingURL=service.service.js.map
+__decorate([
+    (0, common_1.Post)('create'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [create_email_dto_1.CreateEmailDto]),
+    __metadata("design:returntype", Promise)
+], EmailController.prototype, "create", null);
+exports.EmailController = EmailController = __decorate([
+    (0, common_1.Controller)('email'),
+    __metadata("design:paramtypes", [email_service_1.EmailService])
+], EmailController);
+//# sourceMappingURL=email.controller.js.map

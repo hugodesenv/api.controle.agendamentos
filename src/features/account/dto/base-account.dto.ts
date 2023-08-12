@@ -1,10 +1,4 @@
-import {
-  IsAlpha,
-  IsAlphanumeric,
-  IsNotEmpty,
-  IsNumber,
-  Length,
-} from 'class-validator';
+import { IsEmail, IsNotEmpty } from 'class-validator';
 
 export class BaseAccountDto {
   @IsNotEmpty()
@@ -12,4 +6,7 @@ export class BaseAccountDto {
 
   @IsNotEmpty()
   active: boolean;
+
+  @IsEmail()
+  email: string;
 }
