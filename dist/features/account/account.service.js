@@ -59,7 +59,6 @@ let AccountService = exports.AccountService = class AccountService {
             .where({ id: dto.id });
         return rows_affected;
     }
-    async passwordReset(email) { }
 };
 exports.AccountService = AccountService = __decorate([
     (0, common_1.Injectable)(),

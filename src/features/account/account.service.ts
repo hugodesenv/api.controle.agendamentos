@@ -3,7 +3,6 @@ import { InjectKnex, Knex } from 'nestjs-knex';
 import { LoginAccountDto } from './dto/login-account.dto';
 import { CreateAccountDto } from './dto/create-account.dto';
 import { UpdateAccountDto } from './dto/update-account.dto';
-import { PasswordResetAccountDto } from './dto/password-reset-account.dto';
 
 @Injectable()
 export class AccountService {
@@ -53,6 +52,4 @@ export class AccountService {
       .where({ id: dto.id });
     return rows_affected;
   }
-
-  async passwordReset(email: PasswordResetAccountDto) {}
 }

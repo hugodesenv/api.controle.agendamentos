@@ -9,13 +9,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PasswordResetAccountDto = void 0;
+exports.ForgotPasswordAccountDto = void 0;
 const class_validator_1 = require("class-validator");
-class PasswordResetAccountDto {
+class ForgotPasswordAccountDto {
 }
-exports.PasswordResetAccountDto = PasswordResetAccountDto;
+exports.ForgotPasswordAccountDto = ForgotPasswordAccountDto;
 __decorate([
     (0, class_validator_1.IsEmail)(),
     __metadata("design:type", String)
-], PasswordResetAccountDto.prototype, "email", void 0);
-//# sourceMappingURL=password-reset-account.dto.js.map
+], ForgotPasswordAccountDto.prototype, "email", void 0);
+//# sourceMappingURL=forgot-password-account.dto.js.map

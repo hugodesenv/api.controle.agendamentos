@@ -1,22 +1,43 @@
-import * as nodemailer from 'nodemailer';
-
-interface ISendEmailResult {
-  success: boolean;
-  message: string;
-}
+import knex from 'knex';
+import { Transporter } from 'nodemailer';
+import SMTPTransport from 'nodemailer/lib/smtp-transport';
+import knexfile from '../dabatase/knexfile';
+const nodemailer = require('nodemailer');
 
 export class EmailUtils {
+  static getTransporter(
+    parameter: IEmailTranspoter,
+  ): Transporter<SMTPTransport.SentMessageInfo> {
+    return nodemailer.createTransport({
+      host: parameter.host,
+      port: parameter.port,
+      secure: parameter.port === 465,
+      auth: {
+        user: parameter.email,
+        pass: parameter.password,
+      },
+    });
+  }
 
-  Finalizar o envio do e-Mail...
-  
-  // passar as propriedades de configuraçao aqui
-  // e as propriedades do to...from...message...body
-  // via construtor...
+  static async getTransporterById(emailId: number) {
+    const db = knex(knexfile);
+    try {
+      const [query] = await db
+        .select(['email', 'password', 'host', 'port'])
+        .from('email')
+        .where('id', emailId);
 
-  async sendEmail(): Promise<ISendEmailResult> {
-    return {
-      message: '',
-      success: true,
-    };
+      const parameters: IEmailTranspoter = {
+        email: query['email'],
+        host: query['host'],
+        password: query['password'],
+        port: query['port'],
+      };
+
+      const transporter = this.getTransporter(parameters);
+      return transporter;
+    } finally {
+      db.destroy();
+    }
   }
 }

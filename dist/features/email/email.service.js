@@ -29,9 +29,7 @@ let EmailService = exports.EmailService = class EmailService {
             port: dto.port,
         })
             .returning('id');
-        return {
-            id: res,
-        };
+        return { res };
     }
 };
 exports.EmailService = EmailService = __decorate([

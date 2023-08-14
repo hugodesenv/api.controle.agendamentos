@@ -1,7 +1,6 @@
+import { Transporter } from 'nodemailer';
+import SMTPTransport from 'nodemailer/lib/smtp-transport';
 export declare class EmailUtils {
-    private to;
-    private from;
-    private title;
-    private body;
-    sendEmail(): void;
+    static getTransporter(parameter: IEmailTranspoter): Transporter<SMTPTransport.SentMessageInfo>;
+    static getTransporterById(emailId: number): Promise<Transporter<SMTPTransport.SentMessageInfo>>;
 }

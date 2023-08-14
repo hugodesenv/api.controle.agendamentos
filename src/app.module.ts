@@ -8,6 +8,7 @@ import { CompanyModule } from './features/company/company.module';
 import { ServiceModule } from './features/service/service.module';
 import { ScheduleModule } from './features/schedule/schedule.module';
 import { EmailModule } from './features/email/email.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { EmailModule } from './features/email/email.module';
     ServiceModule,
     ScheduleModule,
     EmailModule,
+    ConfigModule.forRoot() /** env */,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -18,6 +18,8 @@ const login_account_dto_1 = require("./dto/login-account.dto");
 const account_service_1 = require("./account.service");
 const create_account_dto_1 = require("./dto/create-account.dto");
 const update_account_dto_1 = require("./dto/update-account.dto");
+const email_utils_1 = require("../../shared/utils/email.utils");
+const forgot_password_account_dto_1 = require("./dto/forgot-password-account.dto");
 let AccountController = exports.AccountController = class AccountController {
     constructor(accountService) {
         this.accountService = accountService;
@@ -44,6 +46,28 @@ let AccountController = exports.AccountController = class AccountController {
             throw new common_1.HttpException({ message: e.detail }, common_1.HttpStatus.FORBIDDEN);
         }
     }
+    async forgotPassword(queryDto) {
+        try {
+            const configuration = {
+                email: process.env.EMAIL_LOGIN,
+                host: process.env.EMAIL_HOST,
+                password: process.env.EMAIL_PASSWORD,
+                port: parseInt(process.env.EMAIL_PORT),
+            };
+            const html = '<h1>Oi...te amo</h1>';
+            const transpoter = email_utils_1.EmailUtils.getTransporter(configuration);
+            const options = {
+                from: process.env.EMAIL_LOGIN,
+                to: queryDto.email,
+                subject: 'Redefinição de senha',
+                html: html,
+            };
+            return await transpoter.sendMail(options);
+        }
+        catch (e) {
+            throw new common_1.HttpException({ detail: e }, common_1.HttpStatus.FORBIDDEN);
+        }
+    }
 };
 __decorate([
     (0, common_1.Post)('login'),
@@ -67,6 +91,13 @@ __decorate([
     __metadata("design:paramtypes", [update_account_dto_1.UpdateAccountDto]),
     __metadata("design:returntype", Promise)
 ], AccountController.prototype, "update", null);
+__decorate([
+    (0, common_1.Get)('forgot-password'),
+    __param(0, (0, common_1.Query)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [forgot_password_account_dto_1.ForgotPasswordAccountDto]),
+    __metadata("design:returntype", Promise)
+], AccountController.prototype, "forgotPassword", null);
 exports.AccountController = AccountController = __decorate([
     (0, common_1.Controller)('account'),
     __metadata("design:paramtypes", [account_service_1.AccountService])
