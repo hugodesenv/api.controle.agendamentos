@@ -9,4 +9,7 @@ export class CreateScheduleServiceDto {
 
   @IsNumber()
   service_minutes: number;
+
+  @IsNumber()
+  price: number;
 }

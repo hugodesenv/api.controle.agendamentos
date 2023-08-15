@@ -7,14 +7,10 @@ export class ScheduleServiceService {
   constructor(@InjectKnex() private readonly knex: Knex) {}
 
   async create(dto: CreateScheduleServiceDto): Promise<number> {
-    const [resInsert] = await this.knex('schedule_service')
-      .insert({
-        fk_schedule: dto.fk_schedule,
-        fk_service: dto.fk_service,
-        service_minutes: dto.service_minutes,
-      })
+    const [res] = await this.knex('schedule_service')
+      .insert(dto)
       .returning('id');
 
-    return resInsert['id'];
+    return res['id'];
   }
 }

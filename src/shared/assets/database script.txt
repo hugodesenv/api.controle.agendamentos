@@ -45,6 +45,7 @@ create table schedule_service (
     fk_schedule integer not null,
     fk_service integer not null,
     service_minutes integer,
+    price numeric(19,6) default 0,
     constraint fk_schedule foreign key(fk_schedule) references schedule(id),
     constraint fk_service foreign key(fk_service) references service(id)
 );
