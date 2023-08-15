@@ -16,6 +16,11 @@ class BaseAccountDto {
 exports.BaseAccountDto = BaseAccountDto;
 __decorate([
     (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.Length)(4, 45),
+    __metadata("design:type", String)
+], BaseAccountDto.prototype, "username", void 0);
+__decorate([
+    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], BaseAccountDto.prototype, "password", void 0);
 __decorate([

@@ -2,8 +2,8 @@ import { IsNotEmpty, IsNumber } from 'class-validator';
 import { CreateScheduleServiceDto } from 'src/features/schedule_service/dto/create-schedule-service.dto';
 
 export class CreateScheduleDto {
-  @IsNumber()
-  fk_account: number;
+  @IsNotEmpty()
+  fk_account: string;
 
   @IsNumber()
   fk_customer: number;

@@ -11,5 +11,7 @@ export declare class AccountController {
     update(dto: UpdateAccountDto): Promise<{
         affected: number;
     }>;
-    forgotPassword(queryDto: ForgotPasswordAccountDto): Promise<import("nodemailer/lib/smtp-transport").SentMessageInfo>;
+    forgotPassword(queryDto: ForgotPasswordAccountDto): Promise<{
+        message: string;
+    }>;
 }

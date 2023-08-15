@@ -16,11 +16,6 @@ class CreateAccountDto extends base_account_dto_1.BaseAccountDto {
 }
 exports.CreateAccountDto = CreateAccountDto;
 __decorate([
-    (0, class_validator_1.IsNotEmpty)(),
-    (0, class_validator_1.Length)(4, 20),
-    __metadata("design:type", String)
-], CreateAccountDto.prototype, "username", void 0);
-__decorate([
     (0, class_validator_1.IsNumber)(),
     __metadata("design:type", Number)
 ], CreateAccountDto.prototype, "fk_company", void 0);

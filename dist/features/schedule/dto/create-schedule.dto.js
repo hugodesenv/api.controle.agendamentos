@@ -15,8 +15,8 @@ class CreateScheduleDto {
 }
 exports.CreateScheduleDto = CreateScheduleDto;
 __decorate([
-    (0, class_validator_1.IsNumber)(),
-    __metadata("design:type", Number)
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", String)
 ], CreateScheduleDto.prototype, "fk_account", void 0);
 __decorate([
     (0, class_validator_1.IsNumber)(),

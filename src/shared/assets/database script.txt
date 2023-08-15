@@ -5,14 +5,12 @@ create table company (
 );
 
 create table account (
-    id serial not null primary key,
-    username varchar(20) not null,
+    username varchar(45) not null primary key,
     password text not null,
     active boolean,
     fk_company integer not null,
-    email varchar(320),
-    constraint fk_company foreign key (fk_company) references company(id),
-    unique(username)
+    email varchar(320) not null,
+    constraint fk_company foreign key (fk_company) references company(id)
 );
 
 create table customer (
@@ -21,15 +19,15 @@ create table customer (
     name varchar(120) not null,
     cellphone varchar(13),
     email varchar(200),
-	 constraint fk_company foreign key (fk_company) references company(id)    
+	constraint fk_company foreign key (fk_company) references company(id)    
 );
 
 create table schedule (
 	id serial primary key,
-	fk_account integer not null,
+	fk_account varchar(45) not null,
 	fk_customer integer not null,
 	schedule_date timestamp,
-	constraint fk_account foreign key (fk_account) references account(id),
+	constraint fk_account foreign key (fk_account) references account(username),
 	constraint fk_customer foreign key (fk_customer) references customer(id)
 );
 

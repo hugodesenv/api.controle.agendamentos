@@ -15,7 +15,7 @@ class ForgotPasswordAccountDto {
 }
 exports.ForgotPasswordAccountDto = ForgotPasswordAccountDto;
 __decorate([
-    (0, class_validator_1.IsEmail)(),
+    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
-], ForgotPasswordAccountDto.prototype, "email", void 0);
+], ForgotPasswordAccountDto.prototype, "username", void 0);
 //# sourceMappingURL=forgot-password-account.dto.js.map

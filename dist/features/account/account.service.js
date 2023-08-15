@@ -22,7 +22,6 @@ let AccountService = exports.AccountService = class AccountService {
     async tryLogin(dto) {
         let [res] = await this.knex
             .select([
-            'account.id',
             'account.username',
             'account.email',
             'account.fk_company',
@@ -38,16 +37,8 @@ let AccountService = exports.AccountService = class AccountService {
         return { data: res };
     }
     async create(dto) {
-        let res = await this.knex('account')
-            .insert({
-            username: dto.username,
-            password: dto.password,
-            active: dto.active,
-            fk_company: dto.fk_company,
-            email: dto.email,
-        })
-            .returning('id');
-        return res[0]['id'];
+        let res = await this.knex('account').insert({ ...dto });
+        return res['rowCount'] > 0;
     }
     async update(dto) {
         let rows_affected = await this.knex('account')
@@ -56,8 +47,14 @@ let AccountService = exports.AccountService = class AccountService {
             active: dto.active,
             email: dto.email,
         })
-            .where({ id: dto.id });
+            .where({ username: dto.username });
         return rows_affected;
+    }
+    async findAllByUsername(username) {
+        const account = await this.knex('account')
+            .select('*')
+            .where('username', username);
+        return account;
     }
 };
 exports.AccountService = AccountService = __decorate([

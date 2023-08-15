@@ -1,6 +1,10 @@
-import { IsEmail, IsNotEmpty } from 'class-validator';
+import { IsEmail, IsNotEmpty, Length } from 'class-validator';
 
 export class BaseAccountDto {
+  @IsNotEmpty()
+  @Length(4, 45)
+  username: string;
+
   @IsNotEmpty()
   password: string;
 

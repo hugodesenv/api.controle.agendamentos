@@ -3,6 +3,7 @@ import { InjectKnex, Knex } from 'nestjs-knex';
 import { LoginAccountDto } from './dto/login-account.dto';
 import { CreateAccountDto } from './dto/create-account.dto';
 import { UpdateAccountDto } from './dto/update-account.dto';
+import { AccountInterface } from './interface/account.interface';
 
 @Injectable()
 export class AccountService {
@@ -11,7 +12,6 @@ export class AccountService {
   async tryLogin(dto: LoginAccountDto): Promise<any> {
     let [res] = await this.knex
       .select([
-        'account.id',
         'account.username',
         'account.email',
         'account.fk_company',
@@ -28,18 +28,9 @@ export class AccountService {
     return { data: res };
   }
 
-  async create(dto: CreateAccountDto): Promise<number> {
-    let res: number = await this.knex('account')
-      .insert({
-        username: dto.username,
-        password: dto.password,
-        active: dto.active,
-        fk_company: dto.fk_company,
-        email: dto.email,
-      })
-      .returning('id');
-
-    return res[0]['id'];
+  async create(dto: CreateAccountDto): Promise<boolean> {
+    let res = await this.knex('account').insert({ ...dto });
+    return res['rowCount'] > 0;
   }
 
   async update(dto: UpdateAccountDto): Promise<number> {
@@ -49,7 +40,14 @@ export class AccountService {
         active: dto.active,
         email: dto.email,
       })
-      .where({ id: dto.id });
+      .where({ username: dto.username });
     return rows_affected;
+  }
+
+  async findAllByUsername(username: string): Promise<AccountInterface[]> {
+    const account: AccountInterface[] = await this.knex('account')
+      .select('*')
+      .where('username', username);
+    return account;
   }
 }
