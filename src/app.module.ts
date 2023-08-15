@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { CustomerModule } from './features/customer/customer.module';
-import { DatabaseModule } from './shared/dabatase/database.module';
+import { DatabaseModule } from './features/dabatase/database.module';
 import { AccountModule } from './features/account/account.module';
 import { CompanyModule } from './features/company/company.module';
 import { ServiceModule } from './features/service/service.module';
