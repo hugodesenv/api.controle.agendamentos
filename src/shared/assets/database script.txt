@@ -86,20 +86,29 @@ $$
 DECLARE
 	sum_service_minutes INTEGER;
 	sum_price NUMERIC(19,6);
+	schedule_key INTEGER;
 BEGIN
+   -- Quando eh delete, ele nao existe o NEW, porque o registro foi excluido
+   -- Neste caso, devemos tratar p/ gravar numa variavel o valor da chave da tabela pai.
+   IF TG_OP = 'DELETE' THEN
+   	 schedule_key = OLD.FK_SCHEDULE
+   ELSE
+     schedule_key = NEW.FK_SCHEDULE
+   END IF;	
+
    -- Busca os totais
 	SELECT SUM(COALESCE(SERVICE_MINUTES,0)), SUM(COALESCE(PRICE,0)) 
 	INTO sum_service_minutes, sum_price
 	  FROM SCHEDULE_ITEM
-	 WHERE FK_SCHEDULE = NEW.FK_SCHEDULE;
+	 WHERE FK_SCHEDULE = schedule_key;
 	 
 	-- Atualiza a tabela de agendamento com os novos valores
 	UPDATE SCHEDULE
 		SET TOTAL_MINUTES = sum_service_minutes,
 			 TOTAL_PRICE = sum_price
-	 WHERE ID = NEW.FK_SCHEDULE;
+	 WHERE ID = schedule_key;
 		
-	RETURN NEW;
+	RETURN NULL;
 END;
 $$ LANGUAGE plpgsql;
 
