@@ -15,11 +15,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ScheduleService = void 0;
 const common_1 = require("@nestjs/common");
 const nestjs_knex_1 = require("nestjs-knex");
-const schedule_service_service_1 = require("../schedule_service/schedule-service.service");
+const schedule_item_service_1 = require("../schedule_item/schedule-item.service");
 let ScheduleService = exports.ScheduleService = class ScheduleService {
-    constructor(knex, scheduleService) {
+    constructor(knex, itemService) {
         this.knex = knex;
-        this.scheduleService = scheduleService;
+        this.itemService = itemService;
     }
     async create(createAccountDto) {
         const [scheduleInsertResult] = await this.knex('schedule')
@@ -30,24 +30,24 @@ let ScheduleService = exports.ScheduleService = class ScheduleService {
         })
             .returning('id');
         const scheduleID = scheduleInsertResult['id'];
-        var idsScheduleService = [];
-        await Promise.all(createAccountDto.services.map(async (scheduleServiceDto) => {
-            let objectScheduleService = {
-                ...scheduleServiceDto,
+        var idsScheduleItem = [];
+        await Promise.all(createAccountDto.items.map(async (scheduleItemDto) => {
+            let objectScheduleItem = {
+                ...scheduleItemDto,
                 fk_schedule: scheduleID,
             };
-            const id = await this.scheduleService.create(objectScheduleService);
-            idsScheduleService.push(id);
+            const id = await this.itemService.create(objectScheduleItem);
+            idsScheduleItem.push(id);
         }));
         return {
             schedule_id: scheduleID,
-            services_id: idsScheduleService,
+            items_id: idsScheduleItem,
         };
     }
 };
 exports.ScheduleService = ScheduleService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, nestjs_knex_1.InjectKnex)()),
-    __metadata("design:paramtypes", [Function, schedule_service_service_1.ScheduleServiceService])
+    __metadata("design:paramtypes", [Function, schedule_item_service_1.ScheduleItemService])
 ], ScheduleService);
 //# sourceMappingURL=schedule.service.js.map

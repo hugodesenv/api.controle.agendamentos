@@ -1,15 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import { InjectKnex, Knex } from 'nestjs-knex';
 import { CreateScheduleDto } from './dto/create-schedule.dto';
-import { CreateScheduleServiceDto } from '../schedule_service/dto/create-schedule-service.dto';
 import _ from 'lodash';
-import { ScheduleServiceService } from '../schedule_service/schedule-service.service';
+import { CreateScheduleItemDto } from '../schedule_item/dto/create-schedule-item.dto';
+import { ScheduleItemService } from '../schedule_item/schedule-item.service';
 
 @Injectable()
 export class ScheduleService {
   constructor(
     @InjectKnex() private readonly knex: Knex,
-    private readonly scheduleService: ScheduleServiceService,
+    private readonly itemService: ScheduleItemService,
   ) {}
 
   //@@@@@@implementar transaction
@@ -24,23 +24,23 @@ export class ScheduleService {
 
     const scheduleID = scheduleInsertResult['id'];
 
-    var idsScheduleService = [];
+    var idsScheduleItem = [];
     await Promise.all(
-      createAccountDto.services.map(
-        async (scheduleServiceDto: CreateScheduleServiceDto) => {
-          let objectScheduleService = {
-            ...scheduleServiceDto,
+      createAccountDto.items.map(
+        async (scheduleItemDto: CreateScheduleItemDto) => {
+          let objectScheduleItem = {
+            ...scheduleItemDto,
             fk_schedule: scheduleID,
           };
-          const id = await this.scheduleService.create(objectScheduleService);
-          idsScheduleService.push(id);
+          const id = await this.itemService.create(objectScheduleItem);
+          idsScheduleItem.push(id);
         },
       ),
     );
 
     return {
       schedule_id: scheduleID,
-      services_id: idsScheduleService,
+      items_id: idsScheduleItem,
     };
   }
 }

@@ -12,6 +12,7 @@ export class AccountService {
   async tryLogin(dto: LoginAccountDto): Promise<any> {
     let [res] = await this.knex
       .select([
+        'account.name',
         'account.username',
         'account.email',
         'account.fk_company',
@@ -39,6 +40,7 @@ export class AccountService {
         password: dto.password,
         active: dto.active,
         email: dto.email,
+        name: dto.email,
       })
       .where({ username: dto.username });
     return rows_affected;

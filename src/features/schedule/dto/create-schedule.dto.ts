@@ -1,5 +1,5 @@
 import { IsNotEmpty, IsNumber } from 'class-validator';
-import { CreateScheduleServiceDto } from 'src/features/schedule_service/dto/create-schedule-service.dto';
+import { CreateScheduleItemDto } from 'src/features/schedule_item/dto/create-schedule-item.dto';
 
 export class CreateScheduleDto {
   @IsNotEmpty()
@@ -11,5 +11,5 @@ export class CreateScheduleDto {
   @IsNotEmpty()
   schedule_date: Date;
 
-  services: CreateScheduleServiceDto[];
+  items: CreateScheduleItemDto[];
 }

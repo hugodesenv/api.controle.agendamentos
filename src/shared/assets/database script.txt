@@ -4,7 +4,10 @@ create table company (
 	active bool
 );
 
+------------------------------------------------------------------------------------
+
 create table account (
+    name varchar(80),
     username varchar(45) not null primary key,
     password text not null,
     active boolean,
@@ -12,6 +15,8 @@ create table account (
     email varchar(320) not null,
     constraint fk_company foreign key (fk_company) references company(id)
 );
+
+------------------------------------------------------------------------------------
 
 create table customer (
     id serial not null primary key,
@@ -22,16 +27,22 @@ create table customer (
 	constraint fk_company foreign key (fk_company) references company(id)    
 );
 
+------------------------------------------------------------------------------------
+
 create table schedule (
 	id serial primary key,
 	fk_account varchar(45) not null,
 	fk_customer integer not null,
 	schedule_date timestamp,
+    total_minutes integer,
+    total_price numeric(19,6),
 	constraint fk_account foreign key (fk_account) references account(username),
 	constraint fk_customer foreign key (fk_customer) references customer(id)
 );
 
-create table service (
+------------------------------------------------------------------------------------
+
+create table item (
     id serial primary key,
     fk_company integer not null,
     description varchar(80) not null,
@@ -40,15 +51,19 @@ create table service (
     constraint fk_company foreign key (fk_company) references company(id)
 );
 
-create table schedule_service (
+------------------------------------------------------------------------------------
+
+create table schedule_item (
     id serial primary key,
     fk_schedule integer not null,
-    fk_service integer not null,
+    fk_item integer not null,
     service_minutes integer,
     price numeric(19,6) default 0,
     constraint fk_schedule foreign key(fk_schedule) references schedule(id),
-    constraint fk_service foreign key(fk_service) references service(id)
+    constraint fk_item foreign key(fk_item) references item(id)
 );
+
+------------------------------------------------------------------------------------
 
 create table email (
 	id serial primary key,
@@ -59,3 +74,6 @@ create table email (
 	port integer,
 	constraint fk_company foreign key (fk_company) references company(id)
 );
+
+------------------------------------------------------------------------------------
+

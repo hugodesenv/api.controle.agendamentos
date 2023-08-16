@@ -5,10 +5,10 @@ import { CustomerModule } from './features/customer/customer.module';
 import { DatabaseModule } from './features/dabatase/database.module';
 import { AccountModule } from './features/account/account.module';
 import { CompanyModule } from './features/company/company.module';
-import { ServiceModule } from './features/service/service.module';
 import { ScheduleModule } from './features/schedule/schedule.module';
 import { EmailModule } from './features/email/email.module';
 import { ConfigModule } from '@nestjs/config';
+import { ItemModule } from './features/item/item.module';
 
 @Module({
   imports: [
@@ -16,10 +16,10 @@ import { ConfigModule } from '@nestjs/config';
     DatabaseModule,
     AccountModule,
     CompanyModule,
-    ServiceModule,
     ScheduleModule,
     EmailModule,
     ConfigModule.forRoot() /** env */,
+    ItemModule,
   ],
   controllers: [AppController],
   providers: [AppService],
