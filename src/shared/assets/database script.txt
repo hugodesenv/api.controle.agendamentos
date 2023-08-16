@@ -88,12 +88,12 @@ DECLARE
 	sum_price NUMERIC(19,6);
 	schedule_key INTEGER;
 BEGIN
-   -- Quando eh delete, ele nao existe o NEW, porque o registro foi excluido
-   -- Neste caso, devemos tratar p/ gravar numa variavel o valor da chave da tabela pai.
+   -- Quando é delete, ele não existe o NEW, porque o registro foi excluído
+   -- Neste caso, devemos tratar p/ gravar numa variável o valor da chave da tabela pai.
    IF TG_OP = 'DELETE' THEN
-   	 schedule_key = OLD.FK_SCHEDULE
+   	 schedule_key = OLD.FK_SCHEDULE;
    ELSE
-     schedule_key = NEW.FK_SCHEDULE
+     schedule_key = NEW.FK_SCHEDULE;
    END IF;	
 
    -- Busca os totais
