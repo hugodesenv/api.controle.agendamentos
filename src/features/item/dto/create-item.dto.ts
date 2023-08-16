@@ -1,4 +1,10 @@
-import { IsBoolean, IsInt, IsNotEmpty, IsNumber } from 'class-validator';
+import {
+  IsBoolean,
+  IsEmpty,
+  IsInt,
+  IsNotEmpty,
+  IsNumber,
+} from 'class-validator';
 
 export class CreateItemDto {
   @IsNumber()
@@ -12,4 +18,7 @@ export class CreateItemDto {
 
   @IsBoolean()
   active: boolean;
+
+  @IsEmpty()
+  type: string;
 }

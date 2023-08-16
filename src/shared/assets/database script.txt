@@ -1,3 +1,5 @@
+----!! SKEDOL DATABASE !!---- 
+
 create table company (
 	id serial primary key,
 	social_name varchar(120) not null,
@@ -48,6 +50,7 @@ create table item (
     description varchar(80) not null,
     service_minutes integer,
     active boolean,
+    type varchar(15) default 'undefined',
     constraint fk_company foreign key (fk_company) references company(id)
 );
 
@@ -77,3 +80,46 @@ create table email (
 
 ------------------------------------------------------------------------------------
 
+CREATE OR REPLACE FUNCTION func_calculate_schedule_total()
+RETURNS TRIGGER AS 
+$$
+DECLARE
+	sum_service_minutes INTEGER;
+	sum_price NUMERIC(19,6);
+BEGIN
+   -- Busca os totais
+	SELECT SUM(COALESCE(SERVICE_MINUTES,0)), SUM(COALESCE(PRICE,0)) 
+	INTO sum_service_minutes, sum_price
+	  FROM SCHEDULE_ITEM
+	 WHERE FK_SCHEDULE = NEW.FK_SCHEDULE;
+	 
+	-- Atualiza a tabela de agendamento com os novos valores
+	UPDATE SCHEDULE
+		SET TOTAL_MINUTES = sum_service_minutes,
+			 TOTAL_PRICE = sum_price
+	 WHERE ID = NEW.FK_SCHEDULE;
+		
+	RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+------------------------------------------------------------------------------------
+
+CREATE TRIGGER after_update_schedule_item
+AFTER UPDATE ON SCHEDULE_ITEM
+FOR EACH ROW
+EXECUTE FUNCTION func_calculate_schedule_total();
+
+------------------------------------------------------------------------------------
+
+CREATE TRIGGER after_insert_schedule_item
+AFTER INSERT ON SCHEDULE_ITEM
+FOR EACH ROW
+EXECUTE FUNCTION func_calculate_schedule_total();
+
+------------------------------------------------------------------------------------
+
+CREATE TRIGGER after_delete_schedule_item
+AFTER DELETE ON SCHEDULE_ITEM
+FOR EACH ROW
+EXECUTE FUNCTION func_calculate_schedule_total();
