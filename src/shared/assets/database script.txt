@@ -104,8 +104,8 @@ BEGIN
 	 
 	-- Atualiza a tabela de agendamento com os novos valores
 	UPDATE SCHEDULE
-		SET TOTAL_MINUTES = sum_service_minutes,
-			 TOTAL_PRICE = sum_price
+		SET TOTAL_MINUTES = COALESCE(sum_service_minutes,0),
+			 TOTAL_PRICE = COALESCE(sum_price,0)
 	 WHERE ID = schedule_key;
 		
 	RETURN NULL;
