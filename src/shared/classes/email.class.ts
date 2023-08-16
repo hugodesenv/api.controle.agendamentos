@@ -4,7 +4,7 @@ import SMTPTransport from 'nodemailer/lib/smtp-transport';
 import knexfile from '../../features/dabatase/knexfile';
 const nodemailer = require('nodemailer');
 
-export class EmailUtils {
+export class EmailClass {
   static getTransporter(
     parameter: IEmailTranspoter,
   ): Transporter<SMTPTransport.SentMessageInfo> {

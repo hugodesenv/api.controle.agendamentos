@@ -13,7 +13,7 @@ import { LoginAccountDto } from './dto/login-account.dto';
 import { AccountService } from './account.service';
 import { CreateAccountDto } from './dto/create-account.dto';
 import { UpdateAccountDto } from './dto/update-account.dto';
-import { EmailUtils } from 'src/shared/utils/email.utils';
+import { EmailClass } from 'src/shared/classes/email.class';
 import { ForgotPasswordAccountDto } from './dto/forgot-password-account.dto';
 
 @Controller('account')
@@ -87,7 +87,7 @@ export class AccountController {
         port: parseInt(process.env.EMAIL_PORT),
       };
 
-      const transpoter = EmailUtils.getTransporter(configuration);
+      const transpoter = EmailClass.getTransporter(configuration);
       const options = {
         from: process.env.EMAIL_LOGIN,
         to: userData.email,

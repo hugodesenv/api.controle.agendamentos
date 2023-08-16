@@ -1,10 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.EmailUtils = void 0;
+exports.EmailClass = void 0;
 const knex_1 = require("knex");
 const knexfile_1 = require("../../features/dabatase/knexfile");
 const nodemailer = require('nodemailer');
-class EmailUtils {
+class EmailClass {
     static getTransporter(parameter) {
         return nodemailer.createTransport({
             host: parameter.host,
@@ -37,5 +37,5 @@ class EmailUtils {
         }
     }
 }
-exports.EmailUtils = EmailUtils;
-//# sourceMappingURL=email.utils.js.map
+exports.EmailClass = EmailClass;
+//# sourceMappingURL=email.class.js.map

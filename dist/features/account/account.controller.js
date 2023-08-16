@@ -18,7 +18,7 @@ const login_account_dto_1 = require("./dto/login-account.dto");
 const account_service_1 = require("./account.service");
 const create_account_dto_1 = require("./dto/create-account.dto");
 const update_account_dto_1 = require("./dto/update-account.dto");
-const email_utils_1 = require("../../shared/utils/email.utils");
+const email_class_1 = require("../../shared/classes/email.class");
 const forgot_password_account_dto_1 = require("./dto/forgot-password-account.dto");
 let AccountController = exports.AccountController = class AccountController {
     constructor(accountService) {
@@ -74,7 +74,7 @@ let AccountController = exports.AccountController = class AccountController {
                 password: process.env.EMAIL_PASSWORD,
                 port: parseInt(process.env.EMAIL_PORT),
             };
-            const transpoter = email_utils_1.EmailUtils.getTransporter(configuration);
+            const transpoter = email_class_1.EmailClass.getTransporter(configuration);
             const options = {
                 from: process.env.EMAIL_LOGIN,
                 to: userData.email,
