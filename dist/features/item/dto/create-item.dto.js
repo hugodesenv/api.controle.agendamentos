@@ -30,4 +30,8 @@ __decorate([
     (0, class_validator_1.IsBoolean)(),
     __metadata("design:type", Boolean)
 ], CreateItemDto.prototype, "active", void 0);
+__decorate([
+    (0, class_validator_1.IsEmpty)(),
+    __metadata("design:type", String)
+], CreateItemDto.prototype, "type", void 0);
 //# sourceMappingURL=create-item.dto.js.map

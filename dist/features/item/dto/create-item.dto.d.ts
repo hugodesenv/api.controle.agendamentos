@@ -3,4 +3,5 @@ export declare class CreateItemDto {
     description: string;
     service_minutes: number;
     active: boolean;
+    type: string;
 }

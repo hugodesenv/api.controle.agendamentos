@@ -29,8 +29,24 @@ let CustomerController = exports.CustomerController = class CustomerController {
             throw new common_1.HttpException({ detail: e }, common_1.HttpStatus.FORBIDDEN);
         }
     }
-    async findAll() {
-        return await this.customerService.findAll();
+    async findAll(companyID) {
+        try {
+            const res = await this.customerService.findAll(companyID);
+            return res;
+        }
+        catch (e) {
+            throw new common_1.HttpException({ detail: e }, common_1.HttpStatus.FORBIDDEN);
+        }
+    }
+    async remove(id) {
+        try {
+            const res = await this.customerService.remove(id);
+            return res;
+        }
+        catch (e) {
+            console.log(e);
+            throw new common_1.HttpException({ detail: e }, common_1.HttpStatus.FORBIDDEN);
+        }
     }
 };
 __decorate([
@@ -42,10 +58,18 @@ __decorate([
 ], CustomerController.prototype, "create", null);
 __decorate([
     (0, common_1.Get)(),
+    __param(0, (0, common_1.Query)('companyID')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
 ], CustomerController.prototype, "findAll", null);
+__decorate([
+    (0, common_1.Post)('remove'),
+    __param(0, (0, common_1.Query)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number]),
+    __metadata("design:returntype", Promise)
+], CustomerController.prototype, "remove", null);
 exports.CustomerController = CustomerController = __decorate([
     (0, common_1.Controller)('customer'),
     __metadata("design:paramtypes", [customer_service_1.CustomerService])

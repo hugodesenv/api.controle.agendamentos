@@ -19,17 +19,21 @@ const nestjs_knex_1 = require("nestjs-knex");
 let CustomerService = exports.CustomerService = class CustomerService {
     constructor(knex) {
         this.knex = knex;
-        this.TABLE_NAME = 'customer';
     }
-    async findAll() {
-        let res = await this.knex
-            .select('id', 'name', 'cellphone', 'email')
-            .from(this.TABLE_NAME);
+    async findAll(companyID) {
+        let res = await this.knex('customer')
+            .select('*')
+            .where('fk_company', companyID);
         return res;
     }
     async create(dto) {
-        let res = await this.knex(this.TABLE_NAME).insert(dto).returning('id');
+        let res = await this.knex('customer').insert(dto).returning('id');
         return res[0]['id'];
+    }
+    async remove(id) {
+        const res = await this.knex('customer').delete().where('id', id);
+        console.log('customer.service.remove', res);
+        return res;
     }
 };
 exports.CustomerService = CustomerService = __decorate([
