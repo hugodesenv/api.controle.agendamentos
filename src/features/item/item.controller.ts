@@ -12,7 +12,7 @@ import { ItemService } from './item.service';
 export class ItemController {
   constructor(private readonly itemService: ItemService) {}
 
-  @Post('create')
+  @Post()
   async create(@Body() itemDto: CreateItemDto) {
     try {
       const id = await this.itemService.create(itemDto);

@@ -2,13 +2,12 @@ import {
   IsBoolean,
   IsEmpty,
   IsInt,
-  IsNotEmpty,
-  IsNumber,
+  IsNotEmpty
 } from 'class-validator';
 
 export class CreateItemDto {
-  @IsNumber()
-  fk_company: number;
+  @IsNotEmpty()
+  fk_company: string;
 
   @IsNotEmpty()
   description: string;

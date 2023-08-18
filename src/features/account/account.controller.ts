@@ -5,16 +5,16 @@ import {
   HttpCode,
   HttpException,
   HttpStatus,
+  Patch,
   Post,
-  Put,
   Query,
 } from '@nestjs/common';
-import { LoginAccountDto } from './dto/login-account.dto';
+import { EmailClass } from 'src/shared/classes/email.class';
 import { AccountService } from './account.service';
 import { CreateAccountDto } from './dto/create-account.dto';
-import { UpdateAccountDto } from './dto/update-account.dto';
-import { EmailClass } from 'src/shared/classes/email.class';
 import { ForgotPasswordAccountDto } from './dto/forgot-password-account.dto';
+import { LoginAccountDto } from './dto/login-account.dto';
+import { UpdateAccountDto } from './dto/update-account.dto';
 
 @Controller('account')
 export class AccountController {
@@ -27,7 +27,7 @@ export class AccountController {
     return has_account;
   }
 
-  @Post('create')
+  @Post()
   async create(@Body() dto: CreateAccountDto): Promise<{}> {
     try {
       let success = await this.accountService.create(dto);
@@ -37,7 +37,7 @@ export class AccountController {
     }
   }
 
-  @Put('update')
+  @Patch()
   async update(@Body() dto: UpdateAccountDto) {
     try {
       let affected = await this.accountService.update(dto);

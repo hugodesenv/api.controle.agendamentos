@@ -12,7 +12,7 @@ import { CreateEmailDto } from './dto/create-email.dto';
 export class EmailController {
   constructor(private emailService: EmailService) {}
 
-  @Post('create')
+  @Post()
   async create(@Body() dto: CreateEmailDto): Promise<boolean> {
     try {
       const res = await this.emailService.create(dto);

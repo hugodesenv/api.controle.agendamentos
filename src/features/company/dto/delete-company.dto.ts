@@ -1,6 +1,6 @@
-import { IsNumber } from 'class-validator';
+import { IsNotEmpty } from 'class-validator';
 
 export class DeleteCompanyDto {
-  @IsNumber()
-  id: number;
+  @IsNotEmpty()
+  id: string;
 }

@@ -12,7 +12,7 @@ import { CreateScheduleDto } from './dto/create-schedule.dto';
 export class ScheduleController {
   constructor(private readonly scheduleService: ScheduleService) {}
 
-  @Post('create')
+  @Post()
   async create(@Body() createScheduleDto: CreateScheduleDto) {
     try {
       const res = await this.scheduleService.create(createScheduleDto);

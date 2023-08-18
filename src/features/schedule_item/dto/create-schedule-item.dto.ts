@@ -1,11 +1,11 @@
-import { IsInt, IsNumber } from 'class-validator';
+import { IsInt, IsNotEmpty, IsNumber } from 'class-validator';
 
 export class CreateScheduleItemDto {
-  @IsInt()
-  fk_schedule: number;
+  @IsNotEmpty()
+  fk_schedule: string;
 
-  @IsInt()
-  fk_item: number;
+  @IsNotEmpty()
+  fk_item: string;
 
   @IsInt()
   service_minutes: number;

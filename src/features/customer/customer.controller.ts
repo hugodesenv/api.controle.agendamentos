@@ -6,6 +6,7 @@ import {
   HttpException,
   HttpStatus,
   Query,
+  Delete,
 } from '@nestjs/common';
 import { CreateCustomerDto } from './dto/create-customer.dto';
 import { CustomerService } from './customer.service';
@@ -14,7 +15,7 @@ import { CustomerService } from './customer.service';
 export class CustomerController {
   constructor(private customerService: CustomerService) {}
 
-  @Post('create')
+  @Post()
   async create(@Body() createCustomerDto: CreateCustomerDto): Promise<any> {
     try {
       let id = await this.customerService.create(createCustomerDto);
@@ -34,7 +35,7 @@ export class CustomerController {
     }
   }
 
-  @Post('remove')
+  @Delete()
   async remove(@Query('id') id: number) {
     try {
       const res = await this.customerService.remove(id);

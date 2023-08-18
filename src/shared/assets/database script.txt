@@ -1,7 +1,11 @@
 ----!! SKEDOL DATABASE !!---- 
 
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
+------------------------------------------------------------------------------------
+
 create table company (
-	id serial primary key,
+	id UUID primary key default uuid_generate_v4(),
 	social_name varchar(120) not null,
 	active bool
 );
@@ -13,7 +17,7 @@ create table account (
     username varchar(45) not null primary key,
     password text not null,
     active boolean,
-    fk_company integer not null,
+    fk_company UUID not null,
     email varchar(320) not null,
     constraint fk_company foreign key (fk_company) references company(id)
 );
@@ -21,8 +25,8 @@ create table account (
 ------------------------------------------------------------------------------------
 
 create table customer (
-    id serial not null primary key,
-    fk_company integer not null,
+    id UUID primary key default uuid_generate_v4(),
+    fk_company UUID not null,
     name varchar(120) not null,
     cellphone varchar(13),
     email varchar(200),
@@ -32,9 +36,9 @@ create table customer (
 ------------------------------------------------------------------------------------
 
 create table schedule (
-	id serial primary key,
+    id UUID primary key default uuid_generate_v4(),
 	fk_account varchar(45) not null,
-	fk_customer integer not null,
+	fk_customer UUID not null,
 	schedule_date timestamp,
     total_minutes integer,
     total_price numeric(19,6),
@@ -45,8 +49,8 @@ create table schedule (
 ------------------------------------------------------------------------------------
 
 create table item (
-    id serial primary key,
-    fk_company integer not null,
+    id UUID primary key default uuid_generate_v4(),
+    fk_company UUID not null,
     description varchar(80) not null,
     service_minutes integer,
     active boolean,
@@ -57,9 +61,9 @@ create table item (
 ------------------------------------------------------------------------------------
 
 create table schedule_item (
-    id serial primary key,
-    fk_schedule integer not null,
-    fk_item integer not null,
+    id UUID primary key default uuid_generate_v4(),
+    fk_schedule UUID not null,
+    fk_item UUID not null,
     service_minutes integer,
     price numeric(19,6) default 0,
     constraint fk_schedule foreign key(fk_schedule) references schedule(id),
@@ -69,8 +73,8 @@ create table schedule_item (
 ------------------------------------------------------------------------------------
 
 create table email (
-	id serial primary key,
-	fk_company integer not null,
+    id UUID primary key default uuid_generate_v4(),
+	fk_company UUID not null,
 	email varchar(320) not null,
 	password text,
 	host varchar(255),

@@ -1,21 +1,22 @@
-import { CompanyService } from './company.service';
 import {
   Body,
   Controller,
+  Delete,
   HttpException,
   HttpStatus,
+  Patch,
   Post,
-  Put,
 } from '@nestjs/common';
+import { CompanyService } from './company.service';
 import { CreateCompanyDto } from './dto/create-company.dto';
-import { UpdateCompanyDto } from './dto/update-company.dto';
 import { DeleteCompanyDto } from './dto/delete-company.dto';
+import { UpdateCompanyDto } from './dto/update-company.dto';
 
 @Controller('company')
 export class CompanyController {
   constructor(private readonly companyService: CompanyService) {}
 
-  @Post('create')
+  @Post()
   async create(@Body() dto: CreateCompanyDto) {
     try {
       let id = await this.companyService.create(dto);
@@ -25,7 +26,7 @@ export class CompanyController {
     }
   }
 
-  @Put('update')
+  @Patch()
   async update(@Body() dto: UpdateCompanyDto) {
     try {
       let affected: number = await this.companyService.update(dto);
@@ -35,7 +36,7 @@ export class CompanyController {
     }
   }
 
-  @Post('delete')
+  @Delete()
   async delete(@Body() dto: DeleteCompanyDto) {
     try {
       let res: number = await this.companyService.delete(dto);
