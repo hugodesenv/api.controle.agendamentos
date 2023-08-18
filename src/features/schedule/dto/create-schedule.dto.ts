@@ -3,7 +3,7 @@ import { CreateScheduleItemDto } from 'src/features/schedule_item/dto/create-sch
 
 export class CreateScheduleDto {
   @IsNotEmpty()
-  fk_account: string;
+  fk_employee: string;
 
   @IsNotEmpty()
   fk_customer: string;

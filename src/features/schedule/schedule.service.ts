@@ -16,7 +16,7 @@ export class ScheduleService {
   async create(createAccountDto: CreateScheduleDto): Promise<any> {
     const [scheduleInsertResult] = await this.knex('schedule')
       .insert({
-        fk_account: createAccountDto.fk_account,
+        fk_employee: createAccountDto.fk_employee,
         fk_customer: createAccountDto.fk_customer,
         schedule_date: createAccountDto.schedule_date,
       })

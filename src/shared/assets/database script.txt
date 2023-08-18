@@ -35,14 +35,24 @@ create table customer (
 
 ------------------------------------------------------------------------------------
 
+create table employee (
+	id UUID primary key default uuid_generate_v4(),
+	fk_company UUID not null,
+	name varchar(80) not null,
+	active boolean default true,
+	constraint fk_company foreign key(fk_company) references company(id)
+);
+
+------------------------------------------------------------------------------------
+
 create table schedule (
     id UUID primary key default uuid_generate_v4(),
-	fk_account varchar(45) not null,
+	fk_employee UUID not null,
 	fk_customer UUID not null,
 	schedule_date timestamp,
     total_minutes integer,
     total_price numeric(19,6),
-	constraint fk_account foreign key (fk_account) references account(username),
+	constraint fk_employee foreign key (fk_employee) references employee(id),
 	constraint fk_customer foreign key (fk_customer) references customer(id)
 );
 
@@ -136,3 +146,6 @@ CREATE TRIGGER after_delete_schedule_item
 AFTER DELETE ON SCHEDULE_ITEM
 FOR EACH ROW
 EXECUTE FUNCTION func_calculate_schedule_total();
+
+-------------------------------------------------------------------------------------
+
