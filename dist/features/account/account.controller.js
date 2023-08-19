@@ -14,12 +14,12 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AccountController = void 0;
 const common_1 = require("@nestjs/common");
-const login_account_dto_1 = require("./dto/login-account.dto");
+const email_class_1 = require("../../shared/util/email.class");
 const account_service_1 = require("./account.service");
 const create_account_dto_1 = require("./dto/create-account.dto");
-const update_account_dto_1 = require("./dto/update-account.dto");
-const email_class_1 = require("../../shared/classes/email.class");
 const forgot_password_account_dto_1 = require("./dto/forgot-password-account.dto");
+const login_account_dto_1 = require("./dto/login-account.dto");
+const update_account_dto_1 = require("./dto/update-account.dto");
 let AccountController = exports.AccountController = class AccountController {
     constructor(accountService) {
         this.accountService = accountService;
@@ -103,14 +103,14 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], AccountController.prototype, "login", null);
 __decorate([
-    (0, common_1.Post)('create'),
+    (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_account_dto_1.CreateAccountDto]),
     __metadata("design:returntype", Promise)
 ], AccountController.prototype, "create", null);
 __decorate([
-    (0, common_1.Put)('update'),
+    (0, common_1.Patch)(),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [update_account_dto_1.UpdateAccountDto]),

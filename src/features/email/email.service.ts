@@ -7,17 +7,11 @@ import { CreateEmailDto } from './dto/create-email.dto';
 export class EmailService {
   constructor(@InjectKnex() private readonly knex: Knex) {}
 
-  async create(dto: CreateEmailDto): Promise<any> {
+  async create(createEmailDto: CreateEmailDto): Promise<any> {
     const [res] = await this.knex('email')
-      .insert({
-        fk_company: dto.fk_company,
-        email: dto.email,
-        password: dto.password,
-        host: dto.host,
-        port: dto.port,
-      })
+      .insert(createEmailDto)
       .returning('id');
 
-    return { res };
+    return res;
   }
 }

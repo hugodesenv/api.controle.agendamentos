@@ -20,9 +20,9 @@ let EmailController = exports.EmailController = class EmailController {
     constructor(emailService) {
         this.emailService = emailService;
     }
-    async create(dto) {
+    async create(createEmailDto) {
         try {
-            const res = await this.emailService.create(dto);
+            const res = await this.emailService.create(createEmailDto);
             return res;
         }
         catch (e) {
@@ -31,7 +31,7 @@ let EmailController = exports.EmailController = class EmailController {
     }
 };
 __decorate([
-    (0, common_1.Post)('create'),
+    (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_email_dto_1.CreateEmailDto]),

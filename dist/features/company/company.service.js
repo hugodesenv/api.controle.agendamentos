@@ -18,21 +18,28 @@ const nestjs_knex_1 = require("nestjs-knex");
 let CompanyService = exports.CompanyService = class CompanyService {
     constructor(knex) {
         this.knex = knex;
-        this.TABLE_NAME = 'company';
     }
-    async create(dto) {
-        let query = await this.knex(this.TABLE_NAME).insert(dto).returning('id');
-        return query[0]['id'];
+    async create(createCompanyDto) {
+        const [res] = await this.knex('company')
+            .insert({
+            social_name: createCompanyDto.social_name,
+            active: createCompanyDto.active,
+        })
+            .returning('id');
+        return res;
     }
-    async update(dto) {
-        let rows = await this.knex(this.TABLE_NAME)
-            .update(dto)
-            .where({ id: dto.id });
-        return rows;
+    async update(id, updateCompanyDto) {
+        const res = await this.knex('company')
+            .update({
+            social_name: updateCompanyDto.social_name,
+            active: updateCompanyDto.active,
+        })
+            .where({ id: id });
+        return { rows_affected: res };
     }
-    async delete(dto) {
-        let rows = await this.knex(this.TABLE_NAME).where('id', dto.id).del();
-        return rows;
+    async delete(id) {
+        const res = await this.knex('company').where('id', id).del();
+        return { rows_affected: res };
     }
 };
 exports.CompanyService = CompanyService = __decorate([

@@ -9,7 +9,8 @@ import {
   Post,
   Query,
 } from '@nestjs/common';
-import { EmailClass } from 'src/shared/classes/email.class';
+import { IEmailTranspoter } from 'src/shared/interface/email-transporter.interface';
+import { EmailClass } from 'src/shared/util/email.class';
 import { AccountService } from './account.service';
 import { CreateAccountDto } from './dto/create-account.dto';
 import { ForgotPasswordAccountDto } from './dto/forgot-password-account.dto';

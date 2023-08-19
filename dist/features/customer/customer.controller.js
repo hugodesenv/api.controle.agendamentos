@@ -22,16 +22,16 @@ let CustomerController = exports.CustomerController = class CustomerController {
     }
     async create(createCustomerDto) {
         try {
-            let id = await this.customerService.create(createCustomerDto);
-            return { id };
+            const res = await this.customerService.create(createCustomerDto);
+            return res;
         }
         catch (e) {
             throw new common_1.HttpException({ detail: e }, common_1.HttpStatus.FORBIDDEN);
         }
     }
-    async findAll(companyID) {
+    async findAll(companyId) {
         try {
-            const res = await this.customerService.findAll(companyID);
+            const res = await this.customerService.findAll(companyId);
             return res;
         }
         catch (e) {
@@ -44,30 +44,29 @@ let CustomerController = exports.CustomerController = class CustomerController {
             return res;
         }
         catch (e) {
-            console.log(e);
             throw new common_1.HttpException({ detail: e }, common_1.HttpStatus.FORBIDDEN);
         }
     }
 };
 __decorate([
-    (0, common_1.Post)('create'),
+    (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_customer_dto_1.CreateCustomerDto]),
     __metadata("design:returntype", Promise)
 ], CustomerController.prototype, "create", null);
 __decorate([
-    (0, common_1.Get)(),
-    __param(0, (0, common_1.Query)('companyID')),
+    (0, common_1.Get)(':company_id'),
+    __param(0, (0, common_1.Param)('company_id')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number]),
+    __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], CustomerController.prototype, "findAll", null);
 __decorate([
-    (0, common_1.Post)('remove'),
-    __param(0, (0, common_1.Query)('id')),
+    (0, common_1.Delete)(':id'),
+    __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number]),
+    __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], CustomerController.prototype, "remove", null);
 exports.CustomerController = CustomerController = __decorate([

@@ -3,5 +3,5 @@ import { Knex } from 'nestjs-knex';
 export declare class ScheduleItemService {
     private readonly knex;
     constructor(knex: Knex);
-    create(item: CreateScheduleItemDto): Promise<any>;
+    create(createScheduleItemDto: CreateScheduleItemDto): Promise<any>;
 }

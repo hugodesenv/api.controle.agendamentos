@@ -18,6 +18,7 @@ const schedule_module_1 = require("./features/schedule/schedule.module");
 const email_module_1 = require("./features/email/email.module");
 const config_1 = require("@nestjs/config");
 const item_module_1 = require("./features/item/item.module");
+const employee_module_1 = require("./features/employee/employee.module");
 let AppModule = exports.AppModule = class AppModule {
 };
 exports.AppModule = AppModule = __decorate([
@@ -31,6 +32,7 @@ exports.AppModule = AppModule = __decorate([
             email_module_1.EmailModule,
             config_1.ConfigModule.forRoot(),
             item_module_1.ItemModule,
+            employee_module_1.EmployeeModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

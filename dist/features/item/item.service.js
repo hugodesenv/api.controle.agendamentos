@@ -20,7 +20,15 @@ let ItemService = exports.ItemService = class ItemService {
         this.knex = knex;
     }
     async create(itemDto) {
-        const [query] = await this.knex('item').insert(itemDto).returning('id');
+        const [query] = await this.knex('item')
+            .insert({
+            fk_company: itemDto.fk_company,
+            description: itemDto.description,
+            service_minutes: itemDto.service_minutes,
+            active: itemDto.active,
+            type: itemDto.type,
+        })
+            .returning('id');
         return query;
     }
 };

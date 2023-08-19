@@ -29,9 +29,9 @@ export class AccountService {
     return { data: res };
   }
 
-  async create(dto: CreateAccountDto): Promise<boolean> {
-    let res = await this.knex('account').insert({ ...dto });
-    return res['rowCount'] > 0;
+  async create(dto: CreateAccountDto): Promise<any> {
+    const [res] = await this.knex('account').insert(dto).returning('id');
+    return { res };
   }
 
   async update(dto: UpdateAccountDto): Promise<number> {

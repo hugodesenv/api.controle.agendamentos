@@ -16,7 +16,7 @@ class CreateAccountDto extends base_account_dto_1.BaseAccountDto {
 }
 exports.CreateAccountDto = CreateAccountDto;
 __decorate([
-    (0, class_validator_1.IsNumber)(),
-    __metadata("design:type", Number)
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", String)
 ], CreateAccountDto.prototype, "fk_company", void 0);
 //# sourceMappingURL=create-account.dto.js.map

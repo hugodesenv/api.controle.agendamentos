@@ -1,30 +1,35 @@
 import { Injectable } from '@nestjs/common';
+import { InjectKnex, Knex } from 'nestjs-knex';
 import { CreateCompanyDto } from './dto/create-company.dto';
 import { UpdateCompanyDto } from './dto/update-company.dto';
-import { InjectKnex, Knex } from 'nestjs-knex';
-import { DeleteCompanyDto } from './dto/delete-company.dto';
 
 @Injectable()
 export class CompanyService {
-  private readonly TABLE_NAME = 'company';
-
   constructor(@InjectKnex() private readonly knex: Knex) {}
 
-  async create(dto: CreateCompanyDto): Promise<number> {
-    let query = await this.knex(this.TABLE_NAME).insert(dto).returning('id');
-    return query[0]['id'];
+  async create(createCompanyDto: CreateCompanyDto): Promise<number> {
+    const [res] = await this.knex('company')
+      .insert({
+        social_name: createCompanyDto.social_name,
+        active: createCompanyDto.active,
+      })
+      .returning('id');
+    return res;
   }
 
-  async update(dto: UpdateCompanyDto): Promise<number> {
-    let rows = await this.knex(this.TABLE_NAME)
-      .update(dto)
-      .where({ id: dto.id });
+  async update(id: string, updateCompanyDto: UpdateCompanyDto): Promise<any> {
+    const res = await this.knex('company')
+      .update({
+        social_name: updateCompanyDto.social_name,
+        active: updateCompanyDto.active,
+      })
+      .where({ id: id });
 
-    return rows;
+    return { rows_affected: res };
   }
 
-  async delete(dto: DeleteCompanyDto): Promise<number> {
-    let rows = await this.knex(this.TABLE_NAME).where('id', dto.id).del();
-    return rows;
+  async delete(id: string): Promise<any> {
+    const res = await this.knex('company').where('id', id).del();
+    return { rows_affected: res };
   }
 }

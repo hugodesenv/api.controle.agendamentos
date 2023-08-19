@@ -1,9 +1,4 @@
-import {
-  IsBoolean,
-  IsEmpty,
-  IsInt,
-  IsNotEmpty
-} from 'class-validator';
+import { IsBoolean, IsEmpty, IsInt, IsNotEmpty } from 'class-validator';
 
 export class CreateItemDto {
   @IsNotEmpty()

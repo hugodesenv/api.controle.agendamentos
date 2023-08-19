@@ -38,8 +38,8 @@ let AccountService = exports.AccountService = class AccountService {
         return { data: res };
     }
     async create(dto) {
-        let res = await this.knex('account').insert({ ...dto });
-        return res['rowCount'] > 0;
+        const [res] = await this.knex('account').insert(dto).returning('id');
+        return { res };
     }
     async update(dto) {
         let rows_affected = await this.knex('account')

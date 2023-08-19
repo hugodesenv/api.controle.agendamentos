@@ -20,20 +20,19 @@ let CustomerService = exports.CustomerService = class CustomerService {
     constructor(knex) {
         this.knex = knex;
     }
-    async findAll(companyID) {
+    async findAll(companyId) {
         let res = await this.knex('customer')
             .select('*')
-            .where('fk_company', companyID);
+            .where('fk_company', companyId);
         return res;
     }
     async create(dto) {
-        let res = await this.knex('customer').insert(dto).returning('id');
-        return res[0]['id'];
+        const [res] = await this.knex('customer').insert(dto).returning('id');
+        return res;
     }
     async remove(id) {
         const res = await this.knex('customer').delete().where('id', id);
-        console.log('customer.service.remove', res);
-        return res;
+        return { rows_affected: res };
     }
 };
 exports.CustomerService = CustomerService = __decorate([

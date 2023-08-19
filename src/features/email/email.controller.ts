@@ -13,9 +13,9 @@ export class EmailController {
   constructor(private emailService: EmailService) {}
 
   @Post()
-  async create(@Body() dto: CreateEmailDto): Promise<boolean> {
+  async create(@Body() createEmailDto: CreateEmailDto): Promise<boolean> {
     try {
-      const res = await this.emailService.create(dto);
+      const res = await this.emailService.create(createEmailDto);
       return res;
     } catch (e) {
       throw new HttpException({ detail: e }, HttpStatus.FORBIDDEN);

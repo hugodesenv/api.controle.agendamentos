@@ -28,7 +28,7 @@ export class ScheduleService {
     await Promise.all(
       createAccountDto.items.map(
         async (scheduleItemDto: CreateScheduleItemDto) => {
-          let objectScheduleItem = {
+          const objectScheduleItem = {
             ...scheduleItemDto,
             fk_schedule: scheduleID,
           };

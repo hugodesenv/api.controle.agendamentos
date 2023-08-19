@@ -4,12 +4,12 @@ import {
   Delete,
   HttpException,
   HttpStatus,
-  Patch,
+  Param,
   Post,
+  Put,
 } from '@nestjs/common';
 import { CompanyService } from './company.service';
 import { CreateCompanyDto } from './dto/create-company.dto';
-import { DeleteCompanyDto } from './dto/delete-company.dto';
 import { UpdateCompanyDto } from './dto/update-company.dto';
 
 @Controller('company')
@@ -17,30 +17,33 @@ export class CompanyController {
   constructor(private readonly companyService: CompanyService) {}
 
   @Post()
-  async create(@Body() dto: CreateCompanyDto) {
+  async create(@Body() createCompanyDto: CreateCompanyDto) {
     try {
-      let id = await this.companyService.create(dto);
-      return { id };
+      const id = await this.companyService.create(createCompanyDto);
+      return id;
     } catch (e) {
       throw new HttpException({ detail: e }, HttpStatus.FORBIDDEN);
     }
   }
 
-  @Patch()
-  async update(@Body() dto: UpdateCompanyDto) {
+  @Put(':id')
+  async update(
+    @Param('id') id: string,
+    @Body() updateCompanyDto: UpdateCompanyDto,
+  ) {
     try {
-      let affected: number = await this.companyService.update(dto);
-      return { affected };
+      const res = await this.companyService.update(id, updateCompanyDto);
+      return res;
     } catch (e) {
       throw new HttpException({ detail: e }, HttpStatus.FORBIDDEN);
     }
   }
 
-  @Delete()
-  async delete(@Body() dto: DeleteCompanyDto) {
+  @Delete(':id')
+  async delete(@Param('id') id: string) {
     try {
-      let res: number = await this.companyService.delete(dto);
-      return { success: res > 0, rows_affected: res };
+      const res = await this.companyService.delete(id);
+      return res;
     } catch (e) {
       throw new HttpException({ detail: e }, HttpStatus.FORBIDDEN);
     }

@@ -1,5 +1,5 @@
 export declare class CreateItemDto {
-    fk_company: number;
+    fk_company: string;
     description: string;
     service_minutes: number;
     active: boolean;

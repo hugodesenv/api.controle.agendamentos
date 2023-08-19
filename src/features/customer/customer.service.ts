@@ -7,21 +7,20 @@ import { CreateCustomerDto } from './dto/create-customer.dto';
 export class CustomerService {
   constructor(@InjectKnex() private readonly knex: Knex) {}
 
-  async findAll(companyID: number): Promise<any> {
+  async findAll(companyId: string): Promise<any> {
     let res = await this.knex('customer')
       .select('*')
-      .where('fk_company', companyID);
+      .where('fk_company', companyId);
     return res;
   }
 
-  async create(dto: CreateCustomerDto): Promise<number> {
-    let res = await this.knex('customer').insert(dto).returning('id');
-    return res[0]['id'];
+  async create(dto: CreateCustomerDto): Promise<string> {
+    const [res] = await this.knex('customer').insert(dto).returning('id');
+    return res;
   }
 
-  async remove(id: number) {
+  async remove(id: string): Promise<any> {
     const res = await this.knex('customer').delete().where('id', id);
-    console.log('customer.service.remove', res);
-    return res;
+    return { rows_affected: res };
   }
 }

@@ -31,7 +31,7 @@ let ScheduleController = exports.ScheduleController = class ScheduleController {
     }
 };
 __decorate([
-    (0, common_1.Post)('create'),
+    (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_schedule_dto_1.CreateScheduleDto]),

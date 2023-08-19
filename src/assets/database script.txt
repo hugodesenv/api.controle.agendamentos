@@ -50,8 +50,8 @@ create table schedule (
 	fk_employee UUID not null,
 	fk_customer UUID not null,
 	schedule_date timestamp,
-    total_minutes integer,
-    total_price numeric(19,6),
+    total_minutes integer default 0,
+    total_price numeric(19,6) default 0,
 	constraint fk_employee foreign key (fk_employee) references employee(id),
 	constraint fk_customer foreign key (fk_customer) references customer(id)
 );
@@ -100,7 +100,7 @@ $$
 DECLARE
 	sum_service_minutes INTEGER;
 	sum_price NUMERIC(19,6);
-	schedule_key INTEGER;
+	schedule_key UUID;
 BEGIN
    -- Quando é delete, ele não existe o NEW, porque o registro foi excluído
    -- Neste caso, devemos tratar p/ gravar numa variável o valor da chave da tabela pai.

@@ -31,7 +31,7 @@ let ItemController = exports.ItemController = class ItemController {
     }
 };
 __decorate([
-    (0, common_1.Post)('create'),
+    (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_item_dto_1.CreateItemDto]),

@@ -15,12 +15,12 @@ class CreateScheduleItemDto {
 }
 exports.CreateScheduleItemDto = CreateScheduleItemDto;
 __decorate([
-    (0, class_validator_1.IsInt)(),
-    __metadata("design:type", Number)
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", String)
 ], CreateScheduleItemDto.prototype, "fk_schedule", void 0);
 __decorate([
-    (0, class_validator_1.IsInt)(),
-    __metadata("design:type", Number)
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", String)
 ], CreateScheduleItemDto.prototype, "fk_item", void 0);
 __decorate([
     (0, class_validator_1.IsInt)(),

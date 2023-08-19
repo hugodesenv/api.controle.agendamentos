@@ -1,4 +1,4 @@
-interface IEmailTranspoter {
+export interface IEmailTranspoter {
     host: string;
     port: number;
     email: string;

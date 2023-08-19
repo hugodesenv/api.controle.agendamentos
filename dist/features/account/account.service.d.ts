@@ -7,7 +7,7 @@ export declare class AccountService {
     private readonly knex;
     constructor(knex: Knex);
     tryLogin(dto: LoginAccountDto): Promise<any>;
-    create(dto: CreateAccountDto): Promise<boolean>;
+    create(dto: CreateAccountDto): Promise<any>;
     update(dto: UpdateAccountDto): Promise<number>;
     findAllByUsername(username: string): Promise<AccountInterface[]>;
 }

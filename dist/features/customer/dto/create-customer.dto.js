@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreateCustomerDto = void 0;
+const common_1 = require("@nestjs/common");
 const class_validator_1 = require("class-validator");
 class CreateCustomerDto {
 }
@@ -19,11 +20,15 @@ __decorate([
     __metadata("design:type", String)
 ], CreateCustomerDto.prototype, "name", void 0);
 __decorate([
+    (0, common_1.Optional)(),
+    __metadata("design:type", String)
+], CreateCustomerDto.prototype, "cellphone", void 0);
+__decorate([
     (0, class_validator_1.IsEmail)(),
     __metadata("design:type", String)
 ], CreateCustomerDto.prototype, "email", void 0);
 __decorate([
-    (0, class_validator_1.IsNumber)(),
-    __metadata("design:type", Number)
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", String)
 ], CreateCustomerDto.prototype, "fk_company", void 0);
 //# sourceMappingURL=create-customer.dto.js.map

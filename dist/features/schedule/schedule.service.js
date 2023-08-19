@@ -24,7 +24,7 @@ let ScheduleService = exports.ScheduleService = class ScheduleService {
     async create(createAccountDto) {
         const [scheduleInsertResult] = await this.knex('schedule')
             .insert({
-            fk_account: createAccountDto.fk_account,
+            fk_employee: createAccountDto.fk_employee,
             fk_customer: createAccountDto.fk_customer,
             schedule_date: createAccountDto.schedule_date,
         })
@@ -32,7 +32,7 @@ let ScheduleService = exports.ScheduleService = class ScheduleService {
         const scheduleID = scheduleInsertResult['id'];
         var idsScheduleItem = [];
         await Promise.all(createAccountDto.items.map(async (scheduleItemDto) => {
-            let objectScheduleItem = {
+            const objectScheduleItem = {
                 ...scheduleItemDto,
                 fk_schedule: scheduleID,
             };

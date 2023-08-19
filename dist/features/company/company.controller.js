@@ -13,37 +13,36 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CompanyController = void 0;
-const company_service_1 = require("./company.service");
 const common_1 = require("@nestjs/common");
+const company_service_1 = require("./company.service");
 const create_company_dto_1 = require("./dto/create-company.dto");
 const update_company_dto_1 = require("./dto/update-company.dto");
-const delete_company_dto_1 = require("./dto/delete-company.dto");
 let CompanyController = exports.CompanyController = class CompanyController {
     constructor(companyService) {
         this.companyService = companyService;
     }
-    async create(dto) {
+    async create(createCompanyDto) {
         try {
-            let id = await this.companyService.create(dto);
-            return { id };
+            const id = await this.companyService.create(createCompanyDto);
+            return id;
         }
         catch (e) {
             throw new common_1.HttpException({ detail: e }, common_1.HttpStatus.FORBIDDEN);
         }
     }
-    async update(dto) {
+    async update(id, updateCompanyDto) {
         try {
-            let affected = await this.companyService.update(dto);
-            return { affected };
+            const res = await this.companyService.update(id, updateCompanyDto);
+            return res;
         }
         catch (e) {
             throw new common_1.HttpException({ detail: e }, common_1.HttpStatus.FORBIDDEN);
         }
     }
-    async delete(dto) {
+    async delete(id) {
         try {
-            let res = await this.companyService.delete(dto);
-            return { success: res > 0, rows_affected: res };
+            const res = await this.companyService.delete(id);
+            return res;
         }
         catch (e) {
             throw new common_1.HttpException({ detail: e }, common_1.HttpStatus.FORBIDDEN);
@@ -51,24 +50,25 @@ let CompanyController = exports.CompanyController = class CompanyController {
     }
 };
 __decorate([
-    (0, common_1.Post)('create'),
+    (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_company_dto_1.CreateCompanyDto]),
     __metadata("design:returntype", Promise)
 ], CompanyController.prototype, "create", null);
 __decorate([
-    (0, common_1.Put)('update'),
-    __param(0, (0, common_1.Body)()),
+    (0, common_1.Put)(':id'),
+    __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [update_company_dto_1.UpdateCompanyDto]),
+    __metadata("design:paramtypes", [String, update_company_dto_1.UpdateCompanyDto]),
     __metadata("design:returntype", Promise)
 ], CompanyController.prototype, "update", null);
 __decorate([
-    (0, common_1.Post)('delete'),
-    __param(0, (0, common_1.Body)()),
+    (0, common_1.Delete)(':id'),
+    __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [delete_company_dto_1.DeleteCompanyDto]),
+    __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], CompanyController.prototype, "delete", null);
 exports.CompanyController = CompanyController = __decorate([

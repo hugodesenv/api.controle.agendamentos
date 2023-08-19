@@ -9,13 +9,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.DeleteCompanyDto = void 0;
+exports.BaseEmployeeDto = void 0;
 const class_validator_1 = require("class-validator");
-class DeleteCompanyDto {
+class BaseEmployeeDto {
 }
-exports.DeleteCompanyDto = DeleteCompanyDto;
+exports.BaseEmployeeDto = BaseEmployeeDto;
 __decorate([
-    (0, class_validator_1.IsNumber)(),
-    __metadata("design:type", Number)
-], DeleteCompanyDto.prototype, "id", void 0);
-//# sourceMappingURL=delete-company.dto.js.map
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", String)
+], BaseEmployeeDto.prototype, "name", void 0);
+__decorate([
+    (0, class_validator_1.IsBoolean)(),
+    __metadata("design:type", Boolean)
+], BaseEmployeeDto.prototype, "active", void 0);
+//# sourceMappingURL=base-employee.dto.js.map
