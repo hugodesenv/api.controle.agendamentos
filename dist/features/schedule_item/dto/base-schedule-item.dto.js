@@ -9,18 +9,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CreateScheduleItemDto = void 0;
+exports.BaseScheduleItemDto = void 0;
 const class_validator_1 = require("class-validator");
-const base_schedule_item_dto_1 = require("./base-schedule-item.dto");
-class CreateScheduleItemDto extends base_schedule_item_dto_1.BaseScheduleItemDto {
+class BaseScheduleItemDto {
 }
-exports.CreateScheduleItemDto = CreateScheduleItemDto;
+exports.BaseScheduleItemDto = BaseScheduleItemDto;
 __decorate([
-    (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", String)
-], CreateScheduleItemDto.prototype, "fk_schedule", void 0);
+    (0, class_validator_1.IsInt)(),
+    __metadata("design:type", Number)
+], BaseScheduleItemDto.prototype, "service_minutes", void 0);
 __decorate([
-    (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", String)
-], CreateScheduleItemDto.prototype, "fk_item", void 0);
-//# sourceMappingURL=create-schedule-item.dto.js.map
+    (0, class_validator_1.IsNumber)(),
+    __metadata("design:type", Number)
+], BaseScheduleItemDto.prototype, "price", void 0);
+//# sourceMappingURL=base-schedule-item.dto.js.map

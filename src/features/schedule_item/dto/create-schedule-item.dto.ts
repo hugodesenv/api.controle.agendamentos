@@ -1,15 +1,10 @@
-import { IsInt, IsNotEmpty, IsNumber } from 'class-validator';
+import { IsNotEmpty } from 'class-validator';
+import { BaseScheduleItemDto } from './base-schedule-item.dto';
 
-export class CreateScheduleItemDto {
+export class CreateScheduleItemDto extends BaseScheduleItemDto {
   @IsNotEmpty()
   fk_schedule: string;
 
   @IsNotEmpty()
   fk_item: string;
-
-  @IsInt()
-  service_minutes: number;
-
-  @IsNumber()
-  price: number;
 }
