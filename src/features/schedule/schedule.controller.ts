@@ -31,8 +31,8 @@ export class ScheduleController {
     @Body() updateScheduleDto: UpdateScheduleDto,
   ) {
     try {
-      console.log('body > ', updateScheduleDto);
-      implementar o update do agendamento aqui
+      const res = await this.scheduleService.update(id, updateScheduleDto);
+      return res;
     } catch (e) {
       throw new HttpException({ detail: e }, HttpStatus.FORBIDDEN);
     }

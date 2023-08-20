@@ -4,6 +4,8 @@ import { CreateScheduleDto } from './dto/create-schedule.dto';
 import _ from 'lodash';
 import { CreateScheduleItemDto } from '../schedule_item/dto/create-schedule-item.dto';
 import { ScheduleItemService } from '../schedule_item/schedule-item.service';
+import { UpdateScheduleDto } from './dto/update-schedule.dto';
+import { UpdateScheduleItemDto } from '../schedule_item/dto/update-schedule-item.dto';
 
 @Injectable()
 export class ScheduleService {
@@ -43,4 +45,30 @@ export class ScheduleService {
       items_id: idsScheduleItem,
     };
   }
+
+  async update(id: string, updateSheduleDto: UpdateScheduleDto) {
+    await this.knex('schedule')
+      .update({
+        fk_customer: updateSheduleDto.fk_customer,
+        schedule_date: updateSheduleDto.schedule_date,
+      })
+      .where(id);
+
+    const items = updateSheduleDto.items;
+    await Promise.all([
+      this._tryInsertItemsService(items.insert),
+      this._tryUpdateItemsService(items.update),
+      this._tryDeleteItemsService(items.delete),
+    ]);
+  }
+
+  private _tryInsertItemsService(items: CreateScheduleItemDto[]) {
+    items.map(async (value: CreateScheduleItemDto) => {
+      await this.itemService.create(value);
+    });
+  }
+
+  private _tryUpdateItemsService(items: UpdateScheduleItemDto[]) {}
+
+  private _tryDeleteItemsService(ids: string[]) {}
 }
