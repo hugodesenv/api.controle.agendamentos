@@ -32,7 +32,8 @@ let ScheduleController = exports.ScheduleController = class ScheduleController {
     }
     async update(id, updateScheduleDto) {
         try {
-            console.log('body > ', updateScheduleDto);
+            const res = await this.scheduleService.update(id, updateScheduleDto);
+            return res;
         }
         catch (e) {
             throw new common_1.HttpException({ detail: e }, common_1.HttpStatus.FORBIDDEN);

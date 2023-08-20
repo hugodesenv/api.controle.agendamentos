@@ -1,11 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { InjectKnex, Knex } from 'nestjs-knex';
-import { CreateScheduleDto } from './dto/create-schedule.dto';
-import _ from 'lodash';
 import { CreateScheduleItemDto } from '../schedule_item/dto/create-schedule-item.dto';
-import { ScheduleItemService } from '../schedule_item/schedule-item.service';
-import { UpdateScheduleDto } from './dto/update-schedule.dto';
 import { UpdateScheduleItemDto } from '../schedule_item/dto/update-schedule-item.dto';
+import { ScheduleItemService } from '../schedule_item/schedule-item.service';
+import { CreateScheduleDto } from './dto/create-schedule.dto';
+import { UpdateScheduleDto } from './dto/update-schedule.dto';
 
 @Injectable()
 export class ScheduleService {
@@ -14,61 +13,73 @@ export class ScheduleService {
     private readonly itemService: ScheduleItemService,
   ) {}
 
-  //@@@@@@implementar transaction
   async create(createAccountDto: CreateScheduleDto): Promise<any> {
-    const [scheduleInsertResult] = await this.knex('schedule')
-      .insert({
-        fk_employee: createAccountDto.fk_employee,
-        fk_customer: createAccountDto.fk_customer,
-        schedule_date: createAccountDto.schedule_date,
-      })
-      .returning('id');
+    const trx = await this.knex.transaction();
+    try {
+      const [res] = await trx('schedule')
+        .insert({
+          fk_employee: createAccountDto.fk_employee,
+          fk_customer: createAccountDto.fk_customer,
+          schedule_date: createAccountDto.schedule_date,
+        })
+        .returning('id');
 
-    const scheduleID = scheduleInsertResult['id'];
+      await Promise.all([
+        this._proccessItemInsert(res.id, createAccountDto.items, trx),
+      ]);
 
-    var idsScheduleItem = [];
-    await Promise.all(
-      createAccountDto.items.map(
-        async (scheduleItemDto: CreateScheduleItemDto) => {
-          const objectScheduleItem = {
-            ...scheduleItemDto,
-            fk_schedule: scheduleID,
-          };
-          const id = await this.itemService.create(objectScheduleItem);
-          idsScheduleItem.push(id);
-        },
-      ),
-    );
+      await trx.commit();
 
-    return {
-      schedule_id: scheduleID,
-      items_id: idsScheduleItem,
-    };
+      return { message: 'Operação realizada com sucesso!' };
+    } catch (error) {
+      trx.rollback();
+      throw error;
+    }
   }
 
-  async update(id: string, updateSheduleDto: UpdateScheduleDto) {
-    await this.knex('schedule')
-      .update({
-        fk_customer: updateSheduleDto.fk_customer,
-        schedule_date: updateSheduleDto.schedule_date,
-      })
-      .where(id);
+  async update(scheduleID: string, updateSheduleDto: UpdateScheduleDto) {
+    const trx = await this.knex.transaction();
+    try {
+      await trx('schedule')
+        .update({
+          fk_customer: updateSheduleDto.fk_customer,
+          schedule_date: updateSheduleDto.schedule_date,
+        })
+        .where(scheduleID);
 
-    const items = updateSheduleDto.items;
-    await Promise.all([
-      this._tryInsertItemsService(items.insert),
-      this._tryUpdateItemsService(items.update),
-      this._tryDeleteItemsService(items.delete),
-    ]);
+      const items = updateSheduleDto.items;
+      await Promise.all([
+        this._proccessItemInsert(scheduleID, items.insert, trx),
+        this._proccessItemUpdate(items.update, trx),
+        this._proccessItemDelete(items.delete, trx),
+      ]);
+
+      trx.commit();
+    } catch (error) {
+      trx.rollback();
+    }
   }
 
-  private _tryInsertItemsService(items: CreateScheduleItemDto[]) {
-    items.map(async (value: CreateScheduleItemDto) => {
-      await this.itemService.create(value);
+  private async _proccessItemInsert(
+    scheduleID: string,
+    items: CreateScheduleItemDto[],
+    trx: Knex,
+  ) {
+    items.map(async (data: CreateScheduleItemDto) => {
+      const item = { ...data, fk_schedule: scheduleID };
+      try {
+        await this.itemService.create(trx, item);
+      } catch (error) {
+        console.log('EXCEPTION');
+      }
     });
   }
 
-  private _tryUpdateItemsService(items: UpdateScheduleItemDto[]) {}
+  private async _proccessItemUpdate(items: UpdateScheduleItemDto[], trx: Knex) {
+    items.map(async (data: UpdateScheduleItemDto) => {
+      console.log('scheduke.service.ts proccessItemUpdate: ' + data);
+    });
+  }
 
-  private _tryDeleteItemsService(ids: string[]) {}
+  private async _proccessItemDelete(ids: string[], trx: Knex) {}
 }

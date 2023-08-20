@@ -22,28 +22,64 @@ let ScheduleService = exports.ScheduleService = class ScheduleService {
         this.itemService = itemService;
     }
     async create(createAccountDto) {
-        const [scheduleInsertResult] = await this.knex('schedule')
-            .insert({
-            fk_employee: createAccountDto.fk_employee,
-            fk_customer: createAccountDto.fk_customer,
-            schedule_date: createAccountDto.schedule_date,
-        })
-            .returning('id');
-        const scheduleID = scheduleInsertResult['id'];
-        var idsScheduleItem = [];
-        await Promise.all(createAccountDto.items.map(async (scheduleItemDto) => {
-            const objectScheduleItem = {
-                ...scheduleItemDto,
-                fk_schedule: scheduleID,
-            };
-            const id = await this.itemService.create(objectScheduleItem);
-            idsScheduleItem.push(id);
-        }));
-        return {
-            schedule_id: scheduleID,
-            items_id: idsScheduleItem,
-        };
+        const trx = await this.knex.transaction();
+        try {
+            const [res] = await trx('schedule')
+                .insert({
+                fk_employee: createAccountDto.fk_employee,
+                fk_customer: createAccountDto.fk_customer,
+                schedule_date: createAccountDto.schedule_date,
+            })
+                .returning('id');
+            await Promise.all([
+                this._proccessItemInsert(res.id, createAccountDto.items, trx),
+            ]);
+            await trx.commit();
+            return { message: 'Operação realizada com sucesso!' };
+        }
+        catch (error) {
+            trx.rollback();
+            throw error;
+        }
     }
+    async update(scheduleID, updateSheduleDto) {
+        const trx = await this.knex.transaction();
+        try {
+            await trx('schedule')
+                .update({
+                fk_customer: updateSheduleDto.fk_customer,
+                schedule_date: updateSheduleDto.schedule_date,
+            })
+                .where(scheduleID);
+            const items = updateSheduleDto.items;
+            await Promise.all([
+                this._proccessItemInsert(scheduleID, items.insert, trx),
+                this._proccessItemUpdate(items.update, trx),
+                this._proccessItemDelete(items.delete, trx),
+            ]);
+            trx.commit();
+        }
+        catch (error) {
+            trx.rollback();
+        }
+    }
+    async _proccessItemInsert(scheduleID, items, trx) {
+        items.map(async (data) => {
+            const item = { ...data, fk_schedule: scheduleID };
+            try {
+                await this.itemService.create(trx, item);
+            }
+            catch (error) {
+                console.log('EXCEPTION');
+            }
+        });
+    }
+    async _proccessItemUpdate(items, trx) {
+        items.map(async (data) => {
+            console.log('scheduke.service.ts proccessItemUpdate: ' + data);
+        });
+    }
+    async _proccessItemDelete(ids, trx) { }
 };
 exports.ScheduleService = ScheduleService = __decorate([
     (0, common_1.Injectable)(),
