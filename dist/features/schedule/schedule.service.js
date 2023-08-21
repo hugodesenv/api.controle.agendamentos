@@ -31,15 +31,13 @@ let ScheduleService = exports.ScheduleService = class ScheduleService {
                 schedule_date: createAccountDto.schedule_date,
             })
                 .returning('id');
-            await Promise.all([
-                this._proccessItemInsert(res.id, createAccountDto.items, trx),
-            ]);
+            await this._proccessItemInsert(res.id, createAccountDto.items, trx);
             await trx.commit();
             return { message: 'Operação realizada com sucesso!' };
         }
-        catch (error) {
+        catch (e) {
             trx.rollback();
-            throw error;
+            throw e;
         }
     }
     async update(scheduleID, updateSheduleDto) {
@@ -57,27 +55,33 @@ let ScheduleService = exports.ScheduleService = class ScheduleService {
                 this._proccessItemUpdate(items.update, trx),
                 this._proccessItemDelete(items.delete, trx),
             ]);
+            console.log('schedule.service.update.before commit');
             trx.commit();
         }
         catch (error) {
+            console.log('schedule.service.update.rollback', error);
             trx.rollback();
         }
     }
     async _proccessItemInsert(scheduleID, items, trx) {
-        items.map(async (data) => {
+        await Promise.all(items.map(async (data) => {
             const item = { ...data, fk_schedule: scheduleID };
             try {
                 await this.itemService.create(trx, item);
             }
             catch (error) {
-                console.log('EXCEPTION');
+                throw error;
             }
-        });
+        }));
     }
     async _proccessItemUpdate(items, trx) {
-        items.map(async (data) => {
-            console.log('scheduke.service.ts proccessItemUpdate: ' + data);
-        });
+        await Promise.all(items.map(async (data) => {
+            try {
+            }
+            catch (error) {
+                console.log('schedule.service.proccessitemupdate', error);
+            }
+        }));
     }
     async _proccessItemDelete(ids, trx) { }
 };

@@ -24,16 +24,14 @@ export class ScheduleService {
         })
         .returning('id');
 
-      await Promise.all([
-        this._proccessItemInsert(res.id, createAccountDto.items, trx),
-      ]);
+      await this._proccessItemInsert(res.id, createAccountDto.items, trx);
 
       await trx.commit();
 
       return { message: 'Operação realizada com sucesso!' };
-    } catch (error) {
+    } catch (e) {
       trx.rollback();
-      throw error;
+      throw e;
     }
   }
 
@@ -54,8 +52,10 @@ export class ScheduleService {
         this._proccessItemDelete(items.delete, trx),
       ]);
 
+      console.log('schedule.service.update.before commit');
       trx.commit();
     } catch (error) {
+      console.log('schedule.service.update.rollback', error);
       trx.rollback();
     }
   }
@@ -65,20 +65,27 @@ export class ScheduleService {
     items: CreateScheduleItemDto[],
     trx: Knex,
   ) {
-    items.map(async (data: CreateScheduleItemDto) => {
-      const item = { ...data, fk_schedule: scheduleID };
-      try {
-        await this.itemService.create(trx, item);
-      } catch (error) {
-        console.log('EXCEPTION');
-      }
-    });
+    await Promise.all(
+      items.map(async (data: CreateScheduleItemDto) => {
+        const item = { ...data, fk_schedule: scheduleID };
+        try {
+          await this.itemService.create(trx, item);
+        } catch (error) {
+          throw error;
+        }
+      }),
+    );
   }
 
   private async _proccessItemUpdate(items: UpdateScheduleItemDto[], trx: Knex) {
-    items.map(async (data: UpdateScheduleItemDto) => {
-      console.log('scheduke.service.ts proccessItemUpdate: ' + data);
-    });
+    await Promise.all(
+      items.map(async (data: UpdateScheduleItemDto) => {
+        try {
+        } catch (error) {
+          console.log('schedule.service.proccessitemupdate', error);
+        }
+      }),
+    );
   }
 
   private async _proccessItemDelete(ids: string[], trx: Knex) {}
