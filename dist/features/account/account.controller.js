@@ -14,12 +14,11 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AccountController = void 0;
 const common_1 = require("@nestjs/common");
-const email_class_1 = require("../../shared/util/email.class");
+const email_class_1 = require("../../shared/email.class");
 const account_service_1 = require("./account.service");
-const create_account_dto_1 = require("./dto/create-account.dto");
 const forgot_password_account_dto_1 = require("./dto/forgot-password-account.dto");
 const login_account_dto_1 = require("./dto/login-account.dto");
-const update_account_dto_1 = require("./dto/update-account.dto");
+const account_dto_1 = require("./dto/account.dto");
 let AccountController = exports.AccountController = class AccountController {
     constructor(accountService) {
         this.accountService = accountService;
@@ -30,10 +29,11 @@ let AccountController = exports.AccountController = class AccountController {
     }
     async create(dto) {
         try {
-            let success = await this.accountService.create(dto);
+            const success = await this.accountService.create(dto);
             return { success };
         }
         catch (e) {
+            console.log(e);
             throw new common_1.HttpException({ message: e.detail }, common_1.HttpStatus.FORBIDDEN);
         }
     }
@@ -106,14 +106,14 @@ __decorate([
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [create_account_dto_1.CreateAccountDto]),
+    __metadata("design:paramtypes", [account_dto_1.AccountDto]),
     __metadata("design:returntype", Promise)
 ], AccountController.prototype, "create", null);
 __decorate([
     (0, common_1.Patch)(),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [update_account_dto_1.UpdateAccountDto]),
+    __metadata("design:paramtypes", [account_dto_1.AccountDto]),
     __metadata("design:returntype", Promise)
 ], AccountController.prototype, "update", null);
 __decorate([

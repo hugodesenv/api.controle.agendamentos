@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.EmailClass = void 0;
 const knex_1 = require("knex");
-const knexfile_1 = require("../../features/dabatase/knexfile");
+const knexfile_1 = require("../features/dabatase/knexfile");
 const nodemailer = require('nodemailer');
 class EmailClass {
     static getTransporter(parameter) {

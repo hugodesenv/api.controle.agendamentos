@@ -9,26 +9,44 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.BaseAccountDto = void 0;
+exports.AccountDto = void 0;
 const class_validator_1 = require("class-validator");
-class BaseAccountDto {
+const constants_class_1 = require("../../../shared/constants.class");
+class AccountDto {
 }
-exports.BaseAccountDto = BaseAccountDto;
+exports.AccountDto = AccountDto;
+__decorate([
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", String)
+], AccountDto.prototype, "action", void 0);
+__decorate([
+    (0, class_validator_1.ValidateIf)((o) => o.action !== constants_class_1.DB_ACTION.insert),
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", String)
+], AccountDto.prototype, "id", void 0);
+__decorate([
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", String)
+], AccountDto.prototype, "name", void 0);
+__decorate([
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", String)
+], AccountDto.prototype, "fk_company", void 0);
 __decorate([
     (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.Length)(4, 45),
     __metadata("design:type", String)
-], BaseAccountDto.prototype, "username", void 0);
+], AccountDto.prototype, "username", void 0);
 __decorate([
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
-], BaseAccountDto.prototype, "password", void 0);
+], AccountDto.prototype, "password", void 0);
 __decorate([
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", Boolean)
-], BaseAccountDto.prototype, "active", void 0);
+], AccountDto.prototype, "active", void 0);
 __decorate([
     (0, class_validator_1.IsEmail)(),
     __metadata("design:type", String)
-], BaseAccountDto.prototype, "email", void 0);
-//# sourceMappingURL=base-account.dto.js.map
+], AccountDto.prototype, "email", void 0);
+//# sourceMappingURL=account.dto.js.map

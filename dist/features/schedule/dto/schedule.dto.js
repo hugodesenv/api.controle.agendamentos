@@ -9,18 +9,30 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CreateScheduleDto = void 0;
+exports.ScheduleDto = void 0;
 const class_validator_1 = require("class-validator");
-const base_schedule_dto_1 = require("./base-schedule.dto");
-class CreateScheduleDto extends base_schedule_dto_1.BaseScheduleDto {
+class ScheduleDto {
 }
-exports.CreateScheduleDto = CreateScheduleDto;
+exports.ScheduleDto = ScheduleDto;
 __decorate([
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
-], CreateScheduleDto.prototype, "fk_employee", void 0);
+], ScheduleDto.prototype, "id", void 0);
 __decorate([
     (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", Array)
-], CreateScheduleDto.prototype, "items", void 0);
-//# sourceMappingURL=create-schedule.dto.js.map
+    __metadata("design:type", String)
+], ScheduleDto.prototype, "fk_customer", void 0);
+__decorate([
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", Date)
+], ScheduleDto.prototype, "schedule_date", void 0);
+__decorate([
+    (0, class_validator_1.ValidateIf)(o => o.id.IsEmpty()),
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", String)
+], ScheduleDto.prototype, "fk_employee", void 0);
+__decorate([
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", Object)
+], ScheduleDto.prototype, "items", void 0);
+//# sourceMappingURL=schedule.dto.js.map

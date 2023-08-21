@@ -3,8 +3,7 @@ import { InjectKnex, Knex } from 'nestjs-knex';
 import { CreateScheduleItemDto } from '../schedule_item/dto/create-schedule-item.dto';
 import { UpdateScheduleItemDto } from '../schedule_item/dto/update-schedule-item.dto';
 import { ScheduleItemService } from '../schedule_item/schedule-item.service';
-import { CreateScheduleDto } from './dto/create-schedule.dto';
-import { UpdateScheduleDto } from './dto/update-schedule.dto';
+import { ScheduleDto } from './dto/schedule.dto';
 
 @Injectable()
 export class ScheduleService {
@@ -13,18 +12,18 @@ export class ScheduleService {
     private readonly itemService: ScheduleItemService,
   ) {}
 
-  async create(createAccountDto: CreateScheduleDto): Promise<any> {
+  async create(scheduleDto: ScheduleDto): Promise<any> {
     const trx = await this.knex.transaction();
     try {
       const [res] = await trx('schedule')
         .insert({
-          fk_employee: createAccountDto.fk_employee,
-          fk_customer: createAccountDto.fk_customer,
-          schedule_date: createAccountDto.schedule_date,
+          fk_employee: scheduleDto.fk_employee,
+          fk_customer: scheduleDto.fk_customer,
+          schedule_date: scheduleDto.schedule_date,
         })
         .returning('id');
 
-      await this._proccessItemInsert(res.id, createAccountDto.items, trx);
+      await this._proccessItemInsert(res.id, scheduleDto.items.insert, trx);
 
       await trx.commit();
 
@@ -35,7 +34,7 @@ export class ScheduleService {
     }
   }
 
-  async update(scheduleID: string, updateSheduleDto: UpdateScheduleDto) {
+  async update(scheduleID: string, updateSheduleDto: ScheduleDto) {
     const trx = await this.knex.transaction();
     try {
       await trx('schedule')

@@ -21,17 +21,17 @@ let ScheduleService = exports.ScheduleService = class ScheduleService {
         this.knex = knex;
         this.itemService = itemService;
     }
-    async create(createAccountDto) {
+    async create(scheduleDto) {
         const trx = await this.knex.transaction();
         try {
             const [res] = await trx('schedule')
                 .insert({
-                fk_employee: createAccountDto.fk_employee,
-                fk_customer: createAccountDto.fk_customer,
-                schedule_date: createAccountDto.schedule_date,
+                fk_employee: scheduleDto.fk_employee,
+                fk_customer: scheduleDto.fk_customer,
+                schedule_date: scheduleDto.schedule_date,
             })
                 .returning('id');
-            await this._proccessItemInsert(res.id, createAccountDto.items, trx);
+            await this._proccessItemInsert(res.id, scheduleDto.items.insert, trx);
             await trx.commit();
             return { message: 'Operação realizada com sucesso!' };
         }

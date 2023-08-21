@@ -13,10 +13,9 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ScheduleController = void 0;
+const schedule_dto_1 = require("./dto/schedule.dto");
 const schedule_service_1 = require("./schedule.service");
 const common_1 = require("@nestjs/common");
-const create_schedule_dto_1 = require("./dto/create-schedule.dto");
-const update_schedule_dto_1 = require("./dto/update-schedule.dto");
 let ScheduleController = exports.ScheduleController = class ScheduleController {
     constructor(scheduleService) {
         this.scheduleService = scheduleService;
@@ -44,7 +43,7 @@ __decorate([
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [create_schedule_dto_1.CreateScheduleDto]),
+    __metadata("design:paramtypes", [schedule_dto_1.ScheduleDto]),
     __metadata("design:returntype", Promise)
 ], ScheduleController.prototype, "create", null);
 __decorate([
@@ -52,7 +51,7 @@ __decorate([
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, update_schedule_dto_1.UpdateScheduleDto]),
+    __metadata("design:paramtypes", [String, schedule_dto_1.ScheduleDto]),
     __metadata("design:returntype", Promise)
 ], ScheduleController.prototype, "update", null);
 exports.ScheduleController = ScheduleController = __decorate([

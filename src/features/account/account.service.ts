@@ -1,8 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectKnex, Knex } from 'nestjs-knex';
+import { AccountDto } from './dto/account.dto';
 import { LoginAccountDto } from './dto/login-account.dto';
-import { CreateAccountDto } from './dto/create-account.dto';
-import { UpdateAccountDto } from './dto/update-account.dto';
 import { AccountInterface } from './interface/account.interface';
 
 @Injectable()
@@ -29,18 +28,26 @@ export class AccountService {
     return { data: res };
   }
 
-  async create(dto: CreateAccountDto): Promise<any> {
-    const [res] = await this.knex('account').insert(dto).returning('id');
-    return { res };
+  async create(dto: AccountDto): Promise<any> {
+    const res = await this.knex('account').insert({
+      name: dto.name,
+      username: dto.username,
+      password: dto.password,
+      active: dto.active,
+      fk_company: dto.fk_company,
+      email: dto.email,
+    });
+
+    return { rows_affected: res['rowCount'] ?? 0 };
   }
 
-  async update(dto: UpdateAccountDto): Promise<number> {
+  async update(dto: AccountDto): Promise<number> {
     let rows_affected = await this.knex('account')
       .update({
+        name: dto.email,
         password: dto.password,
         active: dto.active,
         email: dto.email,
-        name: dto.email,
       })
       .where({ username: dto.username });
     return rows_affected;

@@ -1,9 +1,21 @@
-import { IsNotEmpty } from 'class-validator';
+import { IsNotEmpty, ValidateIf, IsEmpty } from 'class-validator';
 import { CreateScheduleItemDto } from 'src/features/schedule_item/dto/create-schedule-item.dto';
 import { UpdateScheduleItemDto } from 'src/features/schedule_item/dto/update-schedule-item.dto';
-import { BaseScheduleDto } from './base-schedule.dto';
 
-export class UpdateScheduleDto extends BaseScheduleDto {
+export class ScheduleDto {
+  @IsNotEmpty()
+  id: string;
+
+  @IsNotEmpty()
+  fk_customer: string;
+
+  @IsNotEmpty()
+  schedule_date: Date;
+
+  @ValidateIf(o => o.id.IsEmpty())
+  @IsNotEmpty()
+  fk_employee: string;
+
   @IsNotEmpty()
   items: {
     insert: CreateScheduleItemDto[];

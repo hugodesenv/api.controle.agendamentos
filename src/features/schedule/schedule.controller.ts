@@ -1,3 +1,4 @@
+import { ScheduleDto } from './dto/schedule.dto';
 import { ScheduleService } from './schedule.service';
 import {
   Body,
@@ -8,15 +9,13 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
-import { CreateScheduleDto } from './dto/create-schedule.dto';
-import { UpdateScheduleDto } from './dto/update-schedule.dto';
 
 @Controller('schedule')
 export class ScheduleController {
   constructor(private readonly scheduleService: ScheduleService) {}
 
   @Post()
-  async create(@Body() createScheduleDto: CreateScheduleDto) {
+  async create(@Body() createScheduleDto: ScheduleDto) {
     try {
       const res = await this.scheduleService.create(createScheduleDto);
       return res;
@@ -28,7 +27,7 @@ export class ScheduleController {
   @Put(':id')
   async update(
     @Param('id') id: string,
-    @Body() updateScheduleDto: UpdateScheduleDto,
+    @Body() updateScheduleDto: ScheduleDto,
   ) {
     try {
       const res = await this.scheduleService.update(id, updateScheduleDto);

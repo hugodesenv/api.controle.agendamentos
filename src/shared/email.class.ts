@@ -1,8 +1,8 @@
 import knex from 'knex';
 import { Transporter } from 'nodemailer';
 import SMTPTransport from 'nodemailer/lib/smtp-transport';
-import knexfile from '../../features/dabatase/knexfile';
-import { IEmailTranspoter } from '../interface/email-transporter.interface';
+import knexfile from '../features/dabatase/knexfile';
+import { IEmailTranspoter } from './interface/email-transporter.interface';
 const nodemailer = require('nodemailer');
 
 export class EmailClass {

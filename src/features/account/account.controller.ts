@@ -9,13 +9,12 @@ import {
   Post,
   Query,
 } from '@nestjs/common';
+import { EmailClass } from 'src/shared/email.class';
 import { IEmailTranspoter } from 'src/shared/interface/email-transporter.interface';
-import { EmailClass } from 'src/shared/util/email.class';
 import { AccountService } from './account.service';
-import { CreateAccountDto } from './dto/create-account.dto';
+import { AccountDto } from './dto/account.dto';
 import { ForgotPasswordAccountDto } from './dto/forgot-password-account.dto';
 import { LoginAccountDto } from './dto/login-account.dto';
-import { UpdateAccountDto } from './dto/update-account.dto';
 
 @Controller('account')
 export class AccountController {
@@ -29,17 +28,18 @@ export class AccountController {
   }
 
   @Post()
-  async create(@Body() dto: CreateAccountDto): Promise<{}> {
+  async create(@Body() dto: AccountDto): Promise<{}> {
     try {
-      let success = await this.accountService.create(dto);
+      const success = await this.accountService.create(dto);
       return { success };
     } catch (e) {
+      console.log(e);
       throw new HttpException({ message: e.detail }, HttpStatus.FORBIDDEN);
     }
   }
 
   @Patch()
-  async update(@Body() dto: UpdateAccountDto) {
+  async update(@Body() dto: AccountDto) {
     try {
       let affected = await this.accountService.update(dto);
       return { affected };
