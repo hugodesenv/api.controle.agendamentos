@@ -9,14 +9,26 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CreateEmployeeDto = void 0;
+exports.CustomerDto = void 0;
+const common_1 = require("@nestjs/common");
 const class_validator_1 = require("class-validator");
-const base_employee_dto_1 = require("./base-employee.dto");
-class CreateEmployeeDto extends base_employee_dto_1.BaseEmployeeDto {
+class CustomerDto {
 }
-exports.CreateEmployeeDto = CreateEmployeeDto;
+exports.CustomerDto = CustomerDto;
 __decorate([
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
-], CreateEmployeeDto.prototype, "fk_company", void 0);
-//# sourceMappingURL=create-employee.dto.js.map
+], CustomerDto.prototype, "name", void 0);
+__decorate([
+    (0, common_1.Optional)(),
+    __metadata("design:type", String)
+], CustomerDto.prototype, "cellphone", void 0);
+__decorate([
+    (0, class_validator_1.IsEmail)(),
+    __metadata("design:type", String)
+], CustomerDto.prototype, "email", void 0);
+__decorate([
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", String)
+], CustomerDto.prototype, "fk_company", void 0);
+//# sourceMappingURL=customer.dto.js.map

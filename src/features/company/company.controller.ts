@@ -9,15 +9,14 @@ import {
   Put,
 } from '@nestjs/common';
 import { CompanyService } from './company.service';
-import { CreateCompanyDto } from './dto/create-company.dto';
-import { UpdateCompanyDto } from './dto/update-company.dto';
+import { CompanyDto } from './dto/company.dto';
 
 @Controller('company')
 export class CompanyController {
   constructor(private readonly companyService: CompanyService) {}
 
   @Post()
-  async create(@Body() createCompanyDto: CreateCompanyDto) {
+  async create(@Body() createCompanyDto: CompanyDto) {
     try {
       const id = await this.companyService.create(createCompanyDto);
       return id;
@@ -27,10 +26,7 @@ export class CompanyController {
   }
 
   @Put(':id')
-  async update(
-    @Param('id') id: string,
-    @Body() updateCompanyDto: UpdateCompanyDto,
-  ) {
+  async update(@Param('id') id: string, @Body() updateCompanyDto: CompanyDto) {
     try {
       const res = await this.companyService.update(id, updateCompanyDto);
       return res;

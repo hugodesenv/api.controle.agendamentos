@@ -15,14 +15,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.EmailController = void 0;
 const common_1 = require("@nestjs/common");
 const email_service_1 = require("./email.service");
-const create_email_dto_1 = require("./dto/create-email.dto");
+const email_dto_1 = require("./dto/email.dto");
 let EmailController = exports.EmailController = class EmailController {
     constructor(emailService) {
         this.emailService = emailService;
     }
-    async create(createEmailDto) {
+    async create(emailDto) {
         try {
-            const res = await this.emailService.create(createEmailDto);
+            const res = await this.emailService.create(emailDto);
             return res;
         }
         catch (e) {
@@ -34,7 +34,7 @@ __decorate([
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [create_email_dto_1.CreateEmailDto]),
+    __metadata("design:paramtypes", [email_dto_1.EmailDto]),
     __metadata("design:returntype", Promise)
 ], EmailController.prototype, "create", null);
 exports.EmailController = EmailController = __decorate([

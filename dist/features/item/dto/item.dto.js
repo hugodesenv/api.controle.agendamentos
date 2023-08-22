@@ -9,29 +9,35 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CreateItemDto = void 0;
+exports.ItemDto = void 0;
 const class_validator_1 = require("class-validator");
-class CreateItemDto {
+class ItemDto {
 }
-exports.CreateItemDto = CreateItemDto;
+exports.ItemDto = ItemDto;
 __decorate([
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
-], CreateItemDto.prototype, "fk_company", void 0);
+], ItemDto.prototype, "action", void 0);
 __decorate([
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
-], CreateItemDto.prototype, "description", void 0);
+], ItemDto.prototype, "fk_company", void 0);
+__decorate([
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", String)
+], ItemDto.prototype, "description", void 0);
 __decorate([
     (0, class_validator_1.IsInt)(),
     __metadata("design:type", Number)
-], CreateItemDto.prototype, "service_minutes", void 0);
+], ItemDto.prototype, "service_minutes", void 0);
 __decorate([
     (0, class_validator_1.IsBoolean)(),
     __metadata("design:type", Boolean)
-], CreateItemDto.prototype, "active", void 0);
+], ItemDto.prototype, "active", void 0);
 __decorate([
-    (0, class_validator_1.IsEmpty)(),
+    (0, class_validator_1.IsNotEmpty)({
+        message: 'Type is Empty! Expected: "service", "product" or "undefined"',
+    }),
     __metadata("design:type", String)
-], CreateItemDto.prototype, "type", void 0);
-//# sourceMappingURL=create-item.dto.js.map
+], ItemDto.prototype, "type", void 0);
+//# sourceMappingURL=item.dto.js.map

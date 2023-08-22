@@ -1,7 +1,7 @@
 import { Knex } from 'nestjs-knex';
-import { CreateEmailDto } from './dto/create-email.dto';
+import { EmailDto } from './dto/email.dto';
 export declare class EmailService {
     private readonly knex;
     constructor(knex: Knex);
-    create(createEmailDto: CreateEmailDto): Promise<any>;
+    create(emailDto: EmailDto): Promise<any>;
 }

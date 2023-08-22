@@ -19,9 +19,15 @@ let EmailService = exports.EmailService = class EmailService {
     constructor(knex) {
         this.knex = knex;
     }
-    async create(createEmailDto) {
+    async create(emailDto) {
         const [res] = await this.knex('email')
-            .insert(createEmailDto)
+            .insert({
+            fk_company: emailDto.fk_company,
+            email: emailDto.email,
+            password: emailDto.password,
+            host: emailDto.host,
+            port: emailDto.port,
+        })
             .returning('id');
         return res;
     }

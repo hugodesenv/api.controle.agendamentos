@@ -1,7 +1,7 @@
 import { Optional } from '@nestjs/common';
 import { IsEmail, IsNotEmpty } from 'class-validator';
 
-export class CreateCustomerDto {
+export class CustomerDto {
   @IsNotEmpty()
   name: string;
 

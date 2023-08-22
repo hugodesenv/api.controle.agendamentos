@@ -1,7 +1,7 @@
 import { EmailService } from './email.service';
-import { CreateEmailDto } from './dto/create-email.dto';
+import { EmailDto } from './dto/email.dto';
 export declare class EmailController {
     private emailService;
     constructor(emailService: EmailService);
-    create(createEmailDto: CreateEmailDto): Promise<boolean>;
+    create(emailDto: EmailDto): Promise<boolean>;
 }

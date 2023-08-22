@@ -1,13 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { InjectKnex, Knex } from 'nestjs-knex';
-import { CreateCompanyDto } from './dto/create-company.dto';
-import { UpdateCompanyDto } from './dto/update-company.dto';
+import { CompanyDto } from './dto/company.dto';
 
 @Injectable()
 export class CompanyService {
   constructor(@InjectKnex() private readonly knex: Knex) {}
 
-  async create(createCompanyDto: CreateCompanyDto): Promise<number> {
+  async create(createCompanyDto: CompanyDto): Promise<number> {
     const [res] = await this.knex('company')
       .insert({
         social_name: createCompanyDto.social_name,
@@ -17,7 +16,7 @@ export class CompanyService {
     return res;
   }
 
-  async update(id: string, updateCompanyDto: UpdateCompanyDto): Promise<any> {
+  async update(id: string, updateCompanyDto: CompanyDto): Promise<any> {
     const res = await this.knex('company')
       .update({
         social_name: updateCompanyDto.social_name,

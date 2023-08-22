@@ -1,4 +1,5 @@
-export declare class CreateItemDto {
+export declare class ItemDto {
+    action: string;
     fk_company: string;
     description: string;
     service_minutes: number;

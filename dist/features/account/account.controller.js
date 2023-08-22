@@ -16,9 +16,9 @@ exports.AccountController = void 0;
 const common_1 = require("@nestjs/common");
 const email_class_1 = require("../../shared/email.class");
 const account_service_1 = require("./account.service");
+const account_dto_1 = require("./dto/account.dto");
 const forgot_password_account_dto_1 = require("./dto/forgot-password-account.dto");
 const login_account_dto_1 = require("./dto/login-account.dto");
-const account_dto_1 = require("./dto/account.dto");
 let AccountController = exports.AccountController = class AccountController {
     constructor(accountService) {
         this.accountService = accountService;

@@ -20,15 +20,11 @@ __decorate([
     __metadata("design:type", String)
 ], AccountDto.prototype, "action", void 0);
 __decorate([
-    (0, class_validator_1.ValidateIf)((o) => o.action !== constants_class_1.DB_ACTION.insert),
-    (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", String)
-], AccountDto.prototype, "id", void 0);
-__decorate([
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], AccountDto.prototype, "name", void 0);
 __decorate([
+    (0, class_validator_1.ValidateIf)((o) => o.action === constants_class_1.DB_ACTION.insert),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], AccountDto.prototype, "fk_company", void 0);

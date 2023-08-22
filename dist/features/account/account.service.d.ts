@@ -1,7 +1,7 @@
 import { Knex } from 'nestjs-knex';
+import { AccountDto } from './dto/account.dto';
 import { LoginAccountDto } from './dto/login-account.dto';
 import { AccountInterface } from './interface/account.interface';
-import { AccountDto } from './dto/account.dto';
 export declare class AccountService {
     private readonly knex;
     constructor(knex: Knex);

@@ -14,15 +14,15 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CustomerController = void 0;
 const common_1 = require("@nestjs/common");
-const create_customer_dto_1 = require("./dto/create-customer.dto");
 const customer_service_1 = require("./customer.service");
+const customer_dto_1 = require("./dto/customer.dto");
 let CustomerController = exports.CustomerController = class CustomerController {
     constructor(customerService) {
         this.customerService = customerService;
     }
-    async create(createCustomerDto) {
+    async create(customerDto) {
         try {
-            const res = await this.customerService.create(createCustomerDto);
+            const res = await this.customerService.create(customerDto);
             return res;
         }
         catch (e) {
@@ -52,7 +52,7 @@ __decorate([
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [create_customer_dto_1.CreateCustomerDto]),
+    __metadata("design:paramtypes", [customer_dto_1.CustomerDto]),
     __metadata("design:returntype", Promise)
 ], CustomerController.prototype, "create", null);
 __decorate([

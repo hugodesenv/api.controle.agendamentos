@@ -1,6 +1,9 @@
 import { IsNotEmpty, IsNumber } from 'class-validator';
 
-export class CreateEmailDto {
+export class EmailDto {
+  @IsNotEmpty()
+  action: string;
+
   @IsNotEmpty()
   fk_company: string;
 

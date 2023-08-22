@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
-import { CreateItemDto } from './dto/create-item.dto';
+import { ItemDto } from './dto/item.dto';
 import { InjectKnex, Knex } from 'nestjs-knex';
 
 @Injectable()
 export class ItemService {
   constructor(@InjectKnex() private readonly knex: Knex) {}
 
-  async create(itemDto: CreateItemDto): Promise<number> {
+  async create(itemDto: ItemDto): Promise<number> {
     const [query] = await this.knex('item')
       .insert({
         fk_company: itemDto.fk_company,

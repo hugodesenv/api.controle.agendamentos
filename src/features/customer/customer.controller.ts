@@ -1,25 +1,24 @@
 import {
-  Controller,
-  Get,
-  Post,
   Body,
+  Controller,
+  Delete,
+  Get,
   HttpException,
   HttpStatus,
-  Query,
-  Delete,
   Param,
+  Post
 } from '@nestjs/common';
-import { CreateCustomerDto } from './dto/create-customer.dto';
 import { CustomerService } from './customer.service';
+import { CustomerDto } from './dto/customer.dto';
 
 @Controller('customer')
 export class CustomerController {
   constructor(private customerService: CustomerService) {}
 
   @Post()
-  async create(@Body() createCustomerDto: CreateCustomerDto): Promise<any> {
+  async create(@Body() customerDto: CustomerDto): Promise<any> {
     try {
-      const res = await this.customerService.create(createCustomerDto);
+      const res = await this.customerService.create(customerDto);
       return res;
     } catch (e) {
       throw new HttpException({ detail: e }, HttpStatus.FORBIDDEN);

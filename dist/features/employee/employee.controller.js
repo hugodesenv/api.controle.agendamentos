@@ -14,25 +14,24 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.EmployeeController = void 0;
 const common_1 = require("@nestjs/common");
-const create_employee_dto_1 = require("./dto/create-employee.dto");
+const employee_dto_1 = require("./dto/employee.dto");
 const employee_service_1 = require("./employee.service");
-const update_employee_dto_1 = require("./dto/update-employee.dto");
 let EmployeeController = exports.EmployeeController = class EmployeeController {
     constructor(employeeService) {
         this.employeeService = employeeService;
     }
-    async create(createEmployeeDto) {
+    async create(employeeDto) {
         try {
-            const id = await this.employeeService.create(createEmployeeDto);
+            const id = await this.employeeService.create(employeeDto);
             return id;
         }
         catch (e) {
             throw new common_1.HttpException({ detail: e }, common_1.HttpStatus.FORBIDDEN);
         }
     }
-    async update(id, updateEmployeeDto) {
+    async update(id, employeeDto) {
         try {
-            const res = await this.employeeService.update(id, updateEmployeeDto);
+            const res = await this.employeeService.update(id, employeeDto);
             return res;
         }
         catch (e) {
@@ -53,7 +52,7 @@ __decorate([
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [create_employee_dto_1.CreateEmployeeDto]),
+    __metadata("design:paramtypes", [employee_dto_1.EmployeeDto]),
     __metadata("design:returntype", Promise)
 ], EmployeeController.prototype, "create", null);
 __decorate([
@@ -61,7 +60,7 @@ __decorate([
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, update_employee_dto_1.UpdateEmployeeDto]),
+    __metadata("design:paramtypes", [String, employee_dto_1.EmployeeDto]),
     __metadata("design:returntype", Promise)
 ], EmployeeController.prototype, "update", null);
 __decorate([

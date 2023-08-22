@@ -19,21 +19,21 @@ let EmployeeService = exports.EmployeeService = class EmployeeService {
     constructor(knex) {
         this.knex = knex;
     }
-    async create(createEmployeeDto) {
+    async create(employeeDto) {
         const [res] = await this.knex('employee')
             .insert({
-            name: createEmployeeDto.name,
-            active: createEmployeeDto.active,
-            fk_company: createEmployeeDto.fk_company,
+            name: employeeDto.name,
+            active: employeeDto.active,
+            fk_company: employeeDto.fk_company,
         })
             .returning('id');
         return res;
     }
-    async update(id, updateAccountDto) {
+    async update(id, employeeDto) {
         const rows = await this.knex('employee')
             .update({
-            name: updateAccountDto.name,
-            active: updateAccountDto.active,
+            name: employeeDto.name,
+            active: employeeDto.active,
         })
             .where({ id: id });
         return { rows_affected: rows };

@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { Knex } from 'nestjs-knex';
-import { CreateScheduleItemDto } from './dto/create-schedule-item.dto';
+import { ScheduleItemDto } from './dto/schedule-item.dto';
 
 @Injectable()
 export class ScheduleItemService {
   async create(
     trx: Knex,
-    createScheduleItemDto: CreateScheduleItemDto,
+    createScheduleItemDto: ScheduleItemDto,
   ): Promise<any> {
     const [res] = await trx('schedule_item')
       .insert({

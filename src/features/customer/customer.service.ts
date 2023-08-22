@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Knex } from 'knex';
 import { InjectKnex } from 'nestjs-knex';
-import { CreateCustomerDto } from './dto/create-customer.dto';
+import { CustomerDto } from './dto/customer.dto';
 
 @Injectable()
 export class CustomerService {
@@ -14,7 +14,7 @@ export class CustomerService {
     return res;
   }
 
-  async create(dto: CreateCustomerDto): Promise<string> {
+  async create(dto: CustomerDto): Promise<string> {
     const [res] = await this.knex('customer').insert(dto).returning('id');
     return res;
   }

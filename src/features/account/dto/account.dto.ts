@@ -5,13 +5,10 @@ export class AccountDto {
   @IsNotEmpty()
   action: string;
 
-  @ValidateIf((o) => o.action !== DB_ACTION.insert)
-  @IsNotEmpty()
-  id: string;
-
   @IsNotEmpty()
   name: string;
 
+  @ValidateIf((o) => o.action === DB_ACTION.insert)
   @IsNotEmpty()
   fk_company: string;
 

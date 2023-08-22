@@ -8,18 +8,17 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
-import { CreateEmployeeDto } from './dto/create-employee.dto';
+import { EmployeeDto } from './dto/employee.dto';
 import { EmployeeService } from './employee.service';
-import { UpdateEmployeeDto } from './dto/update-employee.dto';
 
 @Controller('employee')
 export class EmployeeController {
   constructor(private readonly employeeService: EmployeeService) {}
 
   @Post()
-  async create(@Body() createEmployeeDto: CreateEmployeeDto) {
+  async create(@Body() employeeDto: EmployeeDto) {
     try {
-      const id = await this.employeeService.create(createEmployeeDto);
+      const id = await this.employeeService.create(employeeDto);
       return id;
     } catch (e) {
       throw new HttpException({ detail: e }, HttpStatus.FORBIDDEN);
@@ -27,12 +26,9 @@ export class EmployeeController {
   }
 
   @Put(':id')
-  async update(
-    @Param('id') id: string,
-    @Body() updateEmployeeDto: UpdateEmployeeDto,
-  ) {
+  async update(@Param('id') id: string, @Body() employeeDto: EmployeeDto) {
     try {
-      const res = await this.employeeService.update(id, updateEmployeeDto);
+      const res = await this.employeeService.update(id, employeeDto);
       return res;
     } catch (e) {
       throw new HttpException({ detail: e }, HttpStatus.FORBIDDEN);

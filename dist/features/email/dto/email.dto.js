@@ -9,18 +9,33 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.BaseCompanyDto = void 0;
+exports.EmailDto = void 0;
 const class_validator_1 = require("class-validator");
-class BaseCompanyDto {
+class EmailDto {
 }
-exports.BaseCompanyDto = BaseCompanyDto;
+exports.EmailDto = EmailDto;
 __decorate([
     (0, class_validator_1.IsNotEmpty)(),
-    (0, class_validator_1.Length)(4, 80),
     __metadata("design:type", String)
-], BaseCompanyDto.prototype, "social_name", void 0);
+], EmailDto.prototype, "action", void 0);
 __decorate([
     (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", Boolean)
-], BaseCompanyDto.prototype, "active", void 0);
-//# sourceMappingURL=base-company.dto.js.map
+    __metadata("design:type", String)
+], EmailDto.prototype, "fk_company", void 0);
+__decorate([
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", String)
+], EmailDto.prototype, "email", void 0);
+__decorate([
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", String)
+], EmailDto.prototype, "password", void 0);
+__decorate([
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", String)
+], EmailDto.prototype, "host", void 0);
+__decorate([
+    (0, class_validator_1.IsNumber)(),
+    __metadata("design:type", Number)
+], EmailDto.prototype, "port", void 0);
+//# sourceMappingURL=email.dto.js.map
