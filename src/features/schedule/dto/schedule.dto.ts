@@ -1,6 +1,5 @@
 import { IsNotEmpty, ValidateIf, IsEmpty } from 'class-validator';
-import { CreateScheduleItemDto } from 'src/features/schedule_item/dto/create-schedule-item.dto';
-import { UpdateScheduleItemDto } from 'src/features/schedule_item/dto/update-schedule-item.dto';
+import { ScheduleItemDto } from 'src/features/schedule_item/dto/schedule-item.dto';
 
 export class ScheduleDto {
   @IsNotEmpty()
@@ -12,14 +11,14 @@ export class ScheduleDto {
   @IsNotEmpty()
   schedule_date: Date;
 
-  @ValidateIf(o => o.id.IsEmpty())
+  @ValidateIf((o) => o.id.IsEmpty())
   @IsNotEmpty()
   fk_employee: string;
 
   @IsNotEmpty()
   items: {
-    insert: CreateScheduleItemDto[];
-    update: UpdateScheduleItemDto[];
+    insert: ScheduleItemDto[];
+    update: ScheduleItemDto[];
     delete: string[] /** I receive the ids to remove */;
   };
 }

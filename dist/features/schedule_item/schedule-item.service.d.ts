@@ -1,5 +1,5 @@
 import { Knex } from 'nestjs-knex';
-import { CreateScheduleItemDto } from './dto/create-schedule-item.dto';
+import { ScheduleItemDto } from './dto/schedule-item.dto';
 export declare class ScheduleItemService {
-    create(trx: Knex, createScheduleItemDto: CreateScheduleItemDto): Promise<any>;
+    create(trx: Knex, createScheduleItemDto: ScheduleItemDto): Promise<any>;
 }

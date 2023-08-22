@@ -1,9 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectKnex, Knex } from 'nestjs-knex';
-import { CreateScheduleItemDto } from '../schedule_item/dto/create-schedule-item.dto';
-import { UpdateScheduleItemDto } from '../schedule_item/dto/update-schedule-item.dto';
 import { ScheduleItemService } from '../schedule_item/schedule-item.service';
 import { ScheduleDto } from './dto/schedule.dto';
+import { ScheduleItemDto } from '../schedule_item/dto/schedule-item.dto';
 
 @Injectable()
 export class ScheduleService {
@@ -61,11 +60,11 @@ export class ScheduleService {
 
   private async _proccessItemInsert(
     scheduleID: string,
-    items: CreateScheduleItemDto[],
+    items: ScheduleItemDto[],
     trx: Knex,
   ) {
     await Promise.all(
-      items.map(async (data: CreateScheduleItemDto) => {
+      items.map(async (data: ScheduleItemDto) => {
         const item = { ...data, fk_schedule: scheduleID };
         try {
           await this.itemService.create(trx, item);
@@ -76,9 +75,9 @@ export class ScheduleService {
     );
   }
 
-  private async _proccessItemUpdate(items: UpdateScheduleItemDto[], trx: Knex) {
+  private async _proccessItemUpdate(items: ScheduleItemDto[], trx: Knex) {
     await Promise.all(
-      items.map(async (data: UpdateScheduleItemDto) => {
+      items.map(async (data: ScheduleItemDto) => {
         try {
         } catch (error) {
           console.log('schedule.service.proccessitemupdate', error);

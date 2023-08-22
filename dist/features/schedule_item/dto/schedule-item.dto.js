@@ -9,18 +9,32 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CreateScheduleItemDto = void 0;
+exports.ScheduleItemDto = void 0;
 const class_validator_1 = require("class-validator");
-const base_schedule_item_dto_1 = require("./base-schedule-item.dto");
-class CreateScheduleItemDto extends base_schedule_item_dto_1.BaseScheduleItemDto {
+const constants_class_1 = require("../../../shared/constants.class");
+class ScheduleItemDto {
 }
-exports.CreateScheduleItemDto = CreateScheduleItemDto;
+exports.ScheduleItemDto = ScheduleItemDto;
 __decorate([
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
-], CreateScheduleItemDto.prototype, "fk_schedule", void 0);
+], ScheduleItemDto.prototype, "action", void 0);
 __decorate([
+    (0, class_validator_1.IsInt)(),
+    __metadata("design:type", Number)
+], ScheduleItemDto.prototype, "service_minutes", void 0);
+__decorate([
+    (0, class_validator_1.IsNumber)(),
+    __metadata("design:type", Number)
+], ScheduleItemDto.prototype, "price", void 0);
+__decorate([
+    (0, class_validator_1.ValidateIf)((o) => o.action === constants_class_1.DB_ACTION.insert),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
-], CreateScheduleItemDto.prototype, "fk_item", void 0);
-//# sourceMappingURL=create-schedule-item.dto.js.map
+], ScheduleItemDto.prototype, "fk_schedule", void 0);
+__decorate([
+    (0, class_validator_1.ValidateIf)((o) => o.action === constants_class_1.DB_ACTION.insert),
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", String)
+], ScheduleItemDto.prototype, "fk_item", void 0);
+//# sourceMappingURL=schedule-item.dto.js.map

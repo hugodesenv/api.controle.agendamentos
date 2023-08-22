@@ -27,7 +27,7 @@ __decorate([
     __metadata("design:type", Date)
 ], ScheduleDto.prototype, "schedule_date", void 0);
 __decorate([
-    (0, class_validator_1.ValidateIf)(o => o.id.IsEmpty()),
+    (0, class_validator_1.ValidateIf)((o) => o.id.IsEmpty()),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], ScheduleDto.prototype, "fk_employee", void 0);
