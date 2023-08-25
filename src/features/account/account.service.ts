@@ -25,7 +25,15 @@ export class AccountService {
         'company.active': true,
       });
 
-    return { data: res };
+    return {
+      name: res['name'],
+      username: res['username'],
+      email: res['email'],
+      company: {
+        id: res['fk_company'],
+        social_name: res['social_name'],
+      },
+    };
   }
 
   async create(dto: AccountDto): Promise<any> {

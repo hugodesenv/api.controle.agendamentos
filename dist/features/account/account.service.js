@@ -35,7 +35,15 @@ let AccountService = exports.AccountService = class AccountService {
             'account.password': dto.password,
             'company.active': true,
         });
-        return { data: res };
+        return {
+            name: res['name'],
+            username: res['username'],
+            email: res['email'],
+            company: {
+                id: res['fk_company'],
+                social_name: res['social_name'],
+            },
+        };
     }
     async create(dto) {
         const res = await this.knex('account').insert({
