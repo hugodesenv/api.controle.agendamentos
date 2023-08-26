@@ -30,11 +30,13 @@ let CustomerController = exports.CustomerController = class CustomerController {
         }
     }
     async findAll(companyId) {
+        console.log('customer.controller.findAll - init');
         try {
             const res = await this.customerService.findAll(companyId);
             return res;
         }
         catch (e) {
+            console.log('except customer.controller.findAll', e);
             throw new common_1.HttpException({ detail: e }, common_1.HttpStatus.FORBIDDEN);
         }
     }

@@ -27,6 +27,7 @@ let AccountService = exports.AccountService = class AccountService {
             'account.email',
             'account.fk_company',
             'company.social_name',
+            'company.active',
         ])
             .from('account')
             .innerJoin('company', 'company.id', '=', 'account.fk_company')
@@ -35,15 +36,21 @@ let AccountService = exports.AccountService = class AccountService {
             'account.password': dto.password,
             'company.active': true,
         });
-        return {
+        if (res === undefined) {
+            return { success: false };
+        }
+        const data = {
+            success: true,
             name: res['name'],
             username: res['username'],
             email: res['email'],
             company: {
                 id: res['fk_company'],
                 social_name: res['social_name'],
+                active: res['active'],
             },
         };
+        return data;
     }
     async create(dto) {
         const res = await this.knex('account').insert({

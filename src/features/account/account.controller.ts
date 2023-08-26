@@ -23,8 +23,12 @@ export class AccountController {
   @Post('login')
   @HttpCode(200)
   async login(@Body() dto: LoginAccountDto): Promise<{}> {
-    let has_account = await this.accountService.tryLogin(dto);
-    return has_account;
+    try {
+      const res = await this.accountService.tryLogin(dto);
+      return res;
+    } catch (e) {
+      throw new HttpException({ message: e.detail }, HttpStatus.FORBIDDEN);
+    }
   }
 
   @Post()
@@ -33,7 +37,6 @@ export class AccountController {
       const success = await this.accountService.create(dto);
       return { success };
     } catch (e) {
-      console.log(e);
       throw new HttpException({ message: e.detail }, HttpStatus.FORBIDDEN);
     }
   }

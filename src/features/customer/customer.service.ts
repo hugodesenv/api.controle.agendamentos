@@ -11,6 +11,9 @@ export class CustomerService {
     let res = await this.knex('customer')
       .select('*')
       .where('fk_company', companyId);
+
+    console.log('customer.service.findAll', res);
+
     return res;
   }
 

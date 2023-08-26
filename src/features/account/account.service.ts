@@ -16,6 +16,7 @@ export class AccountService {
         'account.email',
         'account.fk_company',
         'company.social_name',
+        'company.active',
       ])
       .from('account')
       .innerJoin('company', 'company.id', '=', 'account.fk_company')
@@ -25,15 +26,23 @@ export class AccountService {
         'company.active': true,
       });
 
-    return {
+    if (res === undefined) {
+      return { success: false };
+    }
+
+    const data = {
+      success: true,
       name: res['name'],
       username: res['username'],
       email: res['email'],
       company: {
         id: res['fk_company'],
         social_name: res['social_name'],
+        active: res['active'],
       },
     };
+
+    return data;
   }
 
   async create(dto: AccountDto): Promise<any> {

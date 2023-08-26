@@ -24,8 +24,13 @@ let AccountController = exports.AccountController = class AccountController {
         this.accountService = accountService;
     }
     async login(dto) {
-        let has_account = await this.accountService.tryLogin(dto);
-        return has_account;
+        try {
+            const res = await this.accountService.tryLogin(dto);
+            return res;
+        }
+        catch (e) {
+            throw new common_1.HttpException({ message: e.detail }, common_1.HttpStatus.FORBIDDEN);
+        }
     }
     async create(dto) {
         try {
@@ -33,7 +38,6 @@ let AccountController = exports.AccountController = class AccountController {
             return { success };
         }
         catch (e) {
-            console.log(e);
             throw new common_1.HttpException({ message: e.detail }, common_1.HttpStatus.FORBIDDEN);
         }
     }
