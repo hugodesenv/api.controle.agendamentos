@@ -21,10 +21,21 @@ let CustomerService = exports.CustomerService = class CustomerService {
         this.knex = knex;
     }
     async findAll(companyId) {
-        let res = await this.knex('customer')
+        const query = await this.knex('customer')
             .select('*')
             .where('fk_company', companyId);
-        console.log('customer.service.findAll', res);
+        const res = query.map((row) => {
+            return {
+                id: row.id,
+                name: row.name,
+                cellphone: row.cellphone,
+                email: row.email,
+                company: {
+                    id: row.fk_company,
+                },
+            };
+        });
+        console.log('customer.services.findAll -> Result', res);
         return res;
     }
     async create(dto) {

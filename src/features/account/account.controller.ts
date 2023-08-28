@@ -10,7 +10,7 @@ import {
   Query,
 } from '@nestjs/common';
 import { EmailClass } from 'src/shared/email.class';
-import { IEmailTranspoter } from 'src/shared/interface/email-transporter.interface';
+import { IEmailTranspoter } from 'src/interface/util/email-transporter.interface';
 import { AccountService } from './account.service';
 import { AccountDto } from './dto/account.dto';
 import { ForgotPasswordAccountDto } from './dto/forgot-password-account.dto';
