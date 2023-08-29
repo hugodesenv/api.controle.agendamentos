@@ -35,7 +35,6 @@ let CustomerService = exports.CustomerService = class CustomerService {
                 },
             };
         });
-        console.log('customer.services.findAll -> Result', res);
         return res;
     }
     async create(dto) {
