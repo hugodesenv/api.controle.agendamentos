@@ -50,11 +50,7 @@ let ScheduleService = exports.ScheduleService = class ScheduleService {
             })
                 .where(scheduleID);
             const items = updateSheduleDto.items;
-            await Promise.all([
-                this._proccessItemInsert(scheduleID, items.insert, trx),
-                this._proccessItemUpdate(items.update, trx),
-                this._proccessItemDelete(items.delete, trx),
-            ]);
+            await Promise.all([this._proccessItemInsert(scheduleID, items.insert, trx), this._proccessItemUpdate(items.update, trx), this._proccessItemDelete(items.delete, trx)]);
             console.log('schedule.service.update.before commit');
             trx.commit();
         }

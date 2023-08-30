@@ -1,15 +1,15 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { CustomerModule } from './features/customer/customer.module';
-import { DatabaseModule } from './features/dabatase/database.module';
 import { AccountModule } from './features/account/account.module';
 import { CompanyModule } from './features/company/company.module';
-import { ScheduleModule } from './features/schedule/schedule.module';
+import { CustomerModule } from './features/customer/customer.module';
+import { DatabaseModule } from './features/dabatase/database.module';
 import { EmailModule } from './features/email/email.module';
-import { ConfigModule } from '@nestjs/config';
-import { ItemModule } from './features/item/item.module';
 import { EmployeeModule } from './features/employee/employee.module';
+import { ItemModule } from './features/item/item.module';
+import { ScheduleModule } from './features/schedule/schedule.module';
 
 @Module({
   imports: [

@@ -1,14 +1,6 @@
+import { Body, Controller, HttpException, HttpStatus, Param, Post, Put } from '@nestjs/common';
 import { ScheduleDto } from './dto/schedule.dto';
 import { ScheduleService } from './schedule.service';
-import {
-  Body,
-  Controller,
-  HttpException,
-  HttpStatus,
-  Param,
-  Post,
-  Put,
-} from '@nestjs/common';
 
 @Controller('schedule')
 export class ScheduleController {
@@ -25,10 +17,7 @@ export class ScheduleController {
   }
 
   @Put(':id')
-  async update(
-    @Param('id') id: string,
-    @Body() updateScheduleDto: ScheduleDto,
-  ) {
+  async update(@Param('id') id: string, @Body() updateScheduleDto: ScheduleDto) {
     try {
       const res = await this.scheduleService.update(id, updateScheduleDto);
       return res;

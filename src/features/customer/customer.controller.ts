@@ -1,13 +1,4 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  HttpException,
-  HttpStatus,
-  Param,
-  Post,
-} from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post } from '@nestjs/common';
 import { CustomerService } from './customer.service';
 import { CustomerDto } from './dto/customer.dto';
 
@@ -41,7 +32,7 @@ export class CustomerController {
       const res = await this.customerService.remove(id);
       return res;
     } catch (e) {
-      throw new HttpException({ detail: e }, HttpStatus.FORBIDDEN);
+      throw new HttpException(e, HttpStatus.FORBIDDEN);
     }
   }
 }

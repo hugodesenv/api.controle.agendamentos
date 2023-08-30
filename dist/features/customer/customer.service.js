@@ -42,8 +42,14 @@ let CustomerService = exports.CustomerService = class CustomerService {
         return res;
     }
     async remove(id) {
-        const res = await this.knex('customer').delete().where('id', id);
-        return { rows_affected: res };
+        try {
+            const res = await this.knex('customer').delete().where('id', id);
+            return { rows_affected: res };
+        }
+        catch (error) {
+            console.log(error);
+            throw error;
+        }
     }
 };
 exports.CustomerService = CustomerService = __decorate([

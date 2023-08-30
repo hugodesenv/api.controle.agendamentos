@@ -1,15 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { InjectKnex, Knex } from 'nestjs-knex';
+import { ScheduleItemDto } from '../schedule_item/dto/schedule-item.dto';
 import { ScheduleItemService } from '../schedule_item/schedule-item.service';
 import { ScheduleDto } from './dto/schedule.dto';
-import { ScheduleItemDto } from '../schedule_item/dto/schedule-item.dto';
 
 @Injectable()
 export class ScheduleService {
-  constructor(
-    @InjectKnex() private readonly knex: Knex,
-    private readonly itemService: ScheduleItemService,
-  ) {}
+  constructor(@InjectKnex() private readonly knex: Knex, private readonly itemService: ScheduleItemService) {}
 
   async create(scheduleDto: ScheduleDto): Promise<any> {
     const trx = await this.knex.transaction();
@@ -44,11 +41,7 @@ export class ScheduleService {
         .where(scheduleID);
 
       const items = updateSheduleDto.items;
-      await Promise.all([
-        this._proccessItemInsert(scheduleID, items.insert, trx),
-        this._proccessItemUpdate(items.update, trx),
-        this._proccessItemDelete(items.delete, trx),
-      ]);
+      await Promise.all([this._proccessItemInsert(scheduleID, items.insert, trx), this._proccessItemUpdate(items.update, trx), this._proccessItemDelete(items.delete, trx)]);
 
       console.log('schedule.service.update.before commit');
       trx.commit();
@@ -58,11 +51,7 @@ export class ScheduleService {
     }
   }
 
-  private async _proccessItemInsert(
-    scheduleID: string,
-    items: ScheduleItemDto[],
-    trx: Knex,
-  ) {
+  private async _proccessItemInsert(scheduleID: string, items: ScheduleItemDto[], trx: Knex) {
     await Promise.all(
       items.map(async (data: ScheduleItemDto) => {
         const item = { ...data, fk_schedule: scheduleID };

@@ -38,7 +38,7 @@ let AccountController = exports.AccountController = class AccountController {
             return { success };
         }
         catch (e) {
-            throw new common_1.HttpException({ message: e.detail }, common_1.HttpStatus.FORBIDDEN);
+            throw new common_1.HttpException(e, common_1.HttpStatus.FORBIDDEN);
         }
     }
     async update(dto) {

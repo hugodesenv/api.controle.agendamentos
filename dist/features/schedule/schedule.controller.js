@@ -13,9 +13,9 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ScheduleController = void 0;
+const common_1 = require("@nestjs/common");
 const schedule_dto_1 = require("./dto/schedule.dto");
 const schedule_service_1 = require("./schedule.service");
-const common_1 = require("@nestjs/common");
 let ScheduleController = exports.ScheduleController = class ScheduleController {
     constructor(scheduleService) {
         this.scheduleService = scheduleService;

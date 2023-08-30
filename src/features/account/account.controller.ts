@@ -1,14 +1,4 @@
-import {
-  Body,
-  Controller,
-  Get,
-  HttpCode,
-  HttpException,
-  HttpStatus,
-  Patch,
-  Post,
-  Query,
-} from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, HttpException, HttpStatus, Patch, Post, Query } from '@nestjs/common';
 import { EmailClass } from 'src/shared/email.class';
 import { IEmailTranspoter } from 'src/interface/util/email-transporter.interface';
 import { AccountService } from './account.service';
@@ -37,7 +27,7 @@ export class AccountController {
       const success = await this.accountService.create(dto);
       return { success };
     } catch (e) {
-      throw new HttpException({ message: e.detail }, HttpStatus.FORBIDDEN);
+      throw new HttpException(e, HttpStatus.FORBIDDEN);
     }
   }
 
@@ -54,15 +44,10 @@ export class AccountController {
   @Get('forgot-password')
   async forgotPassword(@Query() queryDto: ForgotPasswordAccountDto) {
     try {
-      const [userData] = await this.accountService.findAllByUsername(
-        queryDto.username,
-      );
+      const [userData] = await this.accountService.findAllByUsername(queryDto.username);
 
       if (userData === undefined) {
-        throw new HttpException(
-          { message: `Usuário ${queryDto.username} não encontrado!` },
-          HttpStatus.BAD_REQUEST,
-        );
+        throw new HttpException({ message: `Usuário ${queryDto.username} não encontrado!` }, HttpStatus.BAD_REQUEST);
       }
 
       const pinCode = Math.floor(Math.random() * 9000 + 1000);
@@ -77,9 +62,7 @@ export class AccountController {
         .concat(`<p>Você não consegue acessar o sistema? Não se preocupe!`)
         .concat(`<p>Segue abaixo o código de recuperação:</p>`)
         .concat(`<h1><u>${pinCode}</u></h1>`)
-        .concat(
-          `<p>Caso não foi você quem solicitou, por gentileza desconsiderar este e-mail! :)</p>`,
-        )
+        .concat(`<p>Caso não foi você quem solicitou, por gentileza desconsiderar este e-mail! :)</p>`)
         .concat(`<p><b>Atenciosamente, equipe Skedol!</b></p>`)
         .concat(`</body>`)
         .concat(`</html>`);
@@ -104,10 +87,7 @@ export class AccountController {
       if (result.accepted.length > 0) {
         return { message: 'E-mail de recuperação de enviado com sucesso!' };
       } else {
-        throw new HttpException(
-          { message: 'Erro ao enviar e-mail de recuperação.' },
-          HttpStatus.INTERNAL_SERVER_ERROR,
-        );
+        throw new HttpException({ message: 'Erro ao enviar e-mail de recuperação.' }, HttpStatus.INTERNAL_SERVER_ERROR);
       }
     } catch (e) {
       throw new HttpException({ detail: e }, HttpStatus.INTERNAL_SERVER_ERROR);

@@ -8,17 +8,17 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppModule = void 0;
 const common_1 = require("@nestjs/common");
+const config_1 = require("@nestjs/config");
 const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
-const customer_module_1 = require("./features/customer/customer.module");
-const database_module_1 = require("./features/dabatase/database.module");
 const account_module_1 = require("./features/account/account.module");
 const company_module_1 = require("./features/company/company.module");
-const schedule_module_1 = require("./features/schedule/schedule.module");
+const customer_module_1 = require("./features/customer/customer.module");
+const database_module_1 = require("./features/dabatase/database.module");
 const email_module_1 = require("./features/email/email.module");
-const config_1 = require("@nestjs/config");
-const item_module_1 = require("./features/item/item.module");
 const employee_module_1 = require("./features/employee/employee.module");
+const item_module_1 = require("./features/item/item.module");
+const schedule_module_1 = require("./features/schedule/schedule.module");
 let AppModule = exports.AppModule = class AppModule {
 };
 exports.AppModule = AppModule = __decorate([

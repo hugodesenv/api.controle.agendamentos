@@ -34,7 +34,12 @@ export class CustomerService {
   }
 
   async remove(id: string): Promise<any> {
-    const res = await this.knex('customer').delete().where('id', id);
-    return { rows_affected: res };
+    try {
+      const res = await this.knex('customer').delete().where('id', id);
+      return { rows_affected: res };
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
   }
 }
