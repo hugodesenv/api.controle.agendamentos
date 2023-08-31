@@ -21,9 +21,7 @@ let CustomerService = exports.CustomerService = class CustomerService {
         this.knex = knex;
     }
     async findAll(companyId) {
-        const query = await this.knex('customer')
-            .select('*')
-            .where('fk_company', companyId);
+        const query = await this.knex('customer').select('*').where('fk_company', companyId);
         const res = query.map((row) => {
             return {
                 id: row.id,
@@ -37,14 +35,19 @@ let CustomerService = exports.CustomerService = class CustomerService {
         });
         return res;
     }
-    async create(dto) {
-        const [res] = await this.knex('customer').insert(dto).returning('id');
+    async create(customer) {
+        const [res] = await this.knex('customer').insert({
+            fk_company: customer.fk_company,
+            name: customer.name,
+            email: customer.email,
+            cellphone: customer.cellphone,
+        }).returning('id');
         return res;
     }
     async remove(id) {
         try {
-            const res = await this.knex('customer').delete().where('id', id);
-            return { rows_affected: res };
+            const rowsAffected = await this.knex('customer').delete().where('id', id);
+            return { rows_affected: rowsAffected };
         }
         catch (error) {
             console.log(error);

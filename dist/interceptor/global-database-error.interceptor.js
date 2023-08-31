@@ -8,7 +8,7 @@ class GlobalDatabaseErrosInterceptor {
         return next.handle().pipe((0, rxjs_1.catchError)((error) => {
             const friendlyMessage = {
                 '23503': 'Não é possível continuar, porque o registro possui dependências em outras tabelas',
-                '235057': 'Já existe um registro com essa mesma chave!',
+                '23505': 'Já existe um registro com essa mesma chave!',
             };
             const outputData = {
                 code: error?.response?.code,

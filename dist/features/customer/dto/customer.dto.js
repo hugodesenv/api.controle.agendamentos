@@ -18,6 +18,10 @@ exports.CustomerDto = CustomerDto;
 __decorate([
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
+], CustomerDto.prototype, "action", void 0);
+__decorate([
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", String)
 ], CustomerDto.prototype, "name", void 0);
 __decorate([
     (0, common_1.Optional)(),

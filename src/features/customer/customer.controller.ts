@@ -12,7 +12,7 @@ export class CustomerController {
       const res = await this.customerService.create(customerDto);
       return res;
     } catch (e) {
-      throw new HttpException({ detail: e }, HttpStatus.FORBIDDEN);
+      throw new HttpException(e, HttpStatus.FORBIDDEN);
     }
   }
 

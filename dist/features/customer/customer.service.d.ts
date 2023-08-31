@@ -5,6 +5,6 @@ export declare class CustomerService {
     private readonly knex;
     constructor(knex: Knex);
     findAll(companyId: string): Promise<CustomerInterface[]>;
-    create(dto: CustomerDto): Promise<string>;
+    create(customer: CustomerDto): Promise<string>;
     remove(id: string): Promise<any>;
 }

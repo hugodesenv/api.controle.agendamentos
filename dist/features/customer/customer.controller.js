@@ -26,7 +26,7 @@ let CustomerController = exports.CustomerController = class CustomerController {
             return res;
         }
         catch (e) {
-            throw new common_1.HttpException({ detail: e }, common_1.HttpStatus.FORBIDDEN);
+            throw new common_1.HttpException(e, common_1.HttpStatus.FORBIDDEN);
         }
     }
     async findAll(companyId) {

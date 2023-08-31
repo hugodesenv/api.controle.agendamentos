@@ -9,9 +9,7 @@ export class CustomerService {
   constructor(@InjectKnex() private readonly knex: Knex) {}
 
   async findAll(companyId: string): Promise<CustomerInterface[]> {
-    const query = await this.knex('customer')
-      .select('*')
-      .where('fk_company', companyId);
+    const query = await this.knex('customer').select('*').where('fk_company', companyId);
 
     const res: CustomerInterface[] = query.map((row) => {
       return {
@@ -28,15 +26,21 @@ export class CustomerService {
     return res;
   }
 
-  async create(dto: CustomerDto): Promise<string> {
-    const [res] = await this.knex('customer').insert(dto).returning('id');
+  async create(customer: CustomerDto): Promise<string> {
+    const [res] = await this.knex('customer').insert({
+      fk_company: customer.fk_company,
+      name: customer.name,
+      email: customer.email,
+      cellphone: customer.cellphone,
+
+    }).returning('id');
     return res;
   }
 
   async remove(id: string): Promise<any> {
     try {
-      const res = await this.knex('customer').delete().where('id', id);
-      return { rows_affected: res };
+      const rowsAffected = await this.knex('customer').delete().where('id', id);
+      return { rows_affected: rowsAffected };
     } catch (error) {
       console.log(error);
       throw error;

@@ -3,6 +3,9 @@ import { IsEmail, IsNotEmpty } from 'class-validator';
 
 export class CustomerDto {
   @IsNotEmpty()
+  action: string;
+
+  @IsNotEmpty()
   name: string;
 
   @Optional()

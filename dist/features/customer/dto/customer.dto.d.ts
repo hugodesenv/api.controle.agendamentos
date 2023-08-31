@@ -1,4 +1,5 @@
 export declare class CustomerDto {
+    action: string;
     name: string;
     cellphone: string;
     email: string;
