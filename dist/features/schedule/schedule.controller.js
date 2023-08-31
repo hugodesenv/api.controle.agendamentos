@@ -38,6 +38,16 @@ let ScheduleController = exports.ScheduleController = class ScheduleController {
             throw new common_1.HttpException({ detail: e }, common_1.HttpStatus.FORBIDDEN);
         }
     }
+    async findAll(filters) {
+        try {
+            var filter = {};
+            const res = await this.scheduleService.findAll(filters);
+            return res;
+        }
+        catch (e) {
+            throw new common_1.HttpException({ detail: e }, common_1.HttpStatus.FORBIDDEN);
+        }
+    }
 };
 __decorate([
     (0, common_1.Post)(),
@@ -54,6 +64,13 @@ __decorate([
     __metadata("design:paramtypes", [String, schedule_dto_1.ScheduleDto]),
     __metadata("design:returntype", Promise)
 ], ScheduleController.prototype, "update", null);
+__decorate([
+    (0, common_1.Get)(),
+    __param(0, (0, common_1.Query)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], ScheduleController.prototype, "findAll", null);
 exports.ScheduleController = ScheduleController = __decorate([
     (0, common_1.Controller)('schedule'),
     __metadata("design:paramtypes", [schedule_service_1.ScheduleService])

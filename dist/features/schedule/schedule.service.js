@@ -50,14 +50,44 @@ let ScheduleService = exports.ScheduleService = class ScheduleService {
             })
                 .where(scheduleID);
             const items = updateSheduleDto.items;
-            await Promise.all([this._proccessItemInsert(scheduleID, items.insert, trx), this._proccessItemUpdate(items.update, trx), this._proccessItemDelete(items.delete, trx)]);
-            console.log('schedule.service.update.before commit');
+            await Promise.all([
+                this._proccessItemInsert(scheduleID, items.insert, trx),
+                this._proccessItemUpdate(items.update, trx),
+                this._proccessItemDelete(items.delete, trx),
+            ]);
             trx.commit();
         }
         catch (error) {
-            console.log('schedule.service.update.rollback', error);
             trx.rollback();
         }
+    }
+    async findAll(filters) {
+        const sql = this.buildQuery(filters);
+        const query = await sql;
+        const res = query.map((data) => this.mapToScheduleInterface(data));
+        return res;
+    }
+    mapToScheduleInterface(queryResult) {
+        const output = {
+            id: queryResult.id,
+            schedule_date: queryResult.schedule_date,
+            total_minutes: queryResult.total_minutes,
+            total_price: queryResult.total_price,
+            employee: { id: queryResult.employee_id, name: queryResult.employee_name },
+            customer: {
+                id: queryResult.customer_id,
+                name: queryResult.customer_name,
+            },
+        };
+        return output;
+    }
+    buildQuery(filters) {
+        const query = this.knex('schedule as a')
+            .select('a.id', 'b.id as customer_id', 'b.name as customer_name', 'a.schedule_date', 'a.total_minutes', 'a.total_price', 'c.id as employee_id', 'c.name as employee_name')
+            .innerJoin('customer as b', 'a.fk_customer', '=', 'b.id')
+            .innerJoin('employee as c', 'a.fk_employee', '=', 'c.id');
+        console.log(query);
+        return query;
     }
     async _proccessItemInsert(scheduleID, items, trx) {
         await Promise.all(items.map(async (data) => {

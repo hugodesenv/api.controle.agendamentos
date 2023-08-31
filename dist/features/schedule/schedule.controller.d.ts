@@ -5,4 +5,5 @@ export declare class ScheduleController {
     constructor(scheduleService: ScheduleService);
     create(createScheduleDto: ScheduleDto): Promise<any>;
     update(id: string, updateScheduleDto: ScheduleDto): Promise<void>;
+    findAll(filters: any): Promise<import("./interface/schedule.interface").ScheduleInterface[]>;
 }

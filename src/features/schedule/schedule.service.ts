@@ -3,6 +3,8 @@ import { InjectKnex, Knex } from 'nestjs-knex';
 import { ScheduleItemDto } from '../schedule_item/dto/schedule-item.dto';
 import { ScheduleItemService } from '../schedule_item/schedule-item.service';
 import { ScheduleDto } from './dto/schedule.dto';
+import { ScheduleInterface } from './interface/schedule.interface';
+import { CompanyInterface } from 'src/interface/db/company.interface';
 
 @Injectable()
 export class ScheduleService {
@@ -33,22 +35,65 @@ export class ScheduleService {
   async update(scheduleID: string, updateSheduleDto: ScheduleDto) {
     const trx = await this.knex.transaction();
     try {
-      await trx('schedule')
-        .update({
-          fk_customer: updateSheduleDto.fk_customer,
-          schedule_date: updateSheduleDto.schedule_date,
-        })
-        .where(scheduleID);
+      await this.buildUpdate(trx, updateSheduleDto, scheduleID);
 
       const items = updateSheduleDto.items;
-      await Promise.all([this._proccessItemInsert(scheduleID, items.insert, trx), this._proccessItemUpdate(items.update, trx), this._proccessItemDelete(items.delete, trx)]);
+      await Promise.all([
+        this._proccessItemInsert(scheduleID, items.insert, trx),
+        this._proccessItemUpdate(items.update, trx),
+        this._proccessItemDelete(items.delete, trx),
+      ]);
 
-      console.log('schedule.service.update.before commit');
       trx.commit();
     } catch (error) {
-      console.log('schedule.service.update.rollback', error);
       trx.rollback();
     }
+  }
+
+  private buildUpdate(trx: any, dto: ScheduleDto, scheduleId: string) {
+    return trx('schedule')
+      .update({
+        fk_customer: dto.fk_customer,
+        schedule_date: dto.schedule_date,
+      })
+      .where(scheduleId);
+  }
+
+  async findAll(filters: any) {
+    const sql = this.buildQuery(filters);
+    const query = await sql;
+    return query.map((data) => this.mapToScheduleInterface(data));
+  }
+
+  private mapToScheduleInterface(queryResult) {
+    const output: ScheduleInterface = {
+      id: queryResult.id,
+      schedule_date: queryResult.schedule_date,
+      total_minutes: queryResult.total_minutes,
+      total_price: queryResult.total_price,
+      employee: { id: queryResult.employee_id, name: queryResult.employee_name },
+      customer: {
+        id: queryResult.customer_id,
+        name: queryResult.customer_name,
+      },
+    };
+    return output;
+  }
+
+  private buildQuery(filters) {
+    return this.knex('schedule as a')
+      .select(
+        'a.id',
+        'b.id as customer_id',
+        'b.name as customer_name',
+        'a.schedule_date',
+        'a.total_minutes',
+        'a.total_price',
+        'c.id as employee_id',
+        'c.name as employee_name',
+      )
+      .innerJoin('customer as b', 'a.fk_customer', '=', 'b.id')
+      .innerJoin('employee as c', 'a.fk_employee', '=', 'c.id');
   }
 
   private async _proccessItemInsert(scheduleID: string, items: ScheduleItemDto[], trx: Knex) {

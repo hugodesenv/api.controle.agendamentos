@@ -5,5 +5,5 @@ export interface CustomerInterface {
   name: string;
   cellphone?: string;
   email?: string;
-  company: CompanyInterface;
+  company?: CompanyInterface;
 }

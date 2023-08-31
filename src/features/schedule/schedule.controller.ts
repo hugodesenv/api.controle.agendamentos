@@ -1,4 +1,4 @@
-import { Body, Controller, HttpException, HttpStatus, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Get, HttpException, HttpStatus, Param, Post, Put, Query } from '@nestjs/common';
 import { ScheduleDto } from './dto/schedule.dto';
 import { ScheduleService } from './schedule.service';
 
@@ -20,6 +20,17 @@ export class ScheduleController {
   async update(@Param('id') id: string, @Body() updateScheduleDto: ScheduleDto) {
     try {
       const res = await this.scheduleService.update(id, updateScheduleDto);
+      return res;
+    } catch (e) {
+      throw new HttpException({ detail: e }, HttpStatus.FORBIDDEN);
+    }
+  }
+
+  @Get()
+  async findAll(@Query() filters: any) {
+    try {
+      var filter = {};
+      const res = await this.scheduleService.findAll(filters);
       return res;
     } catch (e) {
       throw new HttpException({ detail: e }, HttpStatus.FORBIDDEN);
