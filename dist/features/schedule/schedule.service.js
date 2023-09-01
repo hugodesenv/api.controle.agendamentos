@@ -24,13 +24,8 @@ let ScheduleService = exports.ScheduleService = class ScheduleService {
     async create(scheduleDto) {
         const trx = await this.knex.transaction();
         try {
-            const [res] = await trx('schedule')
-                .insert({
-                fk_employee: scheduleDto.fk_employee,
-                fk_customer: scheduleDto.fk_customer,
-                schedule_date: scheduleDto.schedule_date,
-            })
-                .returning('id');
+            const sql = this.buildInsert(trx, scheduleDto);
+            const [res] = await sql;
             await this._proccessItemInsert(res.id, scheduleDto.items.insert, trx);
             await trx.commit();
             return { message: 'Operação realizada com sucesso!' };
@@ -40,15 +35,19 @@ let ScheduleService = exports.ScheduleService = class ScheduleService {
             throw e;
         }
     }
+    buildInsert(trx, data) {
+        return trx('schedule')
+            .insert({
+            fk_employee: data.fk_employee,
+            fk_customer: data.fk_customer,
+            schedule_date: data.schedule_date,
+        })
+            .returning('id');
+    }
     async update(scheduleID, updateSheduleDto) {
         const trx = await this.knex.transaction();
         try {
-            await trx('schedule')
-                .update({
-                fk_customer: updateSheduleDto.fk_customer,
-                schedule_date: updateSheduleDto.schedule_date,
-            })
-                .where(scheduleID);
+            await this.buildUpdate(trx, updateSheduleDto, scheduleID);
             const items = updateSheduleDto.items;
             await Promise.all([
                 this._proccessItemInsert(scheduleID, items.insert, trx),
@@ -61,11 +60,18 @@ let ScheduleService = exports.ScheduleService = class ScheduleService {
             trx.rollback();
         }
     }
+    buildUpdate(trx, dto, scheduleId) {
+        return trx('schedule')
+            .update({
+            fk_customer: dto.fk_customer,
+            schedule_date: dto.schedule_date,
+        })
+            .where(scheduleId);
+    }
     async findAll(filters) {
         const sql = this.buildQuery(filters);
         const query = await sql;
-        const res = query.map((data) => this.mapToScheduleInterface(data));
-        return res;
+        return query.map((data) => this.mapToScheduleInterface(data));
     }
     mapToScheduleInterface(queryResult) {
         const output = {
@@ -82,12 +88,10 @@ let ScheduleService = exports.ScheduleService = class ScheduleService {
         return output;
     }
     buildQuery(filters) {
-        const query = this.knex('schedule as a')
+        return this.knex('schedule as a')
             .select('a.id', 'b.id as customer_id', 'b.name as customer_name', 'a.schedule_date', 'a.total_minutes', 'a.total_price', 'c.id as employee_id', 'c.name as employee_name')
             .innerJoin('customer as b', 'a.fk_customer', '=', 'b.id')
             .innerJoin('employee as c', 'a.fk_employee', '=', 'c.id');
-        console.log(query);
-        return query;
     }
     async _proccessItemInsert(scheduleID, items, trx) {
         await Promise.all(items.map(async (data) => {

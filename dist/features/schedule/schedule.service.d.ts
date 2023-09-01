@@ -7,7 +7,9 @@ export declare class ScheduleService {
     private readonly itemService;
     constructor(knex: Knex, itemService: ScheduleItemService);
     create(scheduleDto: ScheduleDto): Promise<any>;
+    private buildInsert;
     update(scheduleID: string, updateSheduleDto: ScheduleDto): Promise<void>;
+    private buildUpdate;
     findAll(filters: any): Promise<ScheduleInterface[]>;
     private mapToScheduleInterface;
     private buildQuery;

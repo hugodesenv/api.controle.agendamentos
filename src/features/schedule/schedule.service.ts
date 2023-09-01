@@ -4,7 +4,6 @@ import { ScheduleItemDto } from '../schedule_item/dto/schedule-item.dto';
 import { ScheduleItemService } from '../schedule_item/schedule-item.service';
 import { ScheduleDto } from './dto/schedule.dto';
 import { ScheduleInterface } from './interface/schedule.interface';
-import { CompanyInterface } from 'src/interface/db/company.interface';
 
 @Injectable()
 export class ScheduleService {
@@ -13,13 +12,8 @@ export class ScheduleService {
   async create(scheduleDto: ScheduleDto): Promise<any> {
     const trx = await this.knex.transaction();
     try {
-      const [res] = await trx('schedule')
-        .insert({
-          fk_employee: scheduleDto.fk_employee,
-          fk_customer: scheduleDto.fk_customer,
-          schedule_date: scheduleDto.schedule_date,
-        })
-        .returning('id');
+      const sql = this.buildInsert(trx, scheduleDto);
+      const [res] = await sql;
 
       await this._proccessItemInsert(res.id, scheduleDto.items.insert, trx);
 
@@ -30,6 +24,16 @@ export class ScheduleService {
       trx.rollback();
       throw e;
     }
+  }
+
+  private buildInsert(trx: any, data: ScheduleDto) {
+    return trx('schedule')
+      .insert({
+        fk_employee: data.fk_employee,
+        fk_customer: data.fk_customer,
+        schedule_date: data.schedule_date,
+      })
+      .returning('id');
   }
 
   async update(scheduleID: string, updateSheduleDto: ScheduleDto) {
