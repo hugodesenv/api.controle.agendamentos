@@ -11,13 +11,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ScheduleDto = void 0;
 const class_validator_1 = require("class-validator");
+const constants_class_1 = require("../../../shared/constants.class");
 class ScheduleDto {
 }
 exports.ScheduleDto = ScheduleDto;
 __decorate([
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
-], ScheduleDto.prototype, "id", void 0);
+], ScheduleDto.prototype, "action", void 0);
 __decorate([
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
@@ -27,7 +28,7 @@ __decorate([
     __metadata("design:type", Date)
 ], ScheduleDto.prototype, "schedule_date", void 0);
 __decorate([
-    (0, class_validator_1.ValidateIf)((o) => o.id.IsEmpty()),
+    (0, class_validator_1.ValidateIf)((o) => o.action === constants_class_1.DB_ACTION.insert),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], ScheduleDto.prototype, "fk_employee", void 0);

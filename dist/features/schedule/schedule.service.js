@@ -22,6 +22,7 @@ let ScheduleService = exports.ScheduleService = class ScheduleService {
         this.itemService = itemService;
     }
     async create(scheduleDto) {
+        console.log('Cai no create do schedule');
         const trx = await this.knex.transaction();
         try {
             const sql = this.buildInsert(trx, scheduleDto);
@@ -32,6 +33,7 @@ let ScheduleService = exports.ScheduleService = class ScheduleService {
         }
         catch (e) {
             trx.rollback();
+            console.log({ error: e });
             throw e;
         }
     }

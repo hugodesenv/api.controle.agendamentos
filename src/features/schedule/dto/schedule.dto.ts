@@ -1,9 +1,10 @@
 import { IsNotEmpty, ValidateIf, IsEmpty } from 'class-validator';
 import { ScheduleItemDto } from 'src/features/schedule_item/dto/schedule-item.dto';
+import { DB_ACTION } from 'src/shared/constants.class';
 
 export class ScheduleDto {
   @IsNotEmpty()
-  id: string;
+  action: string;
 
   @IsNotEmpty()
   fk_customer: string;
@@ -11,7 +12,7 @@ export class ScheduleDto {
   @IsNotEmpty()
   schedule_date: Date;
 
-  @ValidateIf((o) => o.id.IsEmpty())
+  @ValidateIf((o) => o.action === DB_ACTION.insert)
   @IsNotEmpty()
   fk_employee: string;
 

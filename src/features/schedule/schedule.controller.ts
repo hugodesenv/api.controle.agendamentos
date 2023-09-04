@@ -12,7 +12,7 @@ export class ScheduleController {
       const res = await this.scheduleService.create(createScheduleDto);
       return res;
     } catch (e) {
-      throw new HttpException({ detail: e }, HttpStatus.FORBIDDEN);
+      throw new HttpException(e, HttpStatus.FORBIDDEN);
     }
   }
 
@@ -22,7 +22,7 @@ export class ScheduleController {
       const res = await this.scheduleService.update(id, updateScheduleDto);
       return res;
     } catch (e) {
-      throw new HttpException({ detail: e }, HttpStatus.FORBIDDEN);
+      throw new HttpException(e, HttpStatus.FORBIDDEN);
     }
   }
 
@@ -33,7 +33,7 @@ export class ScheduleController {
       const res = await this.scheduleService.findAll(filters);
       return res;
     } catch (e) {
-      throw new HttpException({ detail: e }, HttpStatus.FORBIDDEN);
+      throw new HttpException(e, HttpStatus.FORBIDDEN);
     }
   }
 }

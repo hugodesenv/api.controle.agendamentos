@@ -26,7 +26,7 @@ let ScheduleController = exports.ScheduleController = class ScheduleController {
             return res;
         }
         catch (e) {
-            throw new common_1.HttpException({ detail: e }, common_1.HttpStatus.FORBIDDEN);
+            throw new common_1.HttpException(e, common_1.HttpStatus.FORBIDDEN);
         }
     }
     async update(id, updateScheduleDto) {
@@ -35,7 +35,7 @@ let ScheduleController = exports.ScheduleController = class ScheduleController {
             return res;
         }
         catch (e) {
-            throw new common_1.HttpException({ detail: e }, common_1.HttpStatus.FORBIDDEN);
+            throw new common_1.HttpException(e, common_1.HttpStatus.FORBIDDEN);
         }
     }
     async findAll(filters) {
@@ -45,7 +45,7 @@ let ScheduleController = exports.ScheduleController = class ScheduleController {
             return res;
         }
         catch (e) {
-            throw new common_1.HttpException({ detail: e }, common_1.HttpStatus.FORBIDDEN);
+            throw new common_1.HttpException(e, common_1.HttpStatus.FORBIDDEN);
         }
     }
 };

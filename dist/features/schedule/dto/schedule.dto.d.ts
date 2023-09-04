@@ -1,6 +1,6 @@
 import { ScheduleItemDto } from 'src/features/schedule_item/dto/schedule-item.dto';
 export declare class ScheduleDto {
-    id: string;
+    action: string;
     fk_customer: string;
     schedule_date: Date;
     fk_employee: string;

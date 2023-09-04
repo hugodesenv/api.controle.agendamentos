@@ -10,6 +10,7 @@ export class ScheduleService {
   constructor(@InjectKnex() private readonly knex: Knex, private readonly itemService: ScheduleItemService) {}
 
   async create(scheduleDto: ScheduleDto): Promise<any> {
+    console.log('Cai no create do schedule');
     const trx = await this.knex.transaction();
     try {
       const sql = this.buildInsert(trx, scheduleDto);
@@ -22,6 +23,7 @@ export class ScheduleService {
       return { message: 'Operação realizada com sucesso!' };
     } catch (e) {
       trx.rollback();
+      console.log({ error: e });
       throw e;
     }
   }
