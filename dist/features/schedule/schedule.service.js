@@ -22,7 +22,6 @@ let ScheduleService = exports.ScheduleService = class ScheduleService {
         this.itemService = itemService;
     }
     async create(scheduleDto) {
-        console.log('Cai no create do schedule');
         const trx = await this.knex.transaction();
         try {
             const sql = this.buildInsert(trx, scheduleDto);
@@ -43,6 +42,7 @@ let ScheduleService = exports.ScheduleService = class ScheduleService {
             fk_employee: data.fk_employee,
             fk_customer: data.fk_customer,
             schedule_date: data.schedule_date,
+            situation: data.situation,
         })
             .returning('id');
     }
@@ -67,6 +67,7 @@ let ScheduleService = exports.ScheduleService = class ScheduleService {
             .update({
             fk_customer: dto.fk_customer,
             schedule_date: dto.schedule_date,
+            situation: dto.situation,
         })
             .where(scheduleId);
     }
@@ -91,7 +92,7 @@ let ScheduleService = exports.ScheduleService = class ScheduleService {
     }
     buildQuery(filters) {
         return this.knex('schedule as a')
-            .select('a.id', 'b.id as customer_id', 'b.name as customer_name', 'a.schedule_date', 'a.total_minutes', 'a.total_price', 'c.id as employee_id', 'c.name as employee_name')
+            .select('a.id', 'b.id as customer_id', 'b.name as customer_name', 'a.schedule_date', 'a.total_minutes', 'a.total_price', 'a.situation', 'c.id as employee_id', 'c.name as employee_name')
             .innerJoin('customer as b', 'a.fk_customer', '=', 'b.id')
             .innerJoin('employee as c', 'a.fk_employee', '=', 'c.id');
     }

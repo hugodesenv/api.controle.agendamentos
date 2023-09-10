@@ -52,6 +52,7 @@ create table schedule (
 	schedule_date timestamp,
     total_minutes integer default 0,
     total_price numeric(19,6) default 0,
+    situation varchar(10),
 	constraint fk_employee foreign key (fk_employee) references employee(id),
 	constraint fk_customer foreign key (fk_customer) references customer(id)
 );

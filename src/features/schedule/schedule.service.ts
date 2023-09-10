@@ -10,7 +10,6 @@ export class ScheduleService {
   constructor(@InjectKnex() private readonly knex: Knex, private readonly itemService: ScheduleItemService) {}
 
   async create(scheduleDto: ScheduleDto): Promise<any> {
-    console.log('Cai no create do schedule');
     const trx = await this.knex.transaction();
     try {
       const sql = this.buildInsert(trx, scheduleDto);
@@ -34,6 +33,7 @@ export class ScheduleService {
         fk_employee: data.fk_employee,
         fk_customer: data.fk_customer,
         schedule_date: data.schedule_date,
+        situation: data.situation,
       })
       .returning('id');
   }
@@ -61,6 +61,7 @@ export class ScheduleService {
       .update({
         fk_customer: dto.fk_customer,
         schedule_date: dto.schedule_date,
+        situation: dto.situation,
       })
       .where(scheduleId);
   }
@@ -95,6 +96,7 @@ export class ScheduleService {
         'a.schedule_date',
         'a.total_minutes',
         'a.total_price',
+        'a.situation',
         'c.id as employee_id',
         'c.name as employee_name',
       )

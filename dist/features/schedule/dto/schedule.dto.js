@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ScheduleDto = void 0;
 const class_validator_1 = require("class-validator");
 const constants_class_1 = require("../../../shared/constants.class");
+const schedule_situation_enum_1 = require("../enum/schedule.situation.enum");
 class ScheduleDto {
 }
 exports.ScheduleDto = ScheduleDto;
@@ -32,6 +33,10 @@ __decorate([
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], ScheduleDto.prototype, "fk_employee", void 0);
+__decorate([
+    (0, class_validator_1.IsEnum)(schedule_situation_enum_1.ScheduleSituationEnum),
+    __metadata("design:type", String)
+], ScheduleDto.prototype, "situation", void 0);
 __decorate([
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", Object)
