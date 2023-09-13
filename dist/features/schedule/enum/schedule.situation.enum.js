@@ -5,7 +5,7 @@ var ScheduleSituationEnum;
 (function (ScheduleSituationEnum) {
     ScheduleSituationEnum["Pending"] = "pending";
     ScheduleSituationEnum["Confirmed"] = "confirmed";
-    ScheduleSituationEnum["InProgress"] = "in-progress";
+    ScheduleSituationEnum["Progress"] = "progress";
     ScheduleSituationEnum["Canceled"] = "canceled";
     ScheduleSituationEnum["Completed"] = "completed";
 })(ScheduleSituationEnum || (exports.ScheduleSituationEnum = ScheduleSituationEnum = {}));

@@ -1,7 +1,7 @@
 export declare enum ScheduleSituationEnum {
     Pending = "pending",
     Confirmed = "confirmed",
-    InProgress = "in-progress",
+    Progress = "progress",
     Canceled = "canceled",
     Completed = "completed"
 }

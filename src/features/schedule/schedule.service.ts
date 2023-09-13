@@ -78,6 +78,7 @@ export class ScheduleService {
       schedule_date: queryResult.schedule_date,
       total_minutes: queryResult.total_minutes,
       total_price: queryResult.total_price,
+      situation: queryResult.situation,
       employee: { id: queryResult.employee_id, name: queryResult.employee_name },
       customer: {
         id: queryResult.customer_id,

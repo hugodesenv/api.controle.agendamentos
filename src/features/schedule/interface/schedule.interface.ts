@@ -6,6 +6,7 @@ export interface ScheduleInterface {
   schedule_date: string;
   total_minutes: number;
   total_price: number;
+  situation: string;
   customer: CustomerInterface;
   employee: EmployeeInterface;
 }
