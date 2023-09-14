@@ -1,4 +1,4 @@
-import { CompanyInterface } from './company.interface';
+import { CompanyInterface } from '../../company/interface/company.interface';
 export interface CustomerInterface {
     id: string;
     name: string;

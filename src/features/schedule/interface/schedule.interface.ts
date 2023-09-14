@@ -1,5 +1,5 @@
 import { EmployeeInterface } from 'src/features/employee/interface/employee.interface';
-import { CustomerInterface } from 'src/interface/db/customer.interface';
+import { CustomerInterface } from 'src/features/customer/interface/customer.interface';
 
 export interface ScheduleInterface {
   id: string;

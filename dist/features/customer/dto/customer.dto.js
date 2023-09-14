@@ -12,11 +12,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.CustomerDto = void 0;
 const common_1 = require("@nestjs/common");
 const class_validator_1 = require("class-validator");
+const dabatase_action_enum_1 = require("../../dabatase/enum/dabatase.action.enum");
 class CustomerDto {
 }
 exports.CustomerDto = CustomerDto;
 __decorate([
-    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsEnum)(dabatase_action_enum_1.DatabaseActionEnum),
     __metadata("design:type", String)
 ], CustomerDto.prototype, "action", void 0);
 __decorate([
@@ -32,6 +33,7 @@ __decorate([
     __metadata("design:type", String)
 ], CustomerDto.prototype, "email", void 0);
 __decorate([
+    (0, class_validator_1.ValidateIf)((value) => value.action == dabatase_action_enum_1.DatabaseActionEnum.insert),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], CustomerDto.prototype, "fk_company", void 0);

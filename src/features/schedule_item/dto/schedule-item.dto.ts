@@ -1,8 +1,8 @@
-import { IsInt, IsNotEmpty, IsNumber, ValidateIf } from 'class-validator';
-import { DB_ACTION } from 'src/shared/constants.class';
+import { IsEnum, IsInt, IsNotEmpty, IsNumber, ValidateIf } from 'class-validator';
+import { DatabaseActionEnum } from 'src/features/dabatase/enum/dabatase.action.enum';
 
 export class ScheduleItemDto {
-  @IsNotEmpty()
+  @IsEnum(DatabaseActionEnum)
   action: string;
 
   @IsInt()
@@ -11,11 +11,11 @@ export class ScheduleItemDto {
   @IsNumber()
   price: number;
 
-  @ValidateIf((o) => o.action === DB_ACTION.insert)
+  @ValidateIf((o) => o.action === DatabaseActionEnum.insert)
   @IsNotEmpty()
   fk_schedule: string;
 
-  @ValidateIf((o) => o.action === DB_ACTION.insert)
+  @ValidateIf((o) => o.action === DatabaseActionEnum.insert)
   @IsNotEmpty()
   fk_item: string;
 }

@@ -36,13 +36,18 @@ let CustomerService = exports.CustomerService = class CustomerService {
         return res;
     }
     async create(customer) {
-        const [res] = await this.knex('customer').insert({
+        const [res] = await this.buildInsert(customer);
+        return res;
+    }
+    buildInsert(customer) {
+        return this.knex('customer')
+            .insert({
             fk_company: customer.fk_company,
             name: customer.name,
             email: customer.email,
             cellphone: customer.cellphone,
-        }).returning('id');
-        return res;
+        })
+            .returning('id');
     }
     async remove(id) {
         try {
@@ -50,9 +55,25 @@ let CustomerService = exports.CustomerService = class CustomerService {
             return { rows_affected: rowsAffected };
         }
         catch (error) {
-            console.log(error);
             throw error;
         }
+    }
+    async update(customer, id) {
+        try {
+            const sql = this.buildUpdate(customer, id);
+            const query = await sql;
+            console.log(`CustomerService | Update: ${query}`);
+        }
+        catch (error) {
+            throw error;
+        }
+    }
+    buildUpdate(customer, id) {
+        return this.knex('customer').update({
+            cellphone: customer.cellphone,
+            email: customer.email,
+            name: customer.name,
+        }).where(id);
     }
 };
 exports.CustomerService = CustomerService = __decorate([

@@ -1,7 +1,7 @@
 import { IsNotEmpty, ValidateIf, IsEmpty, IsEnum } from 'class-validator';
 import { ScheduleItemDto } from 'src/features/schedule_item/dto/schedule-item.dto';
-import { DB_ACTION } from 'src/shared/constants.class';
 import { ScheduleSituationEnum } from '../enum/schedule.situation.enum';
+import { DatabaseActionEnum } from 'src/features/dabatase/enum/dabatase.action.enum';
 
 export class ScheduleDto {
   @IsNotEmpty()
@@ -13,7 +13,7 @@ export class ScheduleDto {
   @IsNotEmpty()
   schedule_date: Date;
 
-  @ValidateIf((o) => o.action === DB_ACTION.insert)
+  @ValidateIf((o) => o.action === DatabaseActionEnum.insert)
   @IsNotEmpty()
   fk_employee: string;
 

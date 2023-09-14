@@ -47,6 +47,15 @@ let CustomerController = exports.CustomerController = class CustomerController {
             throw new common_1.HttpException(e, common_1.HttpStatus.FORBIDDEN);
         }
     }
+    async update(body, id) {
+        try {
+            const res = await this.customerService.update(body, id);
+            return res;
+        }
+        catch (e) {
+            throw new common_1.HttpException(e, common_1.HttpStatus.FORBIDDEN);
+        }
+    }
 };
 __decorate([
     (0, common_1.Post)(),
@@ -69,6 +78,14 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], CustomerController.prototype, "remove", null);
+__decorate([
+    (0, common_1.Put)(':id'),
+    __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [customer_dto_1.CustomerDto, String]),
+    __metadata("design:returntype", Promise)
+], CustomerController.prototype, "update", null);
 exports.CustomerController = CustomerController = __decorate([
     (0, common_1.Controller)('customer'),
     __metadata("design:paramtypes", [customer_service_1.CustomerService])

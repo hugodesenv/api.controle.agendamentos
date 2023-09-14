@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, Put } from '@nestjs/common';
 import { CustomerService } from './customer.service';
 import { CustomerDto } from './dto/customer.dto';
 
@@ -30,6 +30,16 @@ export class CustomerController {
   async remove(@Param('id') id: string) {
     try {
       const res = await this.customerService.remove(id);
+      return res;
+    } catch (e) {
+      throw new HttpException(e, HttpStatus.FORBIDDEN);
+    }
+  }
+
+  @Put(':id')
+  async update(@Body() body: CustomerDto, @Param('id') id: string) {
+    try {
+      const res = await this.customerService.update(body, id);
       return res;
     } catch (e) {
       throw new HttpException(e, HttpStatus.FORBIDDEN);

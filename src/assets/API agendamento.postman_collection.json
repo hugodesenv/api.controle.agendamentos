@@ -1,0 +1,557 @@
+{
+	"info": {
+		"_postman_id": "819ea700-ca67-4b63-89bd-e26b7bee421c",
+		"name": "API agendamento",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28919522"
+	},
+	"item": [
+		{
+			"name": "company",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"action\": \"insert\",\r\n    \"social_name\": \"IBM LT\",\r\n    \"active\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{LOCAL}}/company/",
+							"host": [
+								"{{LOCAL}}"
+							],
+							"path": [
+								"company",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"action\": \"update\",\r\n    \"social_name\": \"IBM LTDA\",\r\n    \"active\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{LOCAL}}/company/02a02a97-01c3-4817-8bbe-ed831fb6cb30",
+							"host": [
+								"{{LOCAL}}"
+							],
+							"path": [
+								"company",
+								"02a02a97-01c3-4817-8bbe-ed831fb6cb30"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{LOCAL}}/company/02a02a97-01c3-4817-8bbe-ed831fb6cb30",
+							"host": [
+								"{{LOCAL}}"
+							],
+							"path": [
+								"company",
+								"02a02a97-01c3-4817-8bbe-ed831fb6cb30"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "employee",
+			"item": [
+				{
+					"name": "update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Leandro Faxineiro (Inativo)\",\r\n    \"active\": false,\r\n    \"action\": \"update\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{LOCAL}}/employee/9101b4bc-0d57-4b1a-b7f6-501f4520c753",
+							"host": [
+								"{{LOCAL}}"
+							],
+							"path": [
+								"employee",
+								"9101b4bc-0d57-4b1a-b7f6-501f4520c753"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fk_company\": \"a417123d-21b8-4ec9-af97-17e3b15510f7\",\r\n    \"name\": \"Juan Cabeleleiro\",\r\n    \"active\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{LOCAL}}/employee",
+							"host": [
+								"{{LOCAL}}"
+							],
+							"path": [
+								"employee"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "customer",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"James Rodriguez\",\r\n    \"email\": \"james.spfc@hotmail.com\",\r\n    \"fk_company\": \"a417123d-21b8-4ec9-af97-17e3b15510f7\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{LOCAL}}/customer/",
+							"host": [
+								"{{LOCAL}}"
+							],
+							"path": [
+								"customer",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{LOCAL}}/customer/fcca97b4-eb75-4261-b7f4-3288827eaec2",
+							"host": [
+								"{{LOCAL}}"
+							],
+							"path": [
+								"customer",
+								"fcca97b4-eb75-4261-b7f4-3288827eaec2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "find all",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{LOCAL}}/customer/a417123d-21b8-4ec9-af97-17e3b15510f7",
+							"host": [
+								"{{LOCAL}}"
+							],
+							"path": [
+								"customer",
+								"a417123d-21b8-4ec9-af97-17e3b15510f7"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "item",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"action\": \"insert\",\r\n    \"description\": \"Barba\",\r\n    \"service_minutes\": 30,\r\n    \"active\": true,\r\n    \"fk_company\": \"a417123d-21b8-4ec9-af97-17e3b15510f7\",\r\n    \"type\": \"service\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{LOCAL}}/item",
+							"host": [
+								"{{LOCAL}}"
+							],
+							"path": [
+								"item"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "schedule",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"action\": \"insert\",\r\n    \"fk_employee\": \"cdf311b5-2e1e-48a1-a361-dcf5dfd8d146\",\r\n    \"fk_customer\": \"5219100d-2cfd-4084-b82e-96a5cde860e9\",\r\n    \"schedule_date\": \"2023-09-06 08:00:00\",\r\n    \"items\": {\r\n        \"insert\": [\r\n            {\r\n                \"fk_item\": \"25f8d0f2-b96b-4cac-8e19-87eb1ad33b67\",\r\n                \"service_minutes\": 75,\r\n                \"price\": 25.50\r\n            },\r\n            {\r\n                \"fk_item\": \"25f8d0f2-b96b-4cac-8e19-87eb1ad33b67\",\r\n                \"service_minutes\": 75,\r\n                \"price\": 25.50\r\n            }\r\n        ]\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{LOCAL}}/schedule/",
+							"host": [
+								"{{LOCAL}}"
+							],
+							"path": [
+								"schedule",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fk_employee\": \"cdf311b5-2e1e-48a1-a361-dcf5dfd8d146\",\r\n    \"fk_customer\": \"b8fd51b4-f10a-4e1e-b40f-f680c5dbe6dc\",\r\n    \"schedule_date\": \"2023-08-06 09:50:23\",\r\n    \"items\": {\r\n        \"insert\": [\r\n            {}\r\n        ],\r\n        \"update\": [\r\n            {}\r\n        ],\r\n        \"delete\": [\r\n            \"1\",\r\n            \"9\"\r\n        ]\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{LOCAL}}/schedule/b8fd51b4-f10a-4e1e-b40f-f680c5dbe6dc",
+							"host": [
+								"{{LOCAL}}"
+							],
+							"path": [
+								"schedule",
+								"b8fd51b4-f10a-4e1e-b40f-f680c5dbe6dc"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findAll",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{LOCAL}}/schedule/",
+							"host": [
+								"{{LOCAL}}"
+							],
+							"path": [
+								"schedule",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "email",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"action\": \"insert\",\r\n    \"fk_company\": \"7e853130-8a78-4cd5-b226-c52d65571297\",\r\n    \"email\": \"hugo_sbo04@hotmail.com\",\r\n    \"password\": \"abc\",\r\n    \"host\": \"host@live.com\",\r\n    \"port\": 5432\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{LOCAL}}/email/",
+							"host": [
+								"{{LOCAL}}"
+							],
+							"path": [
+								"email",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "account",
+			"item": [
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"hugo2023\",\r\n    \"password\": \"1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{LOCAL}}/account/login",
+							"host": [
+								"{{LOCAL}}"
+							],
+							"path": [
+								"account",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"action\": \"insert\",\r\n    \"name\": \"Maria\",\r\n    \"username\": \"hugo2024\",\r\n    \"password\": \"pass002\",\r\n    \"active\": true,\r\n    \"fk_company\": \"7e853130-8a78-4cd5-b226-c52d65571297\",\r\n    \"email\": \"hugosilva.souza@hotmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{LOCAL}}/account/",
+							"host": [
+								"{{LOCAL}}"
+							],
+							"path": [
+								"account",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"action\": \"update\",\r\n    \"name\": \"1\",\r\n    \"email\": \"1@Hotmail.com\",\r\n    \"password\": \"1\",\r\n    \"active\": true,\r\n    \"username\": \"hugo2023\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{LOCAL}}/account",
+							"host": [
+								"{{LOCAL}}"
+							],
+							"path": [
+								"account"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "forgot-password",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{LOCAL}}/account/forgot-password?username=souza",
+							"host": [
+								"{{LOCAL}}"
+							],
+							"path": [
+								"account",
+								"forgot-password"
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "souza"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Inicial",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{LOCAL}}",
+					"host": [
+						"{{LOCAL}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "LOCAL",
+			"value": "127.0.0.1:3000",
+			"type": "default"
+		}
+	]
+}

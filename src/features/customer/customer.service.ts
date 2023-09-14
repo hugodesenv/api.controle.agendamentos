@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { Knex } from 'knex';
 import { InjectKnex } from 'nestjs-knex';
 import { CustomerDto } from './dto/customer.dto';
-import { CustomerInterface } from 'src/interface/db/customer.interface';
+import { CustomerInterface } from 'src/features/customer/interface/customer.interface';
 
 @Injectable()
 export class CustomerService {
@@ -27,14 +27,19 @@ export class CustomerService {
   }
 
   async create(customer: CustomerDto): Promise<string> {
-    const [res] = await this.knex('customer').insert({
-      fk_company: customer.fk_company,
-      name: customer.name,
-      email: customer.email,
-      cellphone: customer.cellphone,
-
-    }).returning('id');
+    const [res] = await this.buildInsert(customer);
     return res;
+  }
+
+  private buildInsert(customer: CustomerDto) {
+    return this.knex('customer')
+      .insert({
+        fk_company: customer.fk_company,
+        name: customer.name,
+        email: customer.email,
+        cellphone: customer.cellphone,
+      })
+      .returning('id');
   }
 
   async remove(id: string): Promise<any> {
@@ -42,8 +47,25 @@ export class CustomerService {
       const rowsAffected = await this.knex('customer').delete().where('id', id);
       return { rows_affected: rowsAffected };
     } catch (error) {
-      console.log(error);
       throw error;
     }
+  }
+
+  async update(customer: CustomerDto, id: string) {
+    try {
+      const sql = this.buildUpdate(customer, id);
+      const query = await sql;
+      console.log(`CustomerService | Update: ${query}`);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  private buildUpdate(customer: CustomerDto, id: string) {
+    return this.knex('customer').update({
+      cellphone: customer.cellphone,
+      email: customer.email,
+      name: customer.name,
+    }).where(id);
   }
 }

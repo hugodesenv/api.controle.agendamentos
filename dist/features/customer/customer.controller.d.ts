@@ -6,4 +6,5 @@ export declare class CustomerController {
     create(customerDto: CustomerDto): Promise<any>;
     findAll(companyId: string): Promise<any>;
     remove(id: string): Promise<any>;
+    update(body: CustomerDto, id: string): Promise<void>;
 }

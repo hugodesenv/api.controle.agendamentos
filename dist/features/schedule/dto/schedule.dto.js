@@ -11,8 +11,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ScheduleDto = void 0;
 const class_validator_1 = require("class-validator");
-const constants_class_1 = require("../../../shared/constants.class");
 const schedule_situation_enum_1 = require("../enum/schedule.situation.enum");
+const dabatase_action_enum_1 = require("../../dabatase/enum/dabatase.action.enum");
 class ScheduleDto {
 }
 exports.ScheduleDto = ScheduleDto;
@@ -29,7 +29,7 @@ __decorate([
     __metadata("design:type", Date)
 ], ScheduleDto.prototype, "schedule_date", void 0);
 __decorate([
-    (0, class_validator_1.ValidateIf)((o) => o.action === constants_class_1.DB_ACTION.insert),
+    (0, class_validator_1.ValidateIf)((o) => o.action === dabatase_action_enum_1.DatabaseActionEnum.insert),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], ScheduleDto.prototype, "fk_employee", void 0);

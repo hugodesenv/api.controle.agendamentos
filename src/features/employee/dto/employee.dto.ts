@@ -1,8 +1,8 @@
-import { IsBoolean, IsNotEmpty, ValidateIf } from 'class-validator';
-import { DB_ACTION } from 'src/shared/constants.class';
+import { IsBoolean, IsEnum, IsNotEmpty, ValidateIf } from 'class-validator';
+import { DatabaseActionEnum } from 'src/features/dabatase/enum/dabatase.action.enum';
 
 export class EmployeeDto {
-  @IsNotEmpty()
+  @IsEnum(DatabaseActionEnum)
   action: string;
 
   @IsNotEmpty()
@@ -11,7 +11,7 @@ export class EmployeeDto {
   @IsBoolean()
   active: boolean;
 
-  @ValidateIf((o) => o.action === DB_ACTION.insert)
+  @ValidateIf((o) => o.action === DatabaseActionEnum.insert)
   @IsNotEmpty()
   fk_company: string;
 }
