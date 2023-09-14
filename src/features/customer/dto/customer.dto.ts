@@ -1,5 +1,5 @@
 import { Optional } from '@nestjs/common';
-import { IsEmail, IsEnum, IsNotEmpty, ValidateIf } from 'class-validator';
+import { Allow, IsDefined, IsEmail, IsEmpty, IsEnum, IsNotEmpty, IsNotEmptyObject, IsPhoneNumber, ValidateIf } from 'class-validator';
 import { DatabaseActionEnum } from 'src/features/dabatase/enum/dabatase.action.enum';
 
 export class CustomerDto {
@@ -9,7 +9,7 @@ export class CustomerDto {
   @IsNotEmpty()
   name: string;
 
-  @Optional()
+  @IsDefined()
   cellphone: string;
 
   @IsEmail()

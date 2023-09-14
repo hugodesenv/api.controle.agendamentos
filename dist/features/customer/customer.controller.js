@@ -79,7 +79,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], CustomerController.prototype, "remove", null);
 __decorate([
-    (0, common_1.Put)(':id'),
+    (0, common_1.Patch)(':id'),
     __param(0, (0, common_1.Body)()),
     __param(1, (0, common_1.Param)('id')),
     __metadata("design:type", Function),

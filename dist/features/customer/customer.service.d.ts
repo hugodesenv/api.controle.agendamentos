@@ -8,6 +8,9 @@ export declare class CustomerService {
     create(customer: CustomerDto): Promise<string>;
     private buildInsert;
     remove(id: string): Promise<any>;
-    update(customer: CustomerDto, id: string): Promise<void>;
+    update(customer: CustomerDto, id: string): Promise<{
+        success: boolean;
+        message: string;
+    }>;
     private buildUpdate;
 }

@@ -10,7 +10,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CustomerDto = void 0;
-const common_1 = require("@nestjs/common");
 const class_validator_1 = require("class-validator");
 const dabatase_action_enum_1 = require("../../dabatase/enum/dabatase.action.enum");
 class CustomerDto {
@@ -25,7 +24,7 @@ __decorate([
     __metadata("design:type", String)
 ], CustomerDto.prototype, "name", void 0);
 __decorate([
-    (0, common_1.Optional)(),
+    (0, class_validator_1.IsDefined)(),
     __metadata("design:type", String)
 ], CustomerDto.prototype, "cellphone", void 0);
 __decorate([

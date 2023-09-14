@@ -62,18 +62,23 @@ let CustomerService = exports.CustomerService = class CustomerService {
         try {
             const sql = this.buildUpdate(customer, id);
             const query = await sql;
-            console.log(`CustomerService | Update: ${query}`);
+            const success = query > 0;
+            return {
+                success,
+                message: success === true ? 'Alteracao realizada!' : 'Nao foi possivel alterar...',
+            };
         }
         catch (error) {
             throw error;
         }
     }
     buildUpdate(customer, id) {
-        return this.knex('customer').update({
+        let data = {
             cellphone: customer.cellphone,
             email: customer.email,
             name: customer.name,
-        }).where(id);
+        };
+        return this.knex('customer').update(data).where({ id: id });
     }
 };
 exports.CustomerService = CustomerService = __decorate([

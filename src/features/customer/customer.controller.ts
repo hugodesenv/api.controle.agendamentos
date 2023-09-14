@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Patch, Post, Put } from '@nestjs/common';
 import { CustomerService } from './customer.service';
 import { CustomerDto } from './dto/customer.dto';
 
@@ -36,7 +36,7 @@ export class CustomerController {
     }
   }
 
-  @Put(':id')
+  @Patch(':id')
   async update(@Body() body: CustomerDto, @Param('id') id: string) {
     try {
       const res = await this.customerService.update(body, id);
