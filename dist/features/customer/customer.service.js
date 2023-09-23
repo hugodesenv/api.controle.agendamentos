@@ -21,7 +21,7 @@ let CustomerService = exports.CustomerService = class CustomerService {
         this.knex = knex;
     }
     async findAll(companyId) {
-        const query = await this.knex('customer').select('*').where('fk_company', companyId);
+        const query = await this.knex('customer').select('*').where('fk_company', companyId).orderBy('name');
         const res = query.map((row) => {
             return {
                 id: row.id,

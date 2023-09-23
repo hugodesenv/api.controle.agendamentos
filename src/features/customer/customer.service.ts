@@ -9,7 +9,7 @@ export class CustomerService {
   constructor(@InjectKnex() private readonly knex: Knex) {}
 
   async findAll(companyId: string): Promise<CustomerInterface[]> {
-    const query = await this.knex('customer').select('*').where('fk_company', companyId);
+    const query = await this.knex('customer').select('*').where('fk_company', companyId).orderBy('name');
 
     const res: CustomerInterface[] = query.map((row) => {
       return {
