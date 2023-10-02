@@ -11,14 +11,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ScheduleItemDto = void 0;
 const class_validator_1 = require("class-validator");
-const dabatase_action_enum_1 = require("../../dabatase/enum/dabatase.action.enum");
 class ScheduleItemDto {
 }
 exports.ScheduleItemDto = ScheduleItemDto;
-__decorate([
-    (0, class_validator_1.IsEnum)(dabatase_action_enum_1.DatabaseActionEnum),
-    __metadata("design:type", String)
-], ScheduleItemDto.prototype, "action", void 0);
 __decorate([
     (0, class_validator_1.IsInt)(),
     __metadata("design:type", Number)
@@ -28,12 +23,10 @@ __decorate([
     __metadata("design:type", Number)
 ], ScheduleItemDto.prototype, "price", void 0);
 __decorate([
-    (0, class_validator_1.ValidateIf)((o) => o.action === dabatase_action_enum_1.DatabaseActionEnum.insert),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], ScheduleItemDto.prototype, "fk_schedule", void 0);
 __decorate([
-    (0, class_validator_1.ValidateIf)((o) => o.action === dabatase_action_enum_1.DatabaseActionEnum.insert),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], ScheduleItemDto.prototype, "fk_item", void 0);

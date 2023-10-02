@@ -1,9 +1,7 @@
-import { IsEnum, IsInt, IsNotEmpty, IsNumber, ValidateIf } from 'class-validator';
-import { DatabaseActionEnum } from 'src/features/dabatase/enum/dabatase.action.enum';
+import { IsInt, IsNotEmpty, IsNumber, ValidateIf } from 'class-validator';
 
 export class ScheduleItemDto {
-  @IsEnum(DatabaseActionEnum)
-  action: string;
+  id: string;
 
   @IsInt()
   service_minutes: number;
@@ -11,11 +9,9 @@ export class ScheduleItemDto {
   @IsNumber()
   price: number;
 
-  @ValidateIf((o) => o.action === DatabaseActionEnum.insert)
   @IsNotEmpty()
   fk_schedule: string;
 
-  @ValidateIf((o) => o.action === DatabaseActionEnum.insert)
   @IsNotEmpty()
   fk_item: string;
 }

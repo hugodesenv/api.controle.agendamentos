@@ -34,6 +34,7 @@ export class ScheduleService {
         fk_customer: data.fk_customer,
         schedule_date: data.schedule_date,
         situation: data.situation,
+        date_changed: data.date_changed,
       })
       .returning('id');
   }
@@ -62,6 +63,7 @@ export class ScheduleService {
         fk_customer: dto.fk_customer,
         schedule_date: dto.schedule_date,
         situation: dto.situation,
+        date_changed: dto.date_changed,
       })
       .where(scheduleId);
   }
@@ -98,6 +100,7 @@ export class ScheduleService {
         'a.total_minutes',
         'a.total_price',
         'a.situation',
+        'a.date_changed',
         'c.id as employee_id',
         'c.name as employee_name',
       )

@@ -13,6 +13,9 @@ export class ScheduleDto {
   @IsNotEmpty()
   schedule_date: Date;
 
+  @IsNotEmpty()
+  date_changed: Date;
+
   @ValidateIf((o) => o.action === DatabaseActionEnum.insert)
   @IsNotEmpty()
   fk_employee: string;
