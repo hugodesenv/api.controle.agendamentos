@@ -100,7 +100,7 @@ export class ScheduleService {
         'a.total_minutes',
         'a.total_price',
         'a.situation',
-        'a.date_changed',
+        'a.date_changed', 
         'c.id as employee_id',
         'c.name as employee_name',
       )

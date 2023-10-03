@@ -6,4 +6,5 @@ export declare class EmployeeController {
     create(employeeDto: EmployeeDto): Promise<any>;
     update(id: string, employeeDto: EmployeeDto): Promise<any>;
     delete(id: string): Promise<any>;
+    findAll(company_id: string): Promise<any>;
 }

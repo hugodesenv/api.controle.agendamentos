@@ -1,13 +1,4 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  HttpException,
-  HttpStatus,
-  Param,
-  Post,
-  Put,
-} from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, Put } from '@nestjs/common';
 import { EmployeeDto } from './dto/employee.dto';
 import { EmployeeService } from './employee.service';
 
@@ -39,6 +30,16 @@ export class EmployeeController {
   async delete(@Param('id') id: string) {
     try {
       const res = await this.employeeService.delete(id);
+      return res;
+    } catch (e) {
+      throw new HttpException({ detail: e }, HttpStatus.FORBIDDEN);
+    }
+  }
+
+  @Get(':company_id')
+  async findAll(@Param('company_id') company_id: string): Promise<any> {
+    try {
+      const res = await this.employeeService.findAll(company_id);
       return res;
     } catch (e) {
       throw new HttpException({ detail: e }, HttpStatus.FORBIDDEN);

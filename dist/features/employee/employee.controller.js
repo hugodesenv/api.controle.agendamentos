@@ -47,6 +47,15 @@ let EmployeeController = exports.EmployeeController = class EmployeeController {
             throw new common_1.HttpException({ detail: e }, common_1.HttpStatus.FORBIDDEN);
         }
     }
+    async findAll(company_id) {
+        try {
+            const res = await this.employeeService.findAll(company_id);
+            return res;
+        }
+        catch (e) {
+            throw new common_1.HttpException({ detail: e }, common_1.HttpStatus.FORBIDDEN);
+        }
+    }
 };
 __decorate([
     (0, common_1.Post)(),
@@ -70,6 +79,13 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], EmployeeController.prototype, "delete", null);
+__decorate([
+    (0, common_1.Get)(':company_id'),
+    __param(0, (0, common_1.Param)('company_id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], EmployeeController.prototype, "findAll", null);
 exports.EmployeeController = EmployeeController = __decorate([
     (0, common_1.Controller)('employee'),
     __metadata("design:paramtypes", [employee_service_1.EmployeeService])
