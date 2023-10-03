@@ -1,6 +1,7 @@
 import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, Put } from '@nestjs/common';
 import { EmployeeDto } from './dto/employee.dto';
 import { EmployeeService } from './employee.service';
+import { EmployeeFindAllInterface } from './interface/employee.findAll.interface';
 
 @Controller('employee')
 export class EmployeeController {
@@ -37,9 +38,9 @@ export class EmployeeController {
   }
 
   @Get(':company_id')
-  async findAll(@Param('company_id') company_id: string): Promise<any> {
+  async findAll(@Param('company_id') company_id: string, @Body() filter: EmployeeFindAllInterface): Promise<any> {
     try {
-      const res = await this.employeeService.findAll(company_id);
+      const res = await this.employeeService.findAll(company_id, filter);
       return res;
     } catch (e) {
       throw new HttpException({ detail: e }, HttpStatus.FORBIDDEN);

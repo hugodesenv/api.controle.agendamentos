@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectKnex, Knex } from 'nestjs-knex';
 import { EmployeeDto } from './dto/employee.dto';
 import { EmployeeInterface } from './interface/employee.interface';
+import { EmployeeFindAllInterface } from './interface/employee.findAll.interface';
 
 @Injectable()
 export class EmployeeService {
@@ -34,15 +35,10 @@ export class EmployeeService {
     return { rows_affected: rows };
   }
 
-  async findAll(companyId: string) {
-    const sql = this.knex('employee as a')
-      .select('a.id', 'a.name', 'a.active', 'a.fk_company', 'b.social_name as company_name')
-      .innerJoin('company as b', 'a.fk_company', '=', 'b.id')
-      .where('a.fk_company', companyId)
-      .orderBy('a.name');
-
+  async findAll(companyId: string, filter: EmployeeFindAllInterface) {
+    const sql = this.buildQuery(companyId, filter);
     const query = await sql;
-
+    
     const res: EmployeeInterface[] = query.map((value) => {
       return {
         id: value['id'],
@@ -56,5 +52,19 @@ export class EmployeeService {
     });
 
     return res;
+  }
+
+  private buildQuery(companyID: string, filter: EmployeeFindAllInterface) {
+    var sql = this.knex('employee as a')
+      .select('a.id', 'a.name', 'a.active', 'a.fk_company', 'b.social_name as company_name')
+      .innerJoin('company as b', 'a.fk_company', '=', 'b.id')
+      .where('a.fk_company', companyID)
+      .orderBy('a.name');
+
+    if (filter.active != undefined) {
+      sql = sql.andWhere('a.active', filter.active);
+    }
+
+    return sql;
   }
 }

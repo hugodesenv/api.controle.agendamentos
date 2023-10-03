@@ -42,12 +42,8 @@ let EmployeeService = exports.EmployeeService = class EmployeeService {
         const rows = await this.knex('employee').where('id', id).del();
         return { rows_affected: rows };
     }
-    async findAll(companyId) {
-        const sql = this.knex('employee as a')
-            .select('a.id', 'a.name', 'a.active', 'a.fk_company', 'b.social_name as company_name')
-            .innerJoin('company as b', 'a.fk_company', '=', 'b.id')
-            .where('a.fk_company', companyId)
-            .orderBy('a.name');
+    async findAll(companyId, filter) {
+        const sql = this.buildQuery(companyId, filter);
         const query = await sql;
         const res = query.map((value) => {
             return {
@@ -61,6 +57,17 @@ let EmployeeService = exports.EmployeeService = class EmployeeService {
             };
         });
         return res;
+    }
+    buildQuery(companyID, filter) {
+        var sql = this.knex('employee as a')
+            .select('a.id', 'a.name', 'a.active', 'a.fk_company', 'b.social_name as company_name')
+            .innerJoin('company as b', 'a.fk_company', '=', 'b.id')
+            .where('a.fk_company', companyID)
+            .orderBy('a.name');
+        if (filter.active != undefined) {
+            sql = sql.andWhere('a.active', filter.active);
+        }
+        return sql;
     }
 };
 exports.EmployeeService = EmployeeService = __decorate([

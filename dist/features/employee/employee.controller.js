@@ -47,9 +47,9 @@ let EmployeeController = exports.EmployeeController = class EmployeeController {
             throw new common_1.HttpException({ detail: e }, common_1.HttpStatus.FORBIDDEN);
         }
     }
-    async findAll(company_id) {
+    async findAll(company_id, filter) {
         try {
-            const res = await this.employeeService.findAll(company_id);
+            const res = await this.employeeService.findAll(company_id, filter);
             return res;
         }
         catch (e) {
@@ -82,8 +82,9 @@ __decorate([
 __decorate([
     (0, common_1.Get)(':company_id'),
     __param(0, (0, common_1.Param)('company_id')),
+    __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [String, Object]),
     __metadata("design:returntype", Promise)
 ], EmployeeController.prototype, "findAll", null);
 exports.EmployeeController = EmployeeController = __decorate([
