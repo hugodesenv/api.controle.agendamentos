@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ItemDto = void 0;
+const item_types_enum_1 = require("./../enum/item.types.enum");
 const class_validator_1 = require("class-validator");
 class ItemDto {
 }
@@ -28,6 +29,7 @@ __decorate([
 ], ItemDto.prototype, "description", void 0);
 __decorate([
     (0, class_validator_1.IsInt)(),
+    (0, class_validator_1.ValidateIf)((value) => value.type == item_types_enum_1.ItemTypesEnum.tService),
     __metadata("design:type", Number)
 ], ItemDto.prototype, "service_minutes", void 0);
 __decorate([
@@ -35,9 +37,7 @@ __decorate([
     __metadata("design:type", Boolean)
 ], ItemDto.prototype, "active", void 0);
 __decorate([
-    (0, class_validator_1.IsNotEmpty)({
-        message: 'Type is Empty! Expected: "service", "product" or "undefined"',
-    }),
+    (0, class_validator_1.IsEnum)(item_types_enum_1.ItemTypesEnum),
     __metadata("design:type", String)
 ], ItemDto.prototype, "type", void 0);
 //# sourceMappingURL=item.dto.js.map

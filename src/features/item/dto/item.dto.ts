@@ -1,4 +1,5 @@
-import { IsBoolean, IsEmpty, IsInt, IsNotEmpty } from 'class-validator';
+import { ItemTypesEnum } from './../enum/item.types.enum';
+import { IsBoolean, IsEnum, IsInt, IsNotEmpty, ValidateIf } from 'class-validator';
 
 export class ItemDto {
   @IsNotEmpty()
@@ -11,13 +12,12 @@ export class ItemDto {
   description: string;
 
   @IsInt()
+  @ValidateIf((value) => value.type == ItemTypesEnum.tService)
   service_minutes: number;
 
   @IsBoolean()
   active: boolean;
 
-  @IsNotEmpty({
-    message: 'Type is Empty! Expected: "service", "product" or "undefined"',
-  })
-  type: string;
+  @IsEnum(ItemTypesEnum)
+  type: ItemTypesEnum;
 }
