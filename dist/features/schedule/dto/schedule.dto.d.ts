@@ -4,7 +4,6 @@ export declare class ScheduleDto {
     action: string;
     fk_customer: string;
     schedule_date: Date;
-    date_changed: Date;
     fk_employee: string;
     situation: ScheduleSituationEnum;
     items: {

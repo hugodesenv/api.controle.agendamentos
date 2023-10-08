@@ -26,7 +26,7 @@ let ScheduleService = exports.ScheduleService = class ScheduleService {
         try {
             const sql = this.buildInsert(trx, scheduleDto);
             const [res] = await sql;
-            await this._proccessItemInsert(res.id, scheduleDto.items.insert, trx);
+            await this._proccessItemInsert(res.id, scheduleDto.items?.insert, trx);
             await trx.commit();
             return { message: 'Operação realizada com sucesso!' };
         }
@@ -43,7 +43,6 @@ let ScheduleService = exports.ScheduleService = class ScheduleService {
             fk_customer: data.fk_customer,
             schedule_date: data.schedule_date,
             situation: data.situation,
-            date_changed: data.date_changed,
         })
             .returning('id');
     }
@@ -69,7 +68,6 @@ let ScheduleService = exports.ScheduleService = class ScheduleService {
             fk_customer: dto.fk_customer,
             schedule_date: dto.schedule_date,
             situation: dto.situation,
-            date_changed: dto.date_changed,
         })
             .where(scheduleId);
     }
@@ -100,15 +98,13 @@ let ScheduleService = exports.ScheduleService = class ScheduleService {
             .innerJoin('employee as c', 'a.fk_employee', '=', 'c.id');
     }
     async _proccessItemInsert(scheduleID, items, trx) {
-        await Promise.all(items.map(async (data) => {
-            const item = { ...data, fk_schedule: scheduleID };
-            try {
+        if (items) {
+            await Promise.all(items.map(async (data) => {
+                console.log('** dentro do map no schedule.service.ts');
+                const item = { ...data, fk_schedule: scheduleID };
                 await this.itemService.create(trx, item);
-            }
-            catch (error) {
-                throw error;
-            }
-        }));
+            }));
+        }
     }
     async _proccessItemUpdate(items, trx) {
         await Promise.all(items.map(async (data) => {

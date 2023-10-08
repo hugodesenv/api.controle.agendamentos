@@ -15,7 +15,7 @@ export class ScheduleService {
       const sql = this.buildInsert(trx, scheduleDto);
       const [res] = await sql;
 
-      await this._proccessItemInsert(res.id, scheduleDto.items.insert, trx);
+      await this._proccessItemInsert(res.id, scheduleDto.items?.insert, trx);
 
       await trx.commit();
 
@@ -34,7 +34,6 @@ export class ScheduleService {
         fk_customer: data.fk_customer,
         schedule_date: data.schedule_date,
         situation: data.situation,
-        date_changed: data.date_changed,
       })
       .returning('id');
   }
@@ -63,7 +62,6 @@ export class ScheduleService {
         fk_customer: dto.fk_customer,
         schedule_date: dto.schedule_date,
         situation: dto.situation,
-        date_changed: dto.date_changed,
       })
       .where(scheduleId);
   }
@@ -100,7 +98,7 @@ export class ScheduleService {
         'a.total_minutes',
         'a.total_price',
         'a.situation',
-        'a.date_changed', 
+        'a.date_changed',
         'c.id as employee_id',
         'c.name as employee_name',
       )
@@ -109,16 +107,15 @@ export class ScheduleService {
   }
 
   private async _proccessItemInsert(scheduleID: string, items: ScheduleItemDto[], trx: Knex) {
-    await Promise.all(
-      items.map(async (data: ScheduleItemDto) => {
-        const item = { ...data, fk_schedule: scheduleID };
-        try {
+    if (items) {
+      await Promise.all(
+        items.map(async (data: ScheduleItemDto) => {
+          console.log('** dentro do map no schedule.service.ts');
+          const item = { ...data, fk_schedule: scheduleID };
           await this.itemService.create(trx, item);
-        } catch (error) {
-          throw error;
-        }
-      }),
-    );
+        }),
+      );
+    }
   }
 
   private async _proccessItemUpdate(items: ScheduleItemDto[], trx: Knex) {

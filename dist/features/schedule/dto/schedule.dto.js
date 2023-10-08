@@ -29,10 +29,6 @@ __decorate([
     __metadata("design:type", Date)
 ], ScheduleDto.prototype, "schedule_date", void 0);
 __decorate([
-    (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", Date)
-], ScheduleDto.prototype, "date_changed", void 0);
-__decorate([
     (0, class_validator_1.ValidateIf)((o) => o.action === dabatase_action_enum_1.DatabaseActionEnum.insert),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
