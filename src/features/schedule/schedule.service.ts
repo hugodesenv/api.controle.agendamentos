@@ -110,7 +110,6 @@ export class ScheduleService {
     if (items) {
       await Promise.all(
         items.map(async (data: ScheduleItemDto) => {
-          console.log('** dentro do map no schedule.service.ts');
           const item = { ...data, fk_schedule: scheduleID };
           await this.itemService.create(trx, item);
         }),

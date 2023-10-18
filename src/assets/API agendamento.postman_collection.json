@@ -147,6 +147,36 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "find all",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"active\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{LOCAL}}/employee/a417123d-21b8-4ec9-af97-17e3b15510f7",
+							"host": [
+								"{{LOCAL}}"
+							],
+							"path": [
+								"employee",
+								"a417123d-21b8-4ec9-af97-17e3b15510f7"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -160,7 +190,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"James Rodriguez\",\r\n    \"email\": \"james.spfc@hotmail.com\",\r\n    \"fk_company\": \"a417123d-21b8-4ec9-af97-17e3b15510f7\"\r\n}",
+							"raw": "{\r\n    \"action\": \"insert\",\r\n    \"name\": \"Cleudete\",\r\n    \"cellphone\": \"19989615184\",\r\n    \"email\": \"james.spfc@hotmail.com\",\r\n    \"fk_company\": \"a417123d-21b8-4ec9-af97-17e3b15510f7\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -236,6 +266,33 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"action\": \"update\",\r\n    \"name\": \"James Rodrigues\",\r\n    \"email\": \"james.spfc22@hotmail.com\",\r\n    \"cellphone\": \"19989615184\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{LOCAL}}/customer/3e9a97c0-1bf1-4238-9ee2-8c27326772d6",
+							"host": [
+								"{{LOCAL}}"
+							],
+							"path": [
+								"customer",
+								"3e9a97c0-1bf1-4238-9ee2-8c27326772d6"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -267,6 +324,35 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "find all",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"company_id\": \"dcbc1130-3483-4c32-9f55-b2cfa65f98c4\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{LOCAL}}/item",
+							"host": [
+								"{{LOCAL}}"
+							],
+							"path": [
+								"item"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -280,7 +366,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"action\": \"insert\",\r\n    \"fk_employee\": \"cdf311b5-2e1e-48a1-a361-dcf5dfd8d146\",\r\n    \"fk_customer\": \"5219100d-2cfd-4084-b82e-96a5cde860e9\",\r\n    \"schedule_date\": \"2023-09-06 08:00:00\",\r\n    \"items\": {\r\n        \"insert\": [\r\n            {\r\n                \"fk_item\": \"25f8d0f2-b96b-4cac-8e19-87eb1ad33b67\",\r\n                \"service_minutes\": 75,\r\n                \"price\": 25.50\r\n            },\r\n            {\r\n                \"fk_item\": \"25f8d0f2-b96b-4cac-8e19-87eb1ad33b67\",\r\n                \"service_minutes\": 75,\r\n                \"price\": 25.50\r\n            }\r\n        ]\r\n    }\r\n}",
+							"raw": "{\r\n    \"action\": \"insert\",\r\n    \"fk_employee\": \"c63b7926-b20c-4a6d-b26a-353d371bac03\",\r\n    \"fk_customer\": \"97aa73fc-8b49-41dc-a649-078a5c7ac9cd\",\r\n    \"schedule_date\": \"2023-09-06 08:00:00\",\r\n    \"situation\": \"pending\",\r\n    \"items\": []\r\n    /*\"items\": {\r\n        \"insert\": [\r\n            {\r\n                \"fk_item\": \"25f8d0f2-b96b-4cac-8e19-87eb1ad33b67\",\r\n                \"service_minutes\": 75,\r\n                \"price\": 25.50\r\n            },\r\n            {\r\n                \"fk_item\": \"25f8d0f2-b96b-4cac-8e19-87eb1ad33b67\",\r\n                \"service_minutes\": 75,\r\n                \"price\": 25.50\r\n            }\r\n        ]\r\n    }*/\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"

@@ -100,7 +100,6 @@ let ScheduleService = exports.ScheduleService = class ScheduleService {
     async _proccessItemInsert(scheduleID, items, trx) {
         if (items) {
             await Promise.all(items.map(async (data) => {
-                console.log('** dentro do map no schedule.service.ts');
                 const item = { ...data, fk_schedule: scheduleID };
                 await this.itemService.create(trx, item);
             }));

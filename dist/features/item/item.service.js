@@ -31,6 +31,19 @@ let ItemService = exports.ItemService = class ItemService {
             .returning('id');
         return query;
     }
+    async findAll(filter) {
+        const sql = this.buildQuery(filter);
+        const query = await sql;
+        return query;
+    }
+    buildQuery(filter) {
+        let res = this.knex('item as a')
+            .select('a.id', 'a.description', 'a.service_minutes', 'a.active', 'a.type')
+            .where('a.fk_company', filter.company_id);
+        console.log(filter.active);
+        filter.active != undefined && res.andWhere('a.active', filter.active);
+        return res;
+    }
 };
 exports.ItemService = ItemService = __decorate([
     (0, common_1.Injectable)(),

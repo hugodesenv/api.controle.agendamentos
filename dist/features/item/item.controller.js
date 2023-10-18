@@ -16,6 +16,7 @@ exports.ItemController = void 0;
 const common_1 = require("@nestjs/common");
 const item_dto_1 = require("./dto/item.dto");
 const item_service_1 = require("./item.service");
+const item_find_dto_1 = require("./dto/item-find.dto");
 let ItemController = exports.ItemController = class ItemController {
     constructor(itemService) {
         this.itemService = itemService;
@@ -29,6 +30,15 @@ let ItemController = exports.ItemController = class ItemController {
             throw new common_1.HttpException({ detail: e }, common_1.HttpStatus.FORBIDDEN);
         }
     }
+    async findAll(dto) {
+        try {
+            const res = await this.itemService.findAll(dto);
+            return res;
+        }
+        catch (e) {
+            throw new common_1.HttpException({ detail: e }, common_1.HttpStatus.FORBIDDEN);
+        }
+    }
 };
 __decorate([
     (0, common_1.Post)(),
@@ -37,6 +47,13 @@ __decorate([
     __metadata("design:paramtypes", [item_dto_1.ItemDto]),
     __metadata("design:returntype", Promise)
 ], ItemController.prototype, "create", null);
+__decorate([
+    (0, common_1.Get)(),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [item_find_dto_1.ItemFindDto]),
+    __metadata("design:returntype", Promise)
+], ItemController.prototype, "findAll", null);
 exports.ItemController = ItemController = __decorate([
     (0, common_1.Controller)('item'),
     __metadata("design:paramtypes", [item_service_1.ItemService])
