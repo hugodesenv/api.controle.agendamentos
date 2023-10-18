@@ -40,7 +40,6 @@ let ItemService = exports.ItemService = class ItemService {
         let res = this.knex('item as a')
             .select('a.id', 'a.description', 'a.service_minutes', 'a.active', 'a.type')
             .where('a.fk_company', filter.company_id);
-        console.log(filter.active);
         filter.active != undefined && res.andWhere('a.active', filter.active);
         return res;
     }
